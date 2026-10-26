@@ -12,7 +12,7 @@ from .transcript import fingerprint, load_transcript, render, timestamp
 ACTION_SCHEMA = {
     "type": "object",
     "properties": {
-        "reason": {"type": "string"},
+        "reason": {"type": "string", "maxLength": 240},
         "action": {"type": "string", "enum": ["read_transcript", "search_transcript", "save_notes", "finish"]},
         "arguments": {
             "type": "object",
@@ -28,7 +28,7 @@ NOTES_SCHEMA = {"type": "object", "properties": {"markdown": {"type": "string"}}
 
 SYSTEM = """You are a student-facing lecture notes agent using a LOCAL model.
 Choose the next action and arguments; choose when to stop. Give a brief operational
-reason (not private chain-of-thought) for each action. Tools:
+reason in ONE short sentence (not private chain-of-thought) for each action. Tools:
 - read_transcript(start, end): seconds, within the assigned interval; returns timestamped ASR.
 - search_transcript(query): literal, case-insensitive phrase search within the assigned interval.
 - save_notes(markdown): save/replace draft, returns structural feedback for your review.
@@ -53,13 +53,15 @@ def validate_notes(markdown, start, end):
         problems.append("Draft is too short to be useful.")
     if not re.search(r"^#{1,3} ", markdown, re.M):
         problems.append("Use Markdown headings.")
-    citations = re.findall(r"\[(\d{2,}):(\d{2}):(\d{2})\]", markdown)
+    citations = re.findall(r"\[(\d{2,}:\d{2}:\d{2})(?:[–-](\d{2,}:\d{2}:\d{2}))?\]", markdown)
     if not citations:
         problems.append("Missing [HH:MM:SS] source citations.")
-    for h, m, s in citations:
-        seconds = int(h) * 3600 + int(m) * 60 + int(s)
-        if int(m) >= 60 or int(s) >= 60 or not int(start) <= seconds <= end:
-            problems.append(f"Invalid or out-of-scope citation [{h}:{m}:{s}].")
+    for first, last in citations:
+        for value in (first, last) if last else (first,):
+            h, m, s = map(int, value.split(":"))
+            seconds = h * 3600 + m * 60 + s
+            if m >= 60 or s >= 60 or not int(start) <= seconds <= math.ceil(end):
+                problems.append(f"Invalid or out-of-scope citation [{value}].")
     return {"issues": problems, "citation_count": len(citations),
             "warning": "Structural checks only; citations do NOT prove factual grounding."}
 
@@ -121,9 +123,11 @@ class Tools:
 
 
 def run(transcript, task, output, model, start=0, end=None, context="", max_steps=10, baseline=False):
+    if not 1 <= max_steps <= 30:
+        raise ValueError("max_steps must be between 1 and 30.")
     data = load_transcript(transcript)
     end = end if end is not None else max(s["end"] for s in data["segments"])
-    if not 0 <= start < end:
+    if not math.isfinite(start) or not math.isfinite(end) or not 0 <= start < end:
         raise ValueError("Require 0 <= start < end.")
     output = Path(output)
     if output.exists():
@@ -177,11 +181,13 @@ def run(transcript, task, output, model, start=0, end=None, context="", max_step
             action = decision.get("action") if isinstance(decision, dict) else None
             arguments = decision.get("arguments", {}) if isinstance(decision, dict) else {}
             trace.emit("tool_call", step=step, action=action, arguments=arguments)
+            tool_started = time.monotonic()
             try:
                 observation = tools.call(action, arguments)
             except (ValueError, TypeError, OSError) as exc:
                 observation = {"error": str(exc), "recoverable": True}
-            trace.emit("observation", step=step, action=action, result=observation)
+            trace.emit("observation", step=step, action=action, result=observation,
+                       latency_s=time.monotonic() - tool_started)
             if action == "finish" and "final_answer" in observation:
                 trace.emit("final_answer", step=step, markdown=observation["final_answer"])
                 stats["status"] = "finished"

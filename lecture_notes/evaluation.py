@@ -3,6 +3,9 @@
 import json
 import re
 import statistics
+import platform
+import subprocess
+import urllib.request
 from pathlib import Path
 
 from .agent import run, validate_notes
@@ -81,6 +84,25 @@ def evaluate(sample, output, model, limit=None, judge=False):
         raise ValueError("Frozen transcript hash mismatch; do not silently change the evaluation sample.")
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
+    runtime = {"python": platform.python_version(), "platform": platform.platform()}
+    try:
+        req = urllib.request.Request(model.url + "/api/show", json.dumps({"model": model.model}).encode(),
+                                     {"Content-Type": "application/json"})
+        with urllib.request.urlopen(req, timeout=10) as response:
+            runtime["ollama_show"] = json.load(response)
+        with urllib.request.urlopen(model.url + "/api/tags", timeout=10) as response:
+            runtime["ollama_tags"] = json.load(response)
+        with urllib.request.urlopen(model.url + "/api/version", timeout=10) as response:
+            runtime["ollama_version"] = json.load(response)
+    except (OSError, ValueError, AttributeError) as exc:
+        runtime["metadata_warning"] = str(exc)
+    try:
+        runtime["gpu"] = subprocess.check_output(
+            ["nvidia-smi", "--query-gpu=name,memory.total,driver_version", "--format=csv"],
+            text=True, timeout=10).strip()
+    except (OSError, subprocess.SubprocessError):
+        runtime["gpu"] = "Unavailable"
+    (output / "runtime.json").write_text(json.dumps(runtime, indent=2) + "\n")
     results = []
     for task in tasks:
         for mode in ("agent", "baseline"):
@@ -100,8 +122,11 @@ def evaluate(sample, output, model, limit=None, judge=False):
                                      "tool_errors": sum("error" in row["result"] for row in observations),
                                      "finish_after_source": stats["status"] == "finished" and source_reads > 0}}
             if judge and markdown:
+                import time
+                began = time.monotonic()
                 result["judge"] = judge_notes(model, transcript, task, markdown,
                                                notes_path.with_suffix(".judge.trace.jsonl"))
+                result["judge_latency_s"] = round(time.monotonic() - began, 3)
             results.append(result)
             (output / "results.json").write_text(json.dumps(results, indent=2, ensure_ascii=False) + "\n")
     summary = {"sample_sha256": fingerprint(sample), "transcript_sha256": fingerprint(transcript),
@@ -119,6 +144,8 @@ def evaluate(sample, output, model, limit=None, judge=False):
                   if r.get("judge", {}).get("faithfulness_proxy") is not None]
         summary[mode]["mean_faithfulness_proxy"] = statistics.mean(values) if values else None
         summary[mode]["judged_tasks"] = len(values)
+        summary[mode]["judge_model_calls"] = sum("judge" in r for r in rows)
+        summary[mode]["mean_judge_latency_s"] = statistics.mean(r.get("judge_latency_s", 0) for r in rows)
     (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary, indent=2))
     return summary

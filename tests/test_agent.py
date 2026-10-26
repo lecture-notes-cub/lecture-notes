@@ -98,6 +98,7 @@ def test_coverage_is_word_bounded():
 def test_citation_validation():
     assert validate_notes("# Notes\n" + "x" * 90 + " [00:00:10]", 10, 30)["issues"] == []
     assert validate_notes("# Notes\n" + "x" * 90 + " [00:99:10]", 10, 30)["issues"]
+    assert not validate_notes("# Notes\n" + "x" * 90 + " [00:00:10–00:00:20]", 10, 30)["issues"]
     assert timestamp(3661) == "01:01:01"
 
 

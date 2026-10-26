@@ -21,6 +21,8 @@ class Ollama:
         self.timeout = timeout
 
     def complete(self, messages, schema, trace, step):
+        if sum(len(m["content"]) for m in messages) > 48000:
+            raise ModelError("Visible context exceeds the MVP budget. Use a shorter lecture interval.")
         payload = {
             "model": self.model,
             "messages": messages,

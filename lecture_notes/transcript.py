@@ -1,7 +1,10 @@
 import hashlib
 import json
 import math
+import time
 from pathlib import Path
+
+from .trace import Trace
 
 
 def timestamp(seconds):
@@ -27,7 +30,11 @@ def load_transcript(path):
 
 
 def fingerprint(path):
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def render(segments):
@@ -35,13 +42,37 @@ def render(segments):
 
 
 def transcribe(media, output, model="small.en", device="cpu", start=0, end=None):
+    if not math.isfinite(start) or start < 0 or (end is not None and (not math.isfinite(end) or end <= start)):
+        raise ValueError("Require finite 0 <= start < end.")
+    output = Path(output)
+    if output.exists():
+        raise ValueError(f"Refusing to overwrite transcript: {output}")
+    trace = Trace(output.with_suffix(".asr.trace.jsonl"))
+    began = time.monotonic()
+    try:
+        trace.emit("asr_request", media=str(media), media_sha256=fingerprint(media),
+                   model=model, device=device, start=start, end=end,
+                   beam_size=5, batch_size=16 if device == "cuda" else 4,
+                   vad_filter=True, condition_on_previous_text=False)
+        data = _transcribe(media, output, model, device, start, end)
+        trace.emit("asr_result", latency_s=time.monotonic() - began, transcript=data,
+                   output_sha256=fingerprint(output))
+        return data
+    except Exception as exc:
+        trace.emit("asr_error", error=str(exc), latency_s=time.monotonic() - began)
+        raise
+    finally:
+        trace.close()
+
+
+def _transcribe(media, output, model, device, start, end):
     """faster-whisper (MIT): https://github.com/SYSTRAN/faster-whisper.
 
     Store the ASR output, not hidden reasoning. FFmpeg extracts a bounded clip.
     """
     import subprocess
     import tempfile
-    from faster_whisper import WhisperModel
+    from faster_whisper import BatchedInferencePipeline, WhisperModel
 
     output = Path(output)
     if output.exists():
@@ -57,7 +88,10 @@ def transcribe(media, output, model="small.en", device="cpu", start=0, end=None)
         subprocess.run(command, check=True, timeout=600)
         engine = WhisperModel(model, device=device, compute_type="float16" if device == "cuda" else "int8",
                               cpu_threads=8)
-        segments, info = engine.transcribe(wav, beam_size=5, vad_filter=True, condition_on_previous_text=False)
+        pipeline = BatchedInferencePipeline(model=engine)
+        segments, info = pipeline.transcribe(wav, beam_size=5, vad_filter=True,
+                                            condition_on_previous_text=False,
+                                            batch_size=16 if device == "cuda" else 4)
         rows = []
         for segment in segments:
             rows.append({"start": round(start + segment.start, 3), "end": round(start + segment.end, 3),
@@ -66,7 +100,9 @@ def transcribe(media, output, model="small.en", device="cpu", start=0, end=None)
     if not rows:
         raise ValueError("ASR returned no speech; check the audio and selected interval.")
     data = {"source": str(media), "asr": {"model": model, "device": device, "language": info.language,
-            "compute_type": "float16" if device == "cuda" else "int8"}, "segments": rows}
+            "compute_type": "float16" if device == "cuda" else "int8",
+            "batch_size": 16 if device == "cuda" else 4,
+            "beam_size": 5, "vad_filter": True, "condition_on_previous_text": False}, "segments": rows}
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return data
