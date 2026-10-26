@@ -6,6 +6,7 @@ import statistics
 import platform
 import subprocess
 import urllib.request
+import shutil
 from pathlib import Path
 
 from .agent import run, validate_notes
@@ -67,7 +68,7 @@ def judge_notes(model, transcript, task, markdown, path):
         trace.close()
 
 
-def evaluate(sample, output, model, limit=None, judge=False):
+def evaluate(sample, output, model, limit=None, judge=False, resume=False):
     sample = Path(sample).resolve()
     spec = json.loads(sample.read_text(encoding="utf-8"))
     tasks = spec["tasks"]
@@ -83,7 +84,33 @@ def evaluate(sample, output, model, limit=None, judge=False):
     if fingerprint(transcript) != spec["transcript_sha256"]:
         raise ValueError("Frozen transcript hash mismatch; do not silently change the evaluation sample.")
     output = Path(output)
-    output.mkdir(parents=True, exist_ok=False)
+    configuration = {"sample_sha256": fingerprint(sample), "model": model.model,
+                     "judge": judge, "task_ids": [t["id"] for t in tasks]}
+    results = []
+    if resume:
+        if not output.is_dir():
+            raise ValueError("Resume directory does not exist.")
+        config_path = output / "configuration.json"
+        if config_path.exists() and json.loads(config_path.read_text()) != configuration:
+            raise ValueError("Resume configuration differs from original sample/model/options.")
+        results_path = output / "results.json"
+        results = json.loads(results_path.read_text()) if results_path.exists() else []
+        by_id = {t["id"]: t for t in tasks}
+        # Validate prior trace identities as well as the configuration. This also
+        # supports the original M2 interrupted run, before configuration.json existed.
+        for result in results:
+            if result["id"] not in by_id or result["mode"] not in ("agent", "baseline"):
+                raise ValueError("Unexpected task/mode in saved results.")
+            task = by_id[result["id"]]
+            trace_path = output / result["mode"] / (result["id"] + ".trace.jsonl")
+            first = json.loads(trace_path.read_text().splitlines()[0])
+            expected = {"model": model.model, "task": task["task"], "start": task["start"],
+                        "end": task["end"], "transcript_sha256": spec["transcript_sha256"], "mode": result["mode"]}
+            if any(first.get(k) != v for k, v in expected.items()) or (judge != ("judge" in result)):
+                raise ValueError("Saved trace does not match resumed configuration.")
+    else:
+        output.mkdir(parents=True, exist_ok=False)
+    (output / "configuration.json").write_text(json.dumps(configuration, indent=2) + "\n")
     runtime = {"python": platform.python_version(), "platform": platform.platform()}
     try:
         req = urllib.request.Request(model.url + "/api/show", json.dumps({"model": model.model}).encode(),
@@ -102,12 +129,26 @@ def evaluate(sample, output, model, limit=None, judge=False):
             text=True, timeout=10).strip()
     except (OSError, subprocess.SubprocessError):
         runtime["gpu"] = "Unavailable"
-    (output / "runtime.json").write_text(json.dumps(runtime, indent=2) + "\n")
-    results = []
+    (output / ("runtime-resume.json" if resume else "runtime.json")).write_text(json.dumps(runtime, indent=2) + "\n")
+    completed = {(r["id"], r["mode"]) for r in results}
     for task in tasks:
         for mode in ("agent", "baseline"):
+            if (task["id"], mode) in completed:
+                continue
             print(f"{task['id']} / {mode}", flush=True)
             notes_path = output / mode / (task["id"] + ".md")
+            if resume:
+                # A process can die between notes/trace creation and results.json.
+                # Archive that incomplete attempt; never overwrite historical evidence.
+                partial = list(notes_path.parent.glob(task["id"] + ".*"))
+                if partial:
+                    archive = output / "interrupted" / mode
+                    archive.mkdir(parents=True, exist_ok=True)
+                    for path in partial:
+                        target = archive / path.name
+                        if target.exists():
+                            raise ValueError(f"Existing interrupted artifact: {target}")
+                        shutil.move(str(path), target)
             stats = run(transcript, task["task"], notes_path, model,
                         task["start"], task["end"], max_steps=10, baseline=mode == "baseline")
             markdown = notes_path.read_text(encoding="utf-8") if notes_path.exists() else ""
@@ -121,6 +162,8 @@ def evaluate(sample, output, model, limit=None, judge=False):
                       "trajectory": {"decisions": len(decisions), "source_reads": source_reads,
                                      "tool_errors": sum("error" in row["result"] for row in observations),
                                      "finish_after_source": stats["status"] == "finished" and source_reads > 0}}
+            result["task_success_proxy"] = (stats["status"] == "finished"
+                and not result["structure"]["issues"] and (result["concept_coverage"] or 0) >= 0.75)
             if judge and markdown:
                 import time
                 began = time.monotonic()
@@ -136,7 +179,8 @@ def evaluate(sample, output, model, limit=None, judge=False):
     for mode in ("agent", "baseline"):
         rows = [r for r in results if r["mode"] == mode]
         summary[mode] = {"finished": sum(r["status"] == "finished" for r in rows),
-                         "structure_pass": sum(not r["structure"]["issues"] for r in rows)}
+                         "structure_pass": sum(not r["structure"]["issues"] for r in rows),
+                         "task_success_proxy": sum(r["task_success_proxy"] for r in rows)}
         for key in ("concept_coverage", "steps", "model_calls", "tool_calls", "latency_s", "api_cost_usd"):
             values = [r[key] for r in rows if r[key] is not None]
             summary[mode]["mean_" + key] = statistics.mean(values) if values else None
@@ -146,6 +190,8 @@ def evaluate(sample, output, model, limit=None, judge=False):
         summary[mode]["judged_tasks"] = len(values)
         summary[mode]["judge_model_calls"] = sum("judge" in r for r in rows)
         summary[mode]["mean_judge_latency_s"] = statistics.mean(r.get("judge_latency_s", 0) for r in rows)
+        clarity = [r["judge"]["clarity_1_to_5"] for r in rows if "clarity_1_to_5" in r.get("judge", {})]
+        summary[mode]["mean_clarity_1_to_5"] = statistics.mean(clarity) if clarity else None
     (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary, indent=2))
     return summary

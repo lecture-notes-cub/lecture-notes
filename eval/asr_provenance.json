@@ -1,0 +1,23 @@
+{
+  "source": "https://www.youtube.com/watch?v=XwR767IfQHI",
+  "media_sha256": "44eb9bdd1375dad833437a658f00f2dd9e3f1fa3eb221ce3c9c2ccebcdd9a13d",
+  "full_asr_sha256": "32fb5ae53def2b1c02697d7aaffb4f1af33866c1fa70b3842de164871584f317",
+  "full_recording_duration_s": 12069.821,
+  "full_asr_segments": 312,
+  "frozen_excerpt_segments": 152,
+  "model": "Systran/faster-whisper-small.en",
+  "faster_whisper_version": "1.2.1",
+  "ctranslate2_version": "4.8.4",
+  "av_version": "16.0.1",
+  "device": "cuda",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "compute_type": "float16",
+  "beam_size": 5,
+  "batch_size": 16,
+  "vad_filter": true,
+  "condition_on_previous_text": false,
+  "started_at": "2026-10-26T18:58:05.644769+00:00",
+  "finished_at": "2026-10-26T18:59:35.441371+00:00",
+  "preparation_latency_s": 89.87795868795365,
+  "latency_note": "One-time full-media extraction and warm-cache local ASR; downloads excluded. Not added to each frozen-transcript task."
+}

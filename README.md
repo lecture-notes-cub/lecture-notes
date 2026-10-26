@@ -76,7 +76,7 @@ Code bounds execution and validates tools; it does not prescribe their order.
 
 Requirements: Python 3.11+, [uv](https://docs.astral.sh/uv/getting-started/installation/),
 and [Ollama](https://ollama.com/download). Internet is needed for initial downloads,
-not subsequent inference. Roughly 5 GB free disk for the basic runtime/model;
+not subsequent inference. Allow about 8 GB free disk for the basic runtime/model;
 audio/CUDA dependencies need more. CPU inference is supported but slower.
 
 ```bash
@@ -91,13 +91,13 @@ ollama pull qwen3:4b
 uv run lecture-notes --help
 uv run lecture-notes run \
   --transcript eval/lecture_excerpt.json \
-  --start 194 --end 328 \
+  --start 184.35 --end 331.6 \
   --task "Make study notes on conditional probability and independence." \
   --output runs/demo/notes.md
 ```
 
-The example's frozen data and full measured evaluation are added with the M2
-evaluation checkpoint. Each run creates:
+The frozen data is committed, so this command needs no lecture download or ASR.
+Each run creates:
 
 - `notes.md`: timestamped Markdown notes (a draft if the run fails to finish).
 - `notes.trace.jsonl`: flushed structured events: exact model requests/responses,
@@ -170,11 +170,20 @@ Evaluation emits per-task notes/traces/statistics, `results.json`, and `summary.
 Use a new output directory each time. See [the M2 report](docs/M2_REPORT.md) for
 results, sample provenance, limitations, and three annotated failure traces.
 
+If a long evaluation is interrupted, resume without losing completed tasks:
+
+```bash
+uv run lecture-notes eval --output runs/eval-full --judge --resume
+```
+
+Use the same sample/model/options. Incomplete attempts are archived under
+`interrupted/`, not overwritten or counted as successful tasks.
+
 ## How this relates to M1
 
 | M1 proposal | M2 implementation / reason |
 |---|---|
-| Qwen3-Omni-30B, Qwen3-ASR, VideoLLaMA | Qwen3 4B Q4_K_M via Ollama and Whisper small.en: faster setup and measurement within the time budget. Exact tested model metadata will be saved with results; Ollama tags can change. |
+| Qwen3-Omni-30B, Qwen3-ASR, VideoLLaMA | Qwen3 4B Q4_K_M via Ollama and Whisper small.en: faster setup and measurement within the time budget. Exact tested metadata is in `eval/results/runtime.json`; Ollama tags can change. |
 | Act → reason → write → observe/revise | Model-selected `read_transcript`, `search_transcript`, `save_notes`, `finish`; draft feedback can trigger another read or revision. |
 | Short-term memory and scratchpad | Visible conversation history, tool observations, current Markdown draft. No hidden chain-of-thought is requested or logged. |
 | Long-term course knowledge base | Deferred; saved transcript/notes artifacts are not an automatic retrieval system. |

@@ -38,6 +38,7 @@ def main():
     evaluate.add_argument("--model", default="qwen3:4b")
     evaluate.add_argument("--limit", type=int)
     evaluate.add_argument("--judge", action="store_true", help="Also run a local, fallible grounding/quality judge")
+    evaluate.add_argument("--resume", action="store_true", help="Resume a matching interrupted evaluation; preserve partial traces")
     args = parser.parse_args()
     try:
         if args.command == "transcribe":
@@ -60,7 +61,7 @@ def main():
                 sys.exit(2)
         else:
             from .evaluation import evaluate
-            evaluate(args.sample, args.output, Ollama(args.model), args.limit, args.judge)
+            evaluate(args.sample, args.output, Ollama(args.model), args.limit, args.judge, args.resume)
     except (ValueError, OSError, RuntimeError) as exc:
         parser.exit(1, f"Error: {exc}\n")
 

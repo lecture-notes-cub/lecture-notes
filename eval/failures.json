@@ -1,0 +1,35 @@
+[
+  {
+    "id": "t01-citation-attribution",
+    "trace": "results/agent/t01.trace.jsonl",
+    "request_seq": 17,
+    "decision_seq": 19,
+    "step": 4,
+    "observed_action": "finish",
+    "problem": "Claims citations match the source, but the ratio definition is cited to the introduction rather than the definition segment.",
+    "likely_root_cause": "Coarse source attribution; structural validity mistaken for semantic support.",
+    "better_next_action": "Re-read the ratio-definition passage (215.38–252.98 seconds) or save_notes with corrected claim-to-source citations."
+  },
+  {
+    "id": "t02-unchanged-repair",
+    "trace": "results/agent/t02.trace.jsonl",
+    "request_seq": 12,
+    "decision_seq": 14,
+    "step": 3,
+    "observed_action": "save_notes",
+    "problem": "Says it will repair missing bracket citations but resubmits an identical draft; repeated until the step limit.",
+    "likely_root_cause": "Copying/instruction-following failure and insufficiently actionable nonprogress feedback.",
+    "better_next_action": "save_notes with a genuinely changed citation, for example replace a backtick timestamp with [00:05:31]."
+  },
+  {
+    "id": "t03-source-conflation",
+    "trace": "results/agent/t03.trace.jsonl",
+    "request_seq": 12,
+    "decision_seq": 14,
+    "step": 3,
+    "observed_action": "finish",
+    "problem": "Finishes without removing an unsupported statement that joint-distribution decomposition reduces variance.",
+    "likely_root_cause": "Conflates preceding variance discussion with the algebraic product rule.",
+    "better_next_action": "save_notes removing that unsupported link or separating it from the product-rule explanation."
+  }
+]

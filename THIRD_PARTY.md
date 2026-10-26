@@ -5,7 +5,7 @@ This project uses the documented APIs below; it does not vendor their source.
 | Component | Purpose | License / source |
 |---|---|---|
 | Ollama | Local inference server | MIT, https://github.com/ollama/ollama |
-| Qwen3-4B | Agent, baseline, optional judge | Apache-2.0, https://huggingface.co/Qwen/Qwen3-4B |
+| Qwen3-4B-Thinking-2507 (tested `qwen3:4b` tag) | Agent, baseline, optional judge | Apache-2.0, https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507 |
 | faster-whisper | Local ASR | MIT, https://github.com/SYSTRAN/faster-whisper |
 | Whisper small.en weights | English speech recognition | MIT, https://huggingface.co/Systran/faster-whisper-small.en |
 | CTranslate2 | ASR inference | MIT, https://github.com/OpenNMT/CTranslate2 |
