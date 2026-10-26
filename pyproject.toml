@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "local-lecture-notes"
+version = "0.1.0"
+description = "A small, traced local-model agent for grounded lecture notes"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+audio = ["faster-whisper==1.2.1", "av==16.0.1", "yt-dlp==2026.10.21"]
+dev = ["pytest>=8,<10", "pypdf>=6,<7"]
+
+[project.scripts]
+lecture-notes = "lecture_notes.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["lecture_notes*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

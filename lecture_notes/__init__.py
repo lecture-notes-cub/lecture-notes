@@ -1,0 +1,1 @@
+"""Local lecture notes agent."""

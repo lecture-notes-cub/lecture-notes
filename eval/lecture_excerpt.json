@@ -1,0 +1,928 @@
+{
+  "source": "https://www.youtube.com/watch?v=XwR767IfQHI",
+  "asr": {
+    "model": "small.en",
+    "device": "cuda",
+    "language": "en",
+    "compute_type": "float16",
+    "batch_size": 16,
+    "beam_size": 5,
+    "vad_filter": true,
+    "condition_on_previous_text": false
+  },
+  "full_asr_sha256": "32fb5ae53def2b1c02697d7aaffb4f1af33866c1fa70b3842de164871584f317",
+  "segments": [
+    {
+      "start": 184.35,
+      "end": 215.38,
+      "text": "of our basic probabilistic knowledge that you should probably know, but just to ensure that we're all in the same way. So we start from the key notion that we'll analyze within the whole course, that is conditional probability or conditional distribution. So suppose that we are given two random variables, x and y. So let's suppose that they are continuous, does it actually matter?",
+      "avg_logprob": -0.14280063819281663
+    },
+    {
+      "start": 215.38,
+      "end": 252.98,
+      "text": "the samples through proper descriptor and variables as well. And the conditional distribution on X given Y by definition is simply the ratio of joint distribution over the distribution of a condition. Or in conceptual terms, it can be written as conditional equals joint over marginal. So definition is very simple. What is the intuition behind this definition?",
+      "avg_logprob": -0.1813701923076923
+    },
+    {
+      "start": 253.04,
+      "end": 301.7,
+      "text": "It shows how the distribution of X changes when we observe Y. And of course, let's assume that X and Y are somehow interrelated. In particular, if we assume that X and Y are completely independent of one another, we immediately get, so based on X, Y independent, how do you think, what will we get? What could be the conditional distribution of X given Y in this case? Well, independence means that the joint distribution",
+      "avg_logprob": -0.12354052083177881
+    },
+    {
+      "start": 301.7,
+      "end": 331.6,
+      "text": "P of x, y can be decomposed as a product. P of x times P of y. And if we divide it over P of y, we get P of x. In other words, this means that y contains no information about x. And this is pretty obvious since they're independent. So in the opposite case, when x and y are dependent, then the observation of y somehow changes the distribution of x. And in particular, it can be shown, and this is",
+      "avg_logprob": -0.09367108360083416
+    },
+    {
+      "start": 331.6,
+      "end": 367.34,
+      "text": "can be regarded as one of your home exercises. Show that if we can see the variance of X and if we can see the variance, conditional variance of X given Y. So this variance will depend on Y. So we need to average out with respect to Y. And it can be shown that the variance, unconditional variance of X is always larger or equal than the mean conditional variance of X given Y.",
+      "avg_logprob": -0.13441265491117915
+    },
+    {
+      "start": 367.34,
+      "end": 401.63,
+      "text": "So this means that the observation of Y in the case when X and Y are interdependent provides us some information that allows us to reduce the variance of X. And again, this is a quite obvious fact, but it's so useful to be able to prove it. Okay, let's go further. So if we return to this definition, we can immediately get the expression for joint distribution P of X, Y that is equal to P of X",
+      "avg_logprob": -0.1429429945054945
+    },
+    {
+      "start": 401.63,
+      "end": 443.74,
+      "text": "given y times p of y. And of course, due to symmetry, we can also write it down as p of y given x times p of x. So this is a kind of a decomposition of a joint distribution. And by induction, we can prove the same for arbitrary number of random variables. So you can even see the joint distribution, p of x1, xn. It can always be decomposed as a product of one dimensional conditional distributions.",
+      "avg_logprob": -0.12590459993011074
+    },
+    {
+      "start": 443.74,
+      "end": 476.46,
+      "text": "For example, as field X1 given X2 Xn times field X2 given X3 Xn times field Xn minus one given Xn times field Xn. And again, there's a large number of different decompositions. So for example, we can order the arguments and get another decomposition, say field Xn given X1.",
+      "avg_logprob": -0.13452483366613519
+    },
+    {
+      "start": 476.46,
+      "end": 515.28,
+      "text": "Xn minus one, and so on. X2 given X1, p of X1. And the size decomposition has special name, and it's called product row. So this identity is known as product row. And it states that any joint distribution can always be decomposed as a product of one-dimensional conditional distributions, a kind of a chain row. Okay, now let's again...",
+      "avg_logprob": -0.165396338555871
+    },
+    {
+      "start": 548.69,
+      "end": 600.5,
+      "text": "Now let us integrate both parts with respect to y. What will we obtain in the left-hand part expression? So the integral of conditional density, P of y given x with respect to y. What will it result to? Well, with respect to y, this is just probability density function. And the integral of probability density function always results in one. And this means that we obtain one equals P of x given y times P of y.",
+      "avg_logprob": -0.1402815947165856
+    },
+    {
+      "start": 602.83,
+      "end": 646.82,
+      "text": "Sorry, one equals the integral u of y given x, u of x given y, u of y, over p of x dy. And of course the denominator doesn't depend on y, so we can move it out the integral and move it to the left hand part. And then we get u of x equals integral over...",
+      "avg_logprob": -0.18217843770980835
+    },
+    {
+      "start": 646.82,
+      "end": 677.04,
+      "text": "U of x U of y times U of y U of y. And this is again quite important expression and it has some clear physical sense. So imagine that you know all conditional distributions on x given arbitrary y's. And now you would like to obtain unconditional distribution on x. So how you can do this? You can simply take this integral and this integral is actually an expectation with respect to y.",
+      "avg_logprob": -0.14767531069313608
+    },
+    {
+      "start": 677.04,
+      "end": 709.84,
+      "text": "So it is the same as to say that this is expectation with respect to y over all conditional distributions. So we take all different conditional distributions on x given different y's, we average them out with respect to y and we obtain unconditional distribution on x. And we can also, if we remember the product rule, we can also note that this is the same as to say that this is just a joint distribution where y was integrated out. And again,",
+      "avg_logprob": -0.096722145119439
+    },
+    {
+      "start": 709.84,
+      "end": 764.98,
+      "text": "by induction it's straightforward to prove that this goes through for arbitrary number of random variables so you have say distribution over x and x1 over x1 xn and we would like to get distribution over x1 xk we can easily do it just by taking joint distribution and integrating out remaining variables and this identity is known as",
+      "avg_logprob": -0.14926609554977127
+    },
+    {
+      "start": 764.98,
+      "end": 800.78,
+      "text": "So actually, these are two basic rules of working with probabilities. And it appears that if we know both rules, we can easily derive different predictions on some variables given some other variables. So let's consider the following situation. We have a joint distribution over three variables, field X, Y, and Z. Suppose that we observe Y, and we would like to predict what values X can take.",
+      "avg_logprob": -0.14409721633534373
+    },
+    {
+      "start": 818.16,
+      "end": 865.42,
+      "text": "So what should we do in order to predict x? Any ideas? Actually, we need to compute conditional distribution on x, given what we have observed. So we're interested in computing P of x given y. So y is observed, x is a variable of interest, and we don't care about z. And now the question, how can we compute this value if we only know how to compute the joint distribution? So again, we start with the definition.",
+      "avg_logprob": -0.113240132363219
+    },
+    {
+      "start": 865.42,
+      "end": 899.28,
+      "text": "So this is po x y over po y. And now we can express both numerator and denominator using the sum rule. So we can obtain joint distribution on x y from joint distribution on x y z simply by integrating our z. And in denominator we take joint distribution and integrate our z and x. And that's it. So here we know how to compute those integrals. We're done.",
+      "avg_logprob": -0.18052455162008604
+    },
+    {
+      "start": 899.57,
+      "end": 928.56,
+      "text": "If we have access to the joint distribution, and this joint distribution we will call probabilistic model. So a probabilistic model is simply a joint distribution over the whole set of variables that arise in our problem. If we have access to this joint distribution, we can easily, at least in theory, we can easily make arbitrary predictions. If we observe something, we're interested in something else, so we can easily compute the corresponding conditional distributions, and those conditional distributions are",
+      "avg_logprob": -0.140222288898586
+    },
+    {
+      "start": 928.56,
+      "end": 961.17,
+      "text": "are the best we can do for predict the variable of interest. And finally, let's return back to this conditional version equation. So field Y given X is field X given Y times field Y over field X. And we will now apply some rule to denominator. We get famous Bayes theorem. So...",
+      "avg_logprob": -0.19030760996975005
+    },
+    {
+      "start": 961.17,
+      "end": 1005.92,
+      "text": "numerator is the same, and in denominator, we write down the expression for p o x. So this is Bayes' theorem. And again, despite the word simplicity, this is a quite important result. So in conceptual form, it can be written down as false. So posterior equals the product of likelihood times prior, total numberization constant that ensures that in both parts, we get",
+      "avg_logprob": -0.2528935302922755
+    },
+    {
+      "start": 1005.92,
+      "end": 1034.1,
+      "text": "to react probability density function that can be integrated out to one. And this normalization constant is called evidence. So what is the physical sense behind this equation? Bayes' theorem shows how we can convert our knowledge about variable of interest. In this case, this is why. Here we observe some information that's somehow related to y. So we start from prior distribution.",
+      "avg_logprob": -0.13949425008736158
+    },
+    {
+      "start": 1034.1,
+      "end": 1063.98,
+      "text": "that reflects our prior information of prior knowledge about possible values of y. Then we take into account observations that are expressed in terms of this livelihood function. And applying Bayesian theorem, we transform our prior knowledge to posterior knowledge. So we update our knowledge about the value of y. So this is how it works. In some sense, we may also think of it as a way of solving inverse probabilistic problem.",
+      "avg_logprob": -0.12040440895978143
+    },
+    {
+      "start": 1188.22,
+      "end": 1218.85,
+      "text": "So this is in some sense the inverse problem and its solution is given by this Bayes theorem. That is very simple but not so easy to compute in practice. Okay so now let's turn to next part and let's review how we solve the classical statistical estimation problem. So imagine that we have set of observations x1 xn that are as always in textbooks identical and dependent.",
+      "avg_logprob": -0.1368189058624781
+    },
+    {
+      "start": 1218.85,
+      "end": 1259.02,
+      "text": "independent identically distributed variables. So I did. And we know that they come from some distribution which is known up to parameters theta. And the question is to estimate theta based on our observations. So what would be your first step? How would you tackle this problem? Based on the knowledge you obtained from classical statistics courses. Any ideas?",
+      "avg_logprob": -0.11773767500696047
+    },
+    {
+      "start": 1260.24,
+      "end": 1292.69,
+      "text": "So we have, like, the usual knowledge of the maximum likelihood estimator, as we've written in the chat. This is the first way that you have thought that you could learn on statistics courses. So we simply compute maximum likelihood estimation. So we're trying to maximize so-called likelihood function. And the likelihood function, in this case, is simply a product of those distributions where we substitute our observations in our density function.",
+      "avg_logprob": -0.2501775544475425
+    },
+    {
+      "start": 1293.58,
+      "end": 1323.66,
+      "text": "So, pay attention that we treat this function not as a function of x's, because x's are null, but as a function of theta. And as a function of theta, this is not a distribution, this is not a probability density function, this is a logarithmic function. Okay, so we simply take the product of those densities. Of course, in practice, the first thing we should do is to switch to a log likelihood in order to be able to maximize the sum of functions rather than",
+      "avg_logprob": -0.10257523189540263
+    },
+    {
+      "start": 1323.66,
+      "end": 1373.39,
+      "text": "the product of functions. And we are done. In many cases, this maximum likelihood estimate can be found quite efficiently. And in many cases, they are even close from solutions. Okay, so what good properties do we know about maximum likelihood estimate? Don't you remember at least something? Well, first of all, since this maximum likelihood estimate is a deterministic function of our observations of X1, Xn, and our observations are random,",
+      "avg_logprob": -0.1415693645293896
+    },
+    {
+      "start": 1373.39,
+      "end": 1418.67,
+      "text": "This means that theta-ml is a random variable, right? And if it's random variable, we can ask ourselves what would be its expectation and what would be its variance, for example. And we can prove that its expectation is asymptotically unbiased. So it equals the true value of our unknown parameter theta when n is sufficiently large. And this is a very good product. So this means that",
+      "avg_logprob": -0.16406250034653863
+    },
+    {
+      "start": 1419.18,
+      "end": 1465.58,
+      "text": "It will perform to maximize the estimation, we obtain maximize the estimate, and it oscillates somewhere around the true value. And the larger data we have, the smaller will be this oscillation. So the second, so, and this is, this property is called consistency. No, no, no, no, no, not consistency, of course. And by asymptotic and biasness. So second.",
+      "avg_logprob": -0.34687498737783995
+    },
+    {
+      "start": 1465.94,
+      "end": 1507.31,
+      "text": "if the number of observations n goes to infinity, then we can easily prove, well, not easily, but we can prove, and this was done in statistics courses, that our maximum likelihood estimate converges to the true value when n goes to infinity. And this is, this property is known as consistency. So property, again, when n is large, we can prove",
+      "avg_logprob": -0.1281866803765297
+    },
+    {
+      "start": 1507.31,
+      "end": 1541.68,
+      "text": "that our maximum value estimator so this is still a random variable but it has almost a normal distribution with the mean of course the true value this follows from the property number one and with variance that looks like this so this is n times so-called feature information matrix inverse in particular this means that the variance of our maximum value estimator",
+      "avg_logprob": -0.14177389070391655
+    },
+    {
+      "start": 1541.78,
+      "end": 1576.14,
+      "text": "goes to zero when n goes to plus infinity, and from here we can derive the property number two, the consistency. And the variance it uses as one over n. So we can treat this f of theta star as some constant, while n is the number of observations. So even is the number of observations, say in 10 times, our variance will decrease in 10 times. And finally, there's one more property that is called efficiency.",
+      "avg_logprob": -0.13779190051686632
+    },
+    {
+      "start": 1583.22,
+      "end": 1618.16,
+      "text": "I have a minute with the Raul Karamer bound from statistics courses. Again, this goes beyond our course, but just to extend your statistical background. So in classical statistics, there's a famous inequality called Raul Karamer bound, Raul Karamer inequality that states that among all unbiased estimates, no estimate can have variance of small",
+      "avg_logprob": -0.25339674949645996
+    },
+    {
+      "start": 1618.16,
+      "end": 1648.19,
+      "text": "than this quantity, which is related to fusion information matrix. In some sense, this is pretty close to Heisenberg's uncertain integration from quantum mechanics. So it establishes the bounds under which we cannot improve our knowledge. So it's increasingly impossible to derive any unbiased estimate for the unknown parameter theta star that will have smaller variance.",
+      "avg_logprob": -0.17359834295861862
+    },
+    {
+      "start": 1648.19,
+      "end": 1679.17,
+      "text": "that n times phi information matrix inverse. And it appears that maximum likelihood estimate has the smallest possible variance. So it has exactly this lower bound for the variance. So this means that no other unbiased estimate can have smaller variance that maximum likelihood estimator has. And due to this fact, maximum likelihood estimator is actually an optimal estimator for unknown parameter. And this is why maximum likelihood estimator.",
+      "avg_logprob": -0.11270960547575136
+    },
+    {
+      "start": 1679.17,
+      "end": 1717.39,
+      "text": "Estimation is so popular in statistics and in martial learning. So it's the most possible variance. Okay, sounds very good. There's just one minor problem. All those properties hold true when n is much larger than 1 and some of them even when n goes to infinity. In practice, however, we have to deal with the finite samples. And in many cases,",
+      "avg_logprob": -0.18287417233774536
+    },
+    {
+      "start": 1717.87,
+      "end": 1749.62,
+      "text": "the number of observations is not enough in order to ensure those four properties of maximum likelihood estimator. And just one trivial example. Consider the problem of estimating the probability of a head when we toss a coin. So we toss a coin in times, we observe key heads, and you need to estimate the probability of a head. How do you think what would be maximum likelihood estimation for this probability?",
+      "avg_logprob": -0.13310185185185186
+    },
+    {
+      "start": 1783.76,
+      "end": 1825.42,
+      "text": "Any idea? Any ideas? Well, guys, I do not understand. Is it trivial or very difficult for you? Why don't you answer? I guess, first of all, the reason for not answering is that the answer seems trivial, but everyone seems afraid of being mistaken of one such an easy question. That's reason number one. So, okay, if this is trivial, then what would be the question?",
+      "avg_logprob": -0.17214752387168797
+    },
+    {
+      "start": 1825.42,
+      "end": 1865.5,
+      "text": "What would be the answer? What is the maximum value of the estimate in this case? So what your intuition tells you? KLM. KLM, of course. This is bridge retrieval. So just the frequency of the heads. Sounds very reasonable, doesn't it? And now let's assume that we have closed the coin just twice and we have observed heads in both trials. So then according to maximum value of the estimation, we should estimate the probability of a head.",
+      "avg_logprob": -0.24275129357564082
+    },
+    {
+      "start": 1865.5,
+      "end": 1898.91,
+      "text": "equal to one. Does it correspond to the common sense? Not really. Not really. So I guess you are not ready to bet, say, 1,000 viewers that this coin had heads on both sides. So what is the reason for that? The reason is that N was quite small. So we have a quite maximum estimation and the situation when it wasn't justified. And the outcome was, of course,",
+      "avg_logprob": -0.22794117576935713
+    },
+    {
+      "start": 1898.91,
+      "end": 1931.22,
+      "text": "So we've got some result of maximum likelihood estimation, but it contradicts even the concepts. But on the other hand, if we observed say, or if we performed say 1000 of trials, so if N would be equal to 1000, then probably KON would be a good estimate for the true probability of a head, right? But not when N equals to true. Okay, so this is a kind of a drawback of maximum likelihood estimation.",
+      "avg_logprob": -0.248437496026357
+    },
+    {
+      "start": 1933.01,
+      "end": 1973.52,
+      "text": "And here comes an alternative Bayesian inference. And Bayesian inference, so we need to start from, again, I mentioned that we still have n observations that come from distribution of X parameterized by a non-value parameter theta. We can also rewrite it as false as Bayesians usually do, P of X given theta. This is actually the same thing.",
+      "avg_logprob": -0.16568586965659995
+    },
+    {
+      "start": 1973.74,
+      "end": 2017.42,
+      "text": "So even though theta, we know the exact expression for probability density function on X. And the question is, again, how to estimate theta. So an alternative to maximum value estimation would be Bayesian inference. We start from prior distribution that reflects our knowledge, our preference, and possible values of theta. And then we simply apply Bayes' theorem and convert our prior knowledge to posterior knowledge.",
+      "avg_logprob": -0.14156626254679208
+    },
+    {
+      "start": 2017.42,
+      "end": 2053.74,
+      "text": "based on observations. So we simply derive a posterior distribution, P of theta given X1, Xn, by applying Bayes' theorem. So like if a function looks like this, so this is just a product of P of Xi given theta, since all of our observations are independent and identically distributed, we multiply it by prior distribution and we renormalize it according to Bayes' theorem. So this will be the answer.",
+      "avg_logprob": -0.26596468201150064
+    },
+    {
+      "start": 2054.67,
+      "end": 2096.0,
+      "text": "Unlike maximum life estimation, our answer is no longer a point estimate, but a distribution. And this has very interesting consequences. But before we proceed, let us plot a table where we'll briefly summarize the differences between classical or frequentist approach and Bayesian approach. So here we'll have frequentist or classical, and here we'll have Bayesian framework. And let's try to understand",
+      "avg_logprob": -0.14309731653974025
+    },
+    {
+      "start": 2096.0,
+      "end": 2140.83,
+      "text": "What are the differences between those approaches? The first is some philosophical difference, that is interpretation of randomness. According to classical view, a random variable is some process whose outcome is unpredictable by definition. So we'll code objective and so on. While according to Bayesian framework, the random variable",
+      "avg_logprob": -0.17682291318972906
+    },
+    {
+      "start": 2140.83,
+      "end": 2176.78,
+      "text": "is the result of a completely deterministic process whose outcome is unknown to us only because we left some information which determines the outcome of this process. And this is why this is not an objective uncertainty, but subjective ignorance. Let's again return back to this example with a Tosca coin. So a Tosca coin we observe either head or tail, the result is random, right?",
+      "avg_logprob": -0.20122196181462362
+    },
+    {
+      "start": 2176.94,
+      "end": 2212.05,
+      "text": "But how do you think whether this random variable is random according to, frankly, just point of view or according to Bayesian point of view? Can we, at least in principle, predict the outcome of tossing a coin? And the answer is yes, we can. We know that coin abuse the loss of mechanics. So even though the initial conditions, how we toss the coin, even though the characteristics of environment, we can, in principle, predict what would be the outcome.",
+      "avg_logprob": -0.1593590587073443
+    },
+    {
+      "start": 2213.07,
+      "end": 2243.74,
+      "text": "because this is just a physical process. And all physical processes are based on the laws of physics. And the laws of physics give us predictable, give us a verifiable predictions. We can consider a different example. For example, the arrival time of Eros Eins to Hallabank Hall. So each morning when I go to university, I use Eros Eins, which should come at 10.",
+      "avg_logprob": -0.2684487894356969
+    },
+    {
+      "start": 2243.74,
+      "end": 2273.62,
+      "text": "at four minutes past ten. And I know already I live here for almost three years that the actual arrival time, arrival time, is a random variable. So probably it will not arrive early, but it may arrive later. Five minutes later, ten minutes later, half an hour later, it happens. So this is a random variable. I can collect statistics, I can even restore the empirical work and the estimate of a density function of the arrival time.",
+      "avg_logprob": -0.13214045634833715
+    },
+    {
+      "start": 2273.87,
+      "end": 2306.3,
+      "text": "However, there's nothing that is objectively unsolved. So everything is predictable. So if I knew the traffic jam, if I knew the information about the accidents on the Deutsche Bank, I could predict the exact time of arrival. And the only reason why I'm not able to predict it, because I have a lack of information. So I do not know the current situation on the railroad. So I can imagine that approach.",
+      "avg_logprob": -0.10674055102606152
+    },
+    {
+      "start": 2306.3,
+      "end": 2334.8,
+      "text": "Halbanhof, and I know that the train may come at 4 minutes past 10, 10 minutes past 10, at 12 minutes past 10. So there's some uncertainty, some ignorance in this case. And now I approach the platform where I see the screen where it stated that the train is delayed by five minutes. So now again, I still do not know the exact arrival time.",
+      "avg_logprob": -0.2179588634002058
+    },
+    {
+      "start": 2334.9,
+      "end": 2363.76,
+      "text": "So I could think that, well, probably it should arrive at 9 minutes past 10. But it may arrive 10 minutes past 10, 11 minutes past 10. So this is still a random variable. But my ignorance has changed. I have observed some additional information, the information from the string. So now the distribution of my random variable has changed. And this is why it's stated here, subjective. So different observers may have different ignorance on the same random variable.",
+      "avg_logprob": -0.12187500298023224
+    },
+    {
+      "start": 2446.48,
+      "end": 2509.23,
+      "text": "by hysteria. Result of inference. In classical statistics, this is a maximum rapid estimate. So this is just point estimate. While on Bayesian train work, the result of our inference is a distribution of stereo distribution. And again, that's an important distinction. I will comment on it a couple of minutes later. And finally applicability. So we already know that maximum rapid",
+      "avg_logprob": -0.23823052257686467
+    },
+    {
+      "start": 2509.23,
+      "end": 2566.99,
+      "text": "estimation is justified when n is large. And in fact, it's justified when n is not much larger than one, but is much larger than d, where d is a dimension of estimated parameters. So of course we can apply a Microsoft estimation under different conditions. The problem is that in those cases, Microsoft estimation can only be treated as a reasonable characteristic with no theoretical guarantees.",
+      "avg_logprob": -0.18374593923618268
+    },
+    {
+      "start": 2567.06,
+      "end": 2599.33,
+      "text": "And in particular, you will apply marks-on-work with estimation in machine learning models, when n is not much larger than d, what do we get in practice? So actually, every time when you train some algorithm, you tune parameters of the model, and from statistical point of view, you perform, in most cases, you perform marks-on-work with estimations, according to your observations as a training dataset. And if you apply...",
+      "avg_logprob": -0.2631048515278806
+    },
+    {
+      "start": 2599.33,
+      "end": 2629.58,
+      "text": "Like survived estimation, under situations when n is smaller or comparable with d, you immediately obtain our fitting. You immediately observe the gap between your train error and your validation error. To the contrary, if you apply a machine learning algorithm whose number of parameters is much smaller than the number of observations, you observe no gap. So your estimate will have good generalization property.",
+      "avg_logprob": -0.1797916615009308
+    },
+    {
+      "start": 2630.48,
+      "end": 2659.97,
+      "text": "And this was firstly observed when first deep neural networks have appeared in the end of notice. So about 15 years ago, maybe 20 years ago. And there was a series of papers which stated that deep neural networks do not follow fit. Why so? Because the first deep neural networks were sufficiently small and they were trained on already huge data sets. And for several years, the community",
+      "avg_logprob": -0.12750400144320267
+    },
+    {
+      "start": 2659.97,
+      "end": 2692.13,
+      "text": "was under those conditions. And it appeared that if we have a small deep neural network and we have a large dataset, this neural network will not overfit, because maximum workload estimate becomes optimal under these conditions. Later, however, the humanity designed larger deep neural networks, and this condition was violated.",
+      "avg_logprob": -0.23066085870148706
+    },
+    {
+      "start": 2692.13,
+      "end": 2720.86,
+      "text": "And immediately, when it was violated, there appeared a gap between training error and validation error. So the overfitting effect hasn't disappeared. And so we still have to fight with overfitting when we train our deep neural networks. Well, at least we do not discuss the large language models where there's almost infinite amount of data.",
+      "avg_logprob": -0.14981617625145352
+    },
+    {
+      "start": 2720.86,
+      "end": 2757.81,
+      "text": "Again, in those cases, probably much of what we estimate is quite reliable. So what about Bayesian framework? And it appears that Bayesian framework is applicable for any number of observations. So we can even apply it when n equals to zero. And by the way, what do you think, what would be our posterior distribution when n equals to zero? Yes, it should be just uniform distribution since we don't know anything.",
+      "avg_logprob": -0.11541193173351613
+    },
+    {
+      "start": 2758.0,
+      "end": 2788.0,
+      "text": "Or just the distribution of like the variable itself. So yeah, the variable itself is prior distribution. So when we apply Bayes theorem, we always convert cry to posterior. posterior reflects the change of our prior knowledge based on observations. And if we have no observations, of course posterior will be simply equal to prior. And if we have even one observation, we can already extract some information from this observation and we can already update",
+      "avg_logprob": -0.2142600602117078
+    },
+    {
+      "start": 2829.62,
+      "end": 2860.37,
+      "text": "So it also calls that we have a set of blind wisdomers who assigned a problem. So they instructed that they will be allowed to come to a room where there's unknown animal. And they need to somehow inspect the animal and estimate its mass. They're blind and they have different senses. For example, one of them may only touch an animal, another may say, listen to the animal. The third one may smell the animal.",
+      "avg_logprob": -0.1654669903637318
+    },
+    {
+      "start": 2860.37,
+      "end": 2893.36,
+      "text": "and so on. So they have different sensors and they need to come to a common conclusion. The task is to estimate the mass of this animal. So how will they proceed in the vibrations? First, they start from prior distribution of possible masses of animals on our planet. So this distribution has restricted support. So of course we understand that mass cannot be negative. So it's a positive semi-axis.",
+      "avg_logprob": -0.16349773593695768
+    },
+    {
+      "start": 2893.36,
+      "end": 2923.95,
+      "text": "And it has some form where, again, there's a theta max because no animal may have mass more than 30 tons. That is the mass of the blue whale. So the largest, the heaviest animal on our planet. So that's their prior distribution. Now comes the first wisdom. OK, for example, just touch an animal. So it has some probabilistic model.",
+      "avg_logprob": -0.17088608047630213
+    },
+    {
+      "start": 2924.43,
+      "end": 2956.27,
+      "text": "that reflects its observation with possible values of mass of an animal. So this is kind of why with the function. So it shows that if an animal has a mass of theta, how probable is that I feel, what I feel, that I will measure x. Okay, so this is probabilistic model for the first wisdom. So what can keep doing?",
+      "avg_logprob": -0.19927082896232606
+    },
+    {
+      "start": 2956.27,
+      "end": 2991.71,
+      "text": "Of course, he can perform a kind of max survival estimate, but he's wiser. So instead of it, he performs Bayesian inference, and he comes up with a posterior distribution. So this is his model, or his likelihood. X is something he observes, times prior distribution, or a normalization constant. And suppose that he touched the elephant's nose. So after touching the nose, he may come up with aha.",
+      "avg_logprob": -0.2208567482701848
+    },
+    {
+      "start": 2991.71,
+      "end": 3027.07,
+      "text": "So this is either nose of some very large animal, or this is a body of some snake-like animal. And so by doing Bayesian inference, he updates the distribution on theta, and it has now, say, b model four. So either this is a relatively small animal, or this is very huge animal. So this is your theta given x. And this was right distribution. Now count seconds.",
+      "avg_logprob": -0.2009447646695514
+    },
+    {
+      "start": 3027.07,
+      "end": 3056.43,
+      "text": "Who is the one? Who can, for example, listen the sounds of the animal? So he has completely different probabilistic model. So Q, Y, given theta. So Y is completely different variable. It lives in completely different dimension. So X reflected the tactile feelings while Y reflects the acoustic feelings. And again, what can he do?",
+      "avg_logprob": -0.19231592955654614
+    },
+    {
+      "start": 3056.43,
+      "end": 3086.03,
+      "text": "Of course, he can still perform Maxwell's estimator and come up with a different ML estimate, different from the first wisdom. And then it's not clear how they will harmonize their estimations. However, again, the wisdom are wiser. So instead, he performs Bayesian inference and derives posterior distribution on theta conditioned on both the information from the first wisdom and information that",
+      "avg_logprob": -0.18349358917046815
+    },
+    {
+      "start": 3086.03,
+      "end": 3126.03,
+      "text": "he has collected. How can he do this? So this is his right with the function based on his own probabilistic model. And as a pariah distribution, he takes the posterior distribution from the first wisdom. So he knows nothing about the first wisdom about what in particular the first wisdom has observed. He only has access to posterior distribution from the first wisdom. And this is enough in order to harmonize",
+      "avg_logprob": -0.14304315760022118
+    },
+    {
+      "start": 3126.03,
+      "end": 3163.38,
+      "text": "their conclusions. So he uses posterior distribution as a new prior distribution. He multiplies it by its own likelihood. He normalizes the result. And he gets new posterior distribution that already reflects the information from two different sources, from first and second with the one. And we can do this many, many, many times until we get something that will be conditioned on a large number of observations. And in this case,",
+      "avg_logprob": -0.12233455601860495
+    },
+    {
+      "start": 3163.38,
+      "end": 3201.94,
+      "text": "we will probably end up with a posterior distribution that will be pretty sharp around some small area. So this is one of the advantages of Bayesian framework. We can combine different probabilistic models and we can build a more complicated model from a simple ones like a wall from building blocks. And at this moment,",
+      "avg_logprob": -0.1436767524573952
+    },
+    {
+      "start": 3202.35,
+      "end": 3234.9,
+      "text": "You may ask me if there's a contradiction between classical statistics and Bayesian framework. So what if the statistical community is divided on two different opposing subgroups, which fight each other on each scientific conference, so frequencies versus Bayesians. And the answer is actually no. Here we consider, so this can be even proven, but here we consider posterior distribution conditioned on a large number of observations.",
+      "avg_logprob": -0.1729359597335627
+    },
+    {
+      "start": 3235.28,
+      "end": 3266.7,
+      "text": "in the limit when n is much larger than d. So this means that we are trying to apply Bayesian inference in a situation where we know that maximum likelihood estimation is theoretically justified and is the best possible estimation method. And it can be proven that under those constraints, our two posterior distribution converges to the delta function around maximum likelihood estimate. So in other words, this means that",
+      "avg_logprob": -0.1522435853496576
+    },
+    {
+      "start": 3266.7,
+      "end": 3314.0,
+      "text": "classical statistics can regard it as a limit case of Bayesian framework, or to the contrary, when we say that Bayesian framework is an extension of classical statistics, to the cases where n is not much larger than d. And this means that there's no contradiction between these two different approaches. Good. So, three advantages of Bayesian framework. Of course, there are also drawbacks, but I will not mention drawbacks in this lecture.",
+      "avg_logprob": -0.10191362493493583
+    },
+    {
+      "start": 3314.0,
+      "end": 3350.86,
+      "text": "We'll get familiar with the Dropbox of Bayesian framework in later lectures. So currently just the advantages. So first of all, it allows us to regularize the maximum likelihood estimates. In other words, it modifies maximum likelihood estimates for the situations when maximum likelihood estimation is not optimal. And we'll see in subsequent lectures how it works in practice applying to the machine learning problems.",
+      "avg_logprob": -0.1779847813722415
+    },
+    {
+      "start": 3352.24,
+      "end": 3425.26,
+      "text": "So second is can build complex models from simple ones, just like we did in this example with the elephant. So we can combine information from different sources within one framework. Next is we can perform better and certain estimation in our predictions. This is again, especially important in modern machine learning applications where we know that deep neural networks are highly overconfident.",
+      "avg_logprob": -0.1482204898364014
+    },
+    {
+      "start": 3425.26,
+      "end": 3464.64,
+      "text": "So they provide us some predictions and they're pretty sure about them even if those predictions are wrong. So many applications, this is especially crucial when we need to estimate the degree of uncertainty in the predictions. And finally, based on Bayesian inference, we can build so-called latent variable models. And the latent variable models, in some sense,",
+      "avg_logprob": -0.12753080524189372
+    },
+    {
+      "start": 3464.64,
+      "end": 3496.24,
+      "text": "allow us to extract more information from data than it was contained in the data. This sounds pretty abstract, but on some phone lectures we'll see how it works and we see what interesting problems we can solve if we know how to build this or other variables models. Okay, good. Now let us consider a bit different aspect and let us see how a Bayesian framework can generalize",
+      "avg_logprob": -0.18479567021131516
+    },
+    {
+      "start": 3496.24,
+      "end": 3543.73,
+      "text": "classical Boolean logic. So we know that Boolean logic operates just in Boolean variables, so either true or false. And we know that the main rule for logical inference is so-called modus ponens. That states the following. If A is true, and you will know that B falls from A, we can conclude that B is true as well. So pretty trivial.",
+      "avg_logprob": -0.12834821738205948
+    },
+    {
+      "start": 3544.37,
+      "end": 3593.9,
+      "text": "fully reflects common sense. However, what if we know the following? We know that A, that B follows A and we know that B is true. What can we say about A? Any ideas who remembers Boolean logic? Well, actually from a Boolean logic point of view, we cannot say anything because we can derive two either from two or from false. However, common sense tells us that, well,",
+      "avg_logprob": -0.17912274311824017
+    },
+    {
+      "start": 3593.9,
+      "end": 3626.13,
+      "text": "This is not exactly so. And just one example. So suppose that today we have a match here in Bremen, Werder versus, I don't know, Bayer from Bremen. I don't know the result of the match, but after the lecture, I decided to visit the Mill Garden in Bremen, where I see many people with their Werder flags who are celebrating something. Can we say something about the outcome, about the result of the match?",
+      "avg_logprob": -0.2270408151101093
+    },
+    {
+      "start": 3627.7,
+      "end": 3657.68,
+      "text": "So I know that if there are no wins, this is A, then the football fans will definitely be celebrating. So this is B. I don't know whether A is true or false. I don't know the result of the match. However, I see many people with a brother flex who are celebrating. So I see B. And I know that A implies B. I know that B is true. Can I say something about A?",
+      "avg_logprob": -0.1575377780002552
+    },
+    {
+      "start": 3659.41,
+      "end": 3691.2,
+      "text": "From wouldn't watch a point of view I cannot And together it may appear for example that Jordan has lost the game however at the same time it was announced that Killian Mbappe has signed a contract with Werder and So the football fans is liberating because they know that Werder will become a champion Despite of the fact that they have lost this particular game because the best player of the world will now join Werder So this is this is possible explanation",
+      "avg_logprob": -0.276494567161021
+    },
+    {
+      "start": 3691.2,
+      "end": 3722.24,
+      "text": "And because of this, we cannot conclude that A is definitely true. So it may happen that A is false while B is still true. However, common sense hints that probably Verder has won the game, although we cannot be 100% sure. But with hyperability, we can hypothesize that the game was won by Verder rather than by Bayern. Unfortunately, Boolean logic cannot reflect",
+      "avg_logprob": -0.1265822856486598
+    },
+    {
+      "start": 3722.24,
+      "end": 3764.46,
+      "text": "those facts because I don't operate with either true or false. However, if we have patience, we can easily take this into account. So instead of operating with either true or false, we may switch the probabilities. And we may say that let us establish joint distribution of A and B, and then we can easily derive P of A given B. So here we have access to joint distribution.",
+      "avg_logprob": -0.1331983083560143
+    },
+    {
+      "start": 3764.46,
+      "end": 3795.12,
+      "text": "And this joint distribution can be, for example, be written as PoB given A times PoA. And with the help of joint distribution, we can easily compute PoA given B. And this will update our probability of A. So, for example, prior probability of A was, say, 1.0, 0.1. So very is not a good team. In comparison to the buyer.",
+      "avg_logprob": -0.26411898164864045
+    },
+    {
+      "start": 3796.11,
+      "end": 3824.82,
+      "text": "And then I can update my probability, switching from probability that worder wins to posterior probability, that worder wins, and probably, well, probably clearly the posterior probability that worder has won the game will be larger than my prior probability when I observed people who are celebrating and waving the worder flex. So this is how it works in theory. And now let's...",
+      "avg_logprob": -0.20444400047327016
+    },
+    {
+      "start": 3824.82,
+      "end": 3858.37,
+      "text": "Consider a very small example of how it works in practice. So imagine the following situation. I have installed anti-thief system in my flat. Each time when someone is trying to unlock my door, in my absence, I get SMS message that something is happening in your flat. And the produce of these anti-thief systems gives 100% guarantee that if there's any kind of unauthorized",
+      "avg_logprob": -0.1505859399214387
+    },
+    {
+      "start": 3858.37,
+      "end": 3890.74,
+      "text": "access attempt, I will definitely receive SMS message. At the same time, it was in his manual guide that the system may produce false alarm because of small earthquakes. And false alarms are generated in 10% of the cases when there was a small earthquake. So imagine that now",
+      "avg_logprob": -0.13999721168407372
+    },
+    {
+      "start": 3890.74,
+      "end": 3921.97,
+      "text": "during this lecture, I receive SMS message with R. What should I do? How can I conclude whether there was a thief or whether there was an earthquake? I imagine that I decide to stop the lecture and to run away to my friends. And on my way home, I get a radio message. And Bremen radio announces that dear citizens, today there was a small earthquake in our city of Bremen.",
+      "avg_logprob": -0.18386627179245615
+    },
+    {
+      "start": 3921.97,
+      "end": 3957.39,
+      "text": "but nothing to worry about. Everything is fine. The earthquake was very small. How my beliefs about the thief changed after I heard this radio message. So let us try to build a small probabilistic model and to perform Bayesian inference within this model. So we established four binary variables. T stands for thief. One means that there was a thief. Zero means that there was no thief. E is earthquake.",
+      "avg_logprob": -0.09972426716019125
+    },
+    {
+      "start": 3957.52,
+      "end": 3997.89,
+      "text": "R is ARM, whether it was ARM or SMS message or that was not, and ARM is a radio message. Radio message that states that there was a small earthquake in the city. So then I need to establish joint distribution that is probabilistic model on these four variables. Of course, I can try to decompose it according to the product rule, for example, as false, but I decide",
+      "avg_logprob": -0.19054878466739888
+    },
+    {
+      "start": 3997.89,
+      "end": 4035.46,
+      "text": "to perform a better way. So I create a causal graph. I try to understand what may cause what. So my alarm system may work only because of either thief or earthquake. So then I have this causal dependency and radio message about earthquakes may be caused only by the earthquake. So this is my causal graph. And this causal graph reflects the inductive bias of this particular problem.",
+      "avg_logprob": -0.11268028922570057
+    },
+    {
+      "start": 4035.46,
+      "end": 4067.79,
+      "text": "And it allows me to simplify this decomposition. So now I will say that this is our arm based on thief and earthquakes. No arm, because radio may not cause our arm. Times probability of radio based on earthquake. Again, no thief may cause the radio message. And finally, probability of thief and probability of earthquake. They're not caused by each other, so they're independent.",
+      "avg_logprob": -0.1321289125829935
+    },
+    {
+      "start": 4067.79,
+      "end": 4099.86,
+      "text": "So this is my probabilistic model. So now I need to define those probabilities. So the probability that E equals to one. So I can simply check the websites of, I don't know, ministry of our registrations and find out that in Bremen, small earthquakes happen on average once per 100 days. So this is my prior probability of earthquake. Then I check the website of Bremen Police.",
+      "avg_logprob": -0.19338235153871425
+    },
+    {
+      "start": 4100.05,
+      "end": 4135.02,
+      "text": "and see that on average, there's two rubber attempts per 10,000 of wax. So on average, each day, two flats are robbed of 10,000. So this is my probability of teeth. Then, probability of radio message given E. So here, I need to define it when E equals to zero and when E equals to one.",
+      "avg_logprob": -0.18717447771794266
+    },
+    {
+      "start": 4135.12,
+      "end": 4165.42,
+      "text": "because this is conditional probability. So depending on different conditions, I will have different probabilities. And imagine that if there was no earthquake, radio will not allow me. So then no earthquake, no radio. And if there was no earthquake, let's establish that the probability of radio message is 0.5. So this means that if there was small earthquake, the radio may decide to announce or may decide not to announce depending on what other news happened during that day.",
+      "avg_logprob": -0.08375822729186008
+    },
+    {
+      "start": 4167.22,
+      "end": 4209.3,
+      "text": "And finally, we need to define the probability of alarm given different values of t and e. So let's try to feel this table. So what should I put here? What would be the probability of alarm if there was stiff and there was no earthquake? Based on the information that I have already told you. Actually, the information from the user guide of this alarm system.",
+      "avg_logprob": -0.12905843459166488
+    },
+    {
+      "start": 4210.45,
+      "end": 4252.18,
+      "text": "So really that states, if there is a thief, the system will always work. But sometimes, in 10% of the cases, it may produce false alarm because of an earthquake. So this is all information we have. Now we need to formalize it within these conditional probabilities. So any ideas? No, actually, if the operation instruction tells us that if there is a thief, the system will always work.",
+      "avg_logprob": -0.19779411414090325
+    },
+    {
+      "start": 4252.18,
+      "end": 4286.16,
+      "text": "This means that there should be one here and one here. If there was no thief, no earthquake, the system should not work. So then it's zero here. And finally, false error, when there was an earthquake, no thief, the system will be turned on in 10% of the cases. So here we go. Now we have fully specified the model. Now let's try to count something. So let's estimate.",
+      "avg_logprob": -0.17073384295688587
+    },
+    {
+      "start": 4561.42,
+      "end": 4598.21,
+      "text": "What can we say about this term? It's like 0.1 times probability of E equals 1, which I remember it's 10 to the negative 2, so it's like 10 to the negative 3. I don't see it, like it's covered by the marker board. I don't see what it is, we believe. Yeah, so it's 10 to the negative 2, so it should be... First note required. This is 0.1 and this guy is 2.",
+      "avg_logprob": -0.20187499433755873
+    },
+    {
+      "start": 4598.21,
+      "end": 4636.93,
+      "text": "10 to the negative 2, right? So then the outcome will be 10 to the negative 3. Okay, now let's return back to our initial equation and let's substitute everything that we have found so far. So the first guy here is 1 times probability of a thief 2 times 10 to the negative 4. Now we need to compute the denominator.",
+      "avg_logprob": -0.15699914383561644
+    },
+    {
+      "start": 4636.93,
+      "end": 4671.57,
+      "text": "And in a minute, there should be two terms, when t equals to zero and when t equals to one. When t equals to one, this is exactly the same, which was enumerator. So I simply say that this is two to the 10 to the negative four plus, and now I need to compute this guy when t equals to zero. So build a equal to one given t equal to zero, this is 10 to the negative three.",
+      "avg_logprob": -0.14436140996606453
+    },
+    {
+      "start": 4673.84,
+      "end": 4719.62,
+      "text": "times p t equal to zero. So what is that? I know that p t equal to one is two times ten to the negative one. What would be probability t equal to zero? One minus that, so? Of course. Since t is just binary variable, if I define the probability that t equals to one, the probability that t equals to zero, simply one minus two to the ten to the negative one. One minus...",
+      "avg_logprob": -0.15247541866945416
+    },
+    {
+      "start": 4719.62,
+      "end": 4759.46,
+      "text": "two times ten to the negative four. So this is it. Now this guy is approximately one who doesn't believe may compute it in the exact way. I will just perform an approximation here. The difference will be in four digits after dot. And then we have what? Two over two plus ten. So this is one.",
+      "avg_logprob": -0.17315764925373134
+    },
+    {
+      "start": 4759.46,
+      "end": 4793.15,
+      "text": "over six, and this is approximately 70% of probability. So after I got SMI's message, I still have only 17% of probability that there's really a thief in my apartment. Okay, point two. Now I mentioned that although this is quite a small probability, it's still quite a lot in order not to do anything. So I decided to check the website of Brevian Police once again.",
+      "avg_logprob": -0.19062499439015107
+    },
+    {
+      "start": 4793.15,
+      "end": 4827.92,
+      "text": "And this time I decided to check not just the crime activity of the city as a whole, but as a crime activity in different districts. And it appears that in my particular district is involved the crime activity is 10 times larger. So this means that now I have PT equal to one equals two to the power or two times 10 to the power negative three. So I have increased my prior probability of a thief 10 times. How do you think?",
+      "avg_logprob": -0.1495535786335285
+    },
+    {
+      "start": 4828.66,
+      "end": 4864.91,
+      "text": "What would be now the posterior distribution of t equal to 1 given our message? Should it increase or decrease in comparison with my previous calculations? So again, I have just derived some Bayesian inference and I've come up with a posterior distribution I received. Now I have increased prior distribution in 10 times. How do you think the posterior distribution will increase or decrease?",
+      "avg_logprob": -0.11159206141491194
+    },
+    {
+      "start": 4865.71,
+      "end": 4897.31,
+      "text": "Intuitively increased. Intuitively increased. Very good. If there's anyone who thinks that it should decrease, then probably you should change your educational program and the switch to some liberal arts, not the computer science. Of course it should increase. The second question. I have increased priority in 10 times. What about posterior? Can it increase in 10 times as well? Well, no, it could.",
+      "avg_logprob": -0.18387276555101076
+    },
+    {
+      "start": 4897.31,
+      "end": 4926.19,
+      "text": "The final probability becomes bigger than one, which is... Yes, exactly. So the ones who think that the posterior probability will also increase in 10 times should go to the center of the electoral committee in Russia and count votes for Putin. Because the probability could not be more than one, and we had already 70%. So we multiply it by 10, we'll get 170%. So this is definitely impossible.",
+      "avg_logprob": -0.2381859697946688
+    },
+    {
+      "start": 4926.29,
+      "end": 4961.1,
+      "text": "So this means that I should have traced, but it should have traced in a different quantity. Okay, so let us simply repeat the calculation. So the only thing that will change is this, this, this, and this. So then I will have one times two to the power, two times 10 to the negative three. Here, two times 10 to the negative three was...",
+      "avg_logprob": -0.1887019280439768
+    },
+    {
+      "start": 4962.19,
+      "end": 4993.39,
+      "text": "10 to the power negative three times one minus two to the power two times 10 to the power negative three. So this is it. Again, this is almost one. It doesn't believe my CPU check everything. And the final answer is two over three or 67%. So my posterior probability has increased four times in comparison with the previous computations.",
+      "avg_logprob": -0.13875440392695682
+    },
+    {
+      "start": 4993.39,
+      "end": 5026.45,
+      "text": "So I have updated my prior probability. I have increased it 10 times and posterior probability increased only in four times. Okay. So finally, the third one. So I consider that two cells is quite a large probability. So I drop everything and run back home. And on my way home, I hear a radio message that announces that there was a small earthquake in Bradley today. So now I need to update my posterior probability.",
+      "avg_logprob": -0.18624282020261917
+    },
+    {
+      "start": 5026.61,
+      "end": 5069.65,
+      "text": "that the thief is in my house based on the alarm system that has sent me SMS and based on radio message that announced about earthquake. So here again, I will simply do by definition. So this is conditional probability by definition. This is joint probability or probability of condition. Interesting. How to compute those probabilities?",
+      "avg_logprob": -0.12036133103538305
+    },
+    {
+      "start": 5073.07,
+      "end": 5119.23,
+      "text": "Remember that I do have access to the joint probability of all variables. So now to compute joint probability over T, E, R, A, R. And now I need to compute numerator and denominator. How to express both numerator and denominator via this joint distribution. Well, based on the sum rule of code. So I take T equal to one, E.",
+      "avg_logprob": -0.1594551337453035
+    },
+    {
+      "start": 5119.23,
+      "end": 5156.75,
+      "text": "r equal to 1, a equal to 1, r equal to 1, and they integrate it out with respect to all possible values of e. And similarly, in denominator, there's a double summation with respect to t and e, p, t, e, a equal to 1, r equal to 1. That's it. So then we can perform all computations. I will not do it here due to the lack of time. But the final answer would be around...",
+      "avg_logprob": -0.128671877682209
+    },
+    {
+      "start": 5156.75,
+      "end": 5182.96,
+      "text": "two percent. So it appears that the information that there was an earthquake, and by the way remember that I do not actually know that there was really an earthquake. I know only that the radio announced that there was an earthquake. In our model we could even formalize the situation where radio may perform some kind of disinformation, that it may announce something that wasn't happening in practice.",
+      "avg_logprob": -0.17297676492195863
+    },
+    {
+      "start": 5183.98,
+      "end": 5211.28,
+      "text": "But in this particular, under this particular settings, it appeared that there was just 2% of probability that there was really a thief in my house. So everything is pretty fine. I decided that this is unusual probability, so I get turned back to my office. And what was the surprise? Later on, when I arrived to my apartment, it appeared that there was a thief in my apartment. So the question, what did I do wrong?",
+      "avg_logprob": -0.14302883993138324
+    },
+    {
+      "start": 5227.18,
+      "end": 5264.02,
+      "text": "I did everything correct in terms of Bayesian inference. So my mistake was in the formalization probabilistic model. So in my model, there was such causal graph, which assumed that earthquakes and thieves happen independently on one another. However, in practice, of course, there's such dependency as well. So the probability that there is a thief, if there was, if there was earthquake is larger than probability,",
+      "avg_logprob": -0.13501837534063002
+    },
+    {
+      "start": 5264.02,
+      "end": 5293.47,
+      "text": "of thief if there was no earthquake. Why so? Because thieves are not idiots. They also listen to the radio. And if they listen that there was a small earthquake, they immediately increase their thief activity because they know that now different orbs that will be generated will be interpreted as a result of a small earthquake rather than as a result of thief penetration. And this is what every sociologist...",
+      "avg_logprob": -0.1564453087747097
+    },
+    {
+      "start": 5293.47,
+      "end": 5324.37,
+      "text": "It will tell you that this is true, that if some accident happens, then the crime activity goes up. So I did not take this back into account. That's why my model became too optimistic, and probably that's why my appointment was robbed. However, despite all that, if my model were correct, then all the deviations are correct as well.",
+      "avg_logprob": -0.14116010437273
+    },
+    {
+      "start": 5324.37,
+      "end": 5368.62,
+      "text": "And this is an example of how we can perform so-called Bayesian reasoning, which in some sense extends the classical Boolean logic. So this means that Bayesian framework can be regarded not only as extension of the classical statistics, but also as extension of Boolean logic. Now we can write something like this. This is Bayesian framework. This is classical statistics. And this is Boolean logic.",
+      "avg_logprob": -0.12607421819120646
+    },
+    {
+      "start": 7055.41,
+      "end": 7088.75,
+      "text": "You can continue. Yeah, so it should be of t plus given t minus times. And yeah, I believe we'll wrap around. And so this is a point nine nine. I guess I will just write this.",
+      "avg_logprob": -0.3215013509211333
+    },
+    {
+      "start": 7088.82,
+      "end": 7118.98,
+      "text": "99 times 10 to the negative 4 all over 0.99 times 10 to the negative 4 plus 0.99 times 1 minus 10 to the negative 4. No, stop this. You are incorrect. Positive test condition on negative disease. So if someone...",
+      "avg_logprob": -0.25646033997719103
+    },
+    {
+      "start": 7118.98,
+      "end": 7152.58,
+      "text": "Probability of positive test if someone doesn't have disease is not 0.99 because it's mistake. Yeah Yeah, it's point Let me where's the how do I erase on the board? Yeah, so we'll have probability positive yes condition and d-minus so if someone doesn't have disease, what is the probability of negative test?",
+      "avg_logprob": -0.3391285261637728
+    },
+    {
+      "start": 7152.58,
+      "end": 7181.38,
+      "text": "We can rewrite it as one minus probability of negative test, the addition of D minus. Yeah, because probability of positive test was probability of negative test is one. It's only cases we have that can be either positive or negative. And from top, we know that test is accurate not only in positive way. So we will have someone who has disease.",
+      "avg_logprob": -0.26455478472252414
+    },
+    {
+      "start": 7181.38,
+      "end": 7208.78,
+      "text": "the test shows with 99% that positive result. But also if someone has, doesn't have disease, it also shows 99%. So it is also 0.99. But in fact, we forgot here to also mention that ability of negative test in condition on negative disease is also 0.99. Yeah, you can see this in a task.",
+      "avg_logprob": -0.2284330969125452
+    },
+    {
+      "start": 7208.94,
+      "end": 7238.93,
+      "text": "the probability of negative answer given that the disease is absent is also 99. Okay, so that's 2.99%. So yeah, here we have 0.01. Yeah, because here 0 minus 0.99 is 0.01. And probability of negative disease is also 1 minus 10 in minus positive.",
+      "avg_logprob": -0.3211805498789227
+    },
+    {
+      "start": 7238.93,
+      "end": 7277.63,
+      "text": "Exactly. Yeah. Now we also need to calculate. I'm going to do it. I hope it's one. We can divide everything on the denominator. So it's one plus, I'll check the answer. Sorry, I don't want to. It's just one divided by 100. Sorry, you can use the calculator to check the answer. So, correct. Nice work.",
+      "avg_logprob": -0.33487655498363356
+    },
+    {
+      "start": 7277.63,
+      "end": 7310.98,
+      "text": "Also, several words I want to say. So, if we have some very, very accurate test that shows correct results with 99%, yeah? But the probability, what we calculated from the beginning, the probability that someone has disease if test showed positive result is very small, just about 1%, yeah? That's strange because the test is very accurate.",
+      "avg_logprob": -0.22873264530466664
+    },
+    {
+      "start": 7310.98,
+      "end": 7342.43,
+      "text": "But you see, you're in 1% with 1% probability if test out positive result. Why that happens? Because we also should consider how rare is the disease, okay? So that's why you, for example, for a very rare disease must...",
+      "avg_logprob": -0.28906251349539125
+    },
+    {
+      "start": 7342.43,
+      "end": 7372.93,
+      "text": "mass testing doesn't show good results statistically, because if we have very, very disease and very accurate test, it still can show very bad results at the end. Just if it showed positive results for you, that doesn't mean that you will infect. So it's like application of what do I do?",
+      "avg_logprob": -0.24392361678774394
+    },
+    {
+      "start": 11377.52,
+      "end": 11425.39,
+      "text": "equation lambda or lambda divided on joint probability. Yeah, not so much people state. Who is still here, guys? I'm in Yammer. Yuna, can you hear me? Can you ask a little bit of question? No, no, no question. Just I wanted to send someone still here because so that money left the meeting. So give me just, I think, a couple of minutes. I just saw.",
+      "avg_logprob": -0.4311079660599882
+    },
+    {
+      "start": 11425.39,
+      "end": 11459.12,
+      "text": "I will solve the task by myself. By the way, is this server recorded? We have, again, independent variables from Poisson. We have a recording on the seminar. Yes, the mission is recorded. Okay, thank you. So we can check it later. So we have independent variables from Poisson. We want to, instead of maximum likelihood, we want to compute bias and estimate on lambda. Also we have some prior from gamma distribution.",
+      "avg_logprob": -0.19825268881295316
+    },
+    {
+      "start": 11459.15,
+      "end": 11492.8,
+      "text": "So how to do it? We use biasing theorem. Yeah, I just converted the dependency. Also how to compute the probability of X's. We just use three, the lambda is the same denominator. We have some on, ah, some on, some on what? Not some. We have P, X1, Xn.",
+      "avg_logprob": -0.3648767672793966
+    },
+    {
+      "start": 11492.8,
+      "end": 11528.58,
+      "text": "the condition on lambda and p lambda and integral of 0 to infinity on lambda force. So it's just a change rule for our joint distribution. Why it is better? Because now what we know, we can use prior of our lambda excum distribution. And this one we know.",
+      "avg_logprob": -0.30549569582117014
+    },
+    {
+      "start": 11528.58,
+      "end": 11563.49,
+      "text": "or just product of P x i conditioned from lambda. This is Poisson distribution, Poisson density, this is prior density and on top is again reduction of x i conditioned from lambda. So let's first compute what is above, just product of",
+      "avg_logprob": -0.25919117763930677
+    },
+    {
+      "start": 11563.49,
+      "end": 11608.27,
+      "text": "from 1 to n, the xi conditioned on lambda, on the lambda, what is it? First, I think we already calculated this above. It's the xi and minus lambda n multiplied on lambda xi divided by",
+      "avg_logprob": -0.3420877773711022
+    },
+    {
+      "start": 11610.54,
+      "end": 11649.84,
+      "text": "product of Xi factorial, yeah? And multiply it on prior, on the gamma function. It is of the A divided by gamma function on A, and A minus one, exponent minus B lambda. It's a very big,",
+      "avg_logprob": -0.2991536557674408
+    },
+    {
+      "start": 11650.83,
+      "end": 11680.98,
+      "text": "expression very long i mean but in fact we also divide it on the same thing but with the integral on lambda and all things that don't depend on lambda we can divide they can they collapse yeah because for example product of factorials we can move outside the integral and then collapse it yeah",
+      "avg_logprob": -0.1387711894714226
+    },
+    {
+      "start": 11680.98,
+      "end": 11729.23,
+      "text": "So, in fact, what we have? Finally, we have exponent minus lambda n. Yes, exponent minus lambda n. Lambda sum xi. Then, product of factorial collapse, gamma function, and b in the a degree collapses. Also, lambda i minus 1 exponent",
+      "avg_logprob": -0.36664871409021577
+    },
+    {
+      "start": 11730.77,
+      "end": 11766.48,
+      "text": "Minus minus one, sorry, not the best one. Exponent minus b lambda. And this is divided by the same integral, zero, infinity, the same thing, d lambda, yeah? Let's make it easier. Minus lambda on n plus b, sorry, b small one. And lambda,",
+      "avg_logprob": -0.2766113290563226
+    },
+    {
+      "start": 11766.48,
+      "end": 11809.66,
+      "text": "some xi plus ia minus one. And as far as remember, it is very similar to Poisson distribution. Yeah, you see we have x1, we have lambda, but we don't have tutorials. So, in fact, oh, sorry. Yeah, in fact, what that we also divided by.",
+      "avg_logprob": -0.2428977293047038
+    },
+    {
+      "start": 11809.66,
+      "end": 11837.81,
+      "text": "In fact, we got that this is a gamma distribution. Yeah, sorry, it doesn't, it isn't similar to, also similar to gamma distribution method. With some, in other parameters, a, n and b, n, where we can compute a, n equals to a plus some, y.",
+      "avg_logprob": -0.3403320237994194
+    },
+    {
+      "start": 11837.81,
+      "end": 11867.81,
+      "text": "b and equals to b plus n. Why? Let's see, let's compare. We had some prior on lambda. And we see that exponent is b lambda. It's n plus b, as I said, if we compare. And a minus one here is a plus xi minus one.",
+      "avg_logprob": -0.17880544114497401
+    },
+    {
+      "start": 11867.81,
+      "end": 11899.38,
+      "text": "so we just add xi we just add b plus n and other things are constant so in fact we showed that our p lambda conditioned on x because yeah i here wrote some not very beautiful things we can show better that it's proportional to exponent minus n plus b lambda",
+      "avg_logprob": -0.1436789778145877
+    },
+    {
+      "start": 11899.73,
+      "end": 11928.62,
+      "text": "and lambda a plus some xi minus one. That's what we showed. And from it, we can say like, oh, it's very similar to gamma distribution, which is some b and lambda a n minus one, where a n is this one, b n is this one. But in gamma distribution, we also have some constant multiplier.",
+      "avg_logprob": -0.131835941846172
+    },
+    {
+      "start": 11928.62,
+      "end": 11958.45,
+      "text": "b and a n divided by gamma function on a n. Why we still can say that from it, we see that probability is exactly the gamma distribution. That's because when we know that integral of this one is one, so integral of this one, yeah, because integral of density of some distribution.",
+      "avg_logprob": -0.17704133400993963
+    },
+    {
+      "start": 11958.45,
+      "end": 11991.25,
+      "text": "is one, you know, so integral of the x is one always. So we can compute that the denominator integral of this is exactly the inverse constant. So our real distribution just multiplied on this constant. And that's why it's like a trick how to easily compute real distribution with Bau's method. Just ignore the denominator, use this proportion.",
+      "avg_logprob": -0.2576013388665947
+    },
+    {
+      "start": 11991.25,
+      "end": 12027.5,
+      "text": "and compute everything that depends on lambda. Then find the distribution that has similar lambda theme and just add the constant and say that the distribution is the same. And we can solve it strictly. It's just like method how to avoid too much computation. I'm sorry, maybe it's not very clear. Maybe do you have any questions? It just needed time to understand. Okay, I see.",
+      "avg_logprob": -0.18547453998047628
+    }
+  ]
+}
