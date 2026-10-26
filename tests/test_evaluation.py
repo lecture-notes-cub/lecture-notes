@@ -3,6 +3,7 @@ import json
 import pytest
 
 from lecture_notes.evaluation import evaluate
+from lecture_notes.model import ModelError
 from lecture_notes.transcript import fingerprint
 from test_agent import ScriptedModel, action
 
@@ -55,3 +56,14 @@ def test_partial_resume_preserves_abandoned_trace(tmp_path, monkeypatch):
     saved = output / "interrupted" / "agent" / partial.name
     assert '"interrupted":true' in saved.read_text()
     assert (output / "summary.json").exists()
+
+
+def test_resume_accepts_failed_tasks_without_judge_output(tmp_path, monkeypatch):
+    monkeypatch.setattr("lecture_notes.evaluation.subprocess.check_output", lambda *a, **kw: "Test GPU")
+    sample = make_sample(tmp_path)
+    output = tmp_path / "results"
+    model = ScriptedModel([ModelError("offline"), ModelError("offline"), ModelError("offline")])
+    evaluate(sample, output, model, judge=True)
+    summary = evaluate(sample, output, ScriptedModel([]), judge=True, resume=True)
+    assert summary["agent"]["finished"] == 0
+    assert summary["agent"]["judged_tasks"] == 0

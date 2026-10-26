@@ -1,5 +1,6 @@
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -62,7 +63,7 @@ def main():
         else:
             from .evaluation import evaluate
             evaluate(args.sample, args.output, Ollama(args.model), args.limit, args.judge, args.resume)
-    except (ValueError, OSError, RuntimeError) as exc:
+    except (ValueError, OSError, RuntimeError, ImportError, subprocess.SubprocessError) as exc:
         parser.exit(1, f"Error: {exc}\n")
 
 

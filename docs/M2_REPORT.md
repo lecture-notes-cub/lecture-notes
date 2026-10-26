@@ -33,9 +33,10 @@ not a minimum hardware requirement; frozen-transcript runs can use CPU Ollama.
 ## Reproduction
 
 Exact installation/run commands are in [README.md](../README.md). A clean,
-isolated environment was created from `uv.lock`; 18 tests passed and the CLI
+isolated environment was created from `uv.lock`; 20 tests passed and the CLI
 entry point worked. A real 147-second media interval was transcribed on CPU
 and converted to notes with the local Qwen loop, not a mock.
+Its [source, ASR trace, agent trace and notes](../examples/media-smoke/) are preserved.
 
 The full recording was transcribed in 89.88 seconds with cached model weights
 on this A100, including extraction. Initial model/runtime downloads and failed
@@ -92,6 +93,30 @@ latencies are first operational measurements, not isolated hardware benchmarks.
 
 Measured summary and interpretation are finalized after all 20 paired runs.
 Raw artifacts are in [eval/results](../eval/results).
+
+### Judge audit: high scores are not proof
+
+The judge repeats t01's misplaced definition timestamp and marks t03's unsupported
+variance/decomposition link as supported. In t04 it even accepts a confusion
+between integrating `P(y|x)` over `y` and integrating `P(x|y)` over `y`.
+These are concrete false-positive/attribution problems in the evaluator itself,
+not just hypothetical uncertainty. Inspect the separate judge traces and source;
+do not read a high mean faithfulness proxy as an independently verified precision.
+
+For a small independent arithmetic check of the supplied reference assumptions:
+
+| Worked example | Recomputed posterior |
+|---|---:|
+| Alarm; burglary prior 0.0002, earthquake prior 0.01, false-alarm rate 0.1 | 0.166694 (about 17%) |
+| Same alarm model, burglary prior 0.002 | 0.667111 (about 67%) |
+| Alarm plus radio announcement of earthquake, burglary prior 0.002 | 0.019646 (about 2%) |
+| Disease prior 0.0001, sensitivity/specificity both 0.99, positive test | 0.009804 (about 1%) |
+
+These checks do not resolve every corrupted ASR number, certify the model's
+assumptions, or constitute a full independent annotation audit. In particular,
+the ASR's “70%” near the initial alarm posterior conflicts with its nearby “17%”
+and the conspect calculation. Treat that passage as uncertain, not as a reliable
+number to copy merely because a source-grounding judge accepts it.
 
 ## Three annotated failures
 

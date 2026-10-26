@@ -1,0 +1,39 @@
+{
+  "source": "/tmp/opencode/lecture-XwR767IfQHI.webm",
+  "asr": {
+    "model": "small.en",
+    "device": "cpu",
+    "language": "en",
+    "compute_type": "int8",
+    "batch_size": 4,
+    "beam_size": 5,
+    "vad_filter": true,
+    "condition_on_previous_text": false
+  },
+  "segments": [
+    {
+      "start": 184.35,
+      "end": 215.39,
+      "text": "of our basic probabilistic knowledge that you should probably know, but just to ensure that we're all in the same way. So we start from the key notion that we will analyze within the whole course, that is conditional probability or conditional distribution. So suppose that we are given two random variables, x and y. So let's suppose that they are continuous, does it actually matter?",
+      "avg_logprob": -0.1434457388859761
+    },
+    {
+      "start": 215.39,
+      "end": 252.97,
+      "text": "the samples through proper discrete random variables as well. And the conditional distribution on X given Y by definition is simply the ratio of joint distribution over the distribution of a condition. Or in conceptual terms, it can be written as conditional equals joint over marginal. So definition is very simple. What is the intuition behind this definition?",
+      "avg_logprob": -0.20185180077185996
+    },
+    {
+      "start": 253.04,
+      "end": 301.69,
+      "text": "It shows how the distribution of X changes when we observe Y. And of course, let's assume that X and Y are somehow interrelated. In particular, if we assume that X and Y are completely independent of one another, we immediately get subways from X, Y independent. How do you think, what will we get? What could be the conditional distribution of X given Y in this case? Well, independence means that the joint distribution",
+      "avg_logprob": -0.14280762457185323
+    },
+    {
+      "start": 301.69,
+      "end": 331.6,
+      "text": "P of x, y can be decomposed as a product. P of x times P of y. And if we divide it over P of y, we get P of x. In other words, this means that y contains no information about x. And this is pretty obvious since they're independent. So in the opposite case, when x and y are dependent, then the observation of y somehow changes the distribution of x. And in particular, it can be shown, and this is",
+      "avg_logprob": -0.09650434312796352
+    }
+  ]
+}

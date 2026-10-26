@@ -86,6 +86,8 @@ ollama serve
 
 Leave the server running; in a **second terminal**, from this repository:
 
+(If Ollama is already running, skip `ollama serve`.)
+
 ```bash
 ollama pull qwen3:4b
 uv run lecture-notes --help

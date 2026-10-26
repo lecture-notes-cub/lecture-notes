@@ -106,7 +106,8 @@ def evaluate(sample, output, model, limit=None, judge=False, resume=False):
             first = json.loads(trace_path.read_text().splitlines()[0])
             expected = {"model": model.model, "task": task["task"], "start": task["start"],
                         "end": task["end"], "transcript_sha256": spec["transcript_sha256"], "mode": result["mode"]}
-            if any(first.get(k) != v for k, v in expected.items()) or (judge != ("judge" in result)):
+            expected_judge = judge and result.get("has_draft", False)
+            if any(first.get(k) != v for k, v in expected.items()) or (expected_judge != ("judge" in result)):
                 raise ValueError("Saved trace does not match resumed configuration.")
     else:
         output.mkdir(parents=True, exist_ok=False)
