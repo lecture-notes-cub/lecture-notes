@@ -10,14 +10,16 @@ The agent transcribes video and audio recordings into notes with optional additi
 
 # M2 MVP: running it
 
-# Video showcase
-
-https://drive.google.com/file/d/1_r11P9_SnXLTjgA6NUg0V-pKBpXZL1Gr/view?usp=sharing
-
 This implementation follows the proposal above with a deliberately smaller scope.
 **All model inference is local.** The model chooses its next tool and arguments,
 can return to transcript passages, saves/revises notes, and chooses `finish`.
 Code bounds execution and validates tools; it does not prescribe their order.
+
+## Video showcase
+
+https://drive.google.com/file/d/1_r11P9_SnXLTjgA6NUg0V-pKBpXZL1Gr/view?usp=sharing
+
+
 
 ## Quick start (frozen lecture tasks, no audio setup required)
 
