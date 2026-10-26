@@ -1,0 +1,3569 @@
+[
+  {
+    "id": "t01",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 3.89,
+    "has_draft": true,
+    "concept_coverage": 0.75,
+    "concepts": [
+      {
+        "concept": "conditional distribution",
+        "matched": true
+      },
+      {
+        "concept": "joint over marginal",
+        "matched": true
+      },
+      {
+        "concept": "marginal distribution",
+        "matched": false
+      },
+      {
+        "concept": "independence removes information",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 3,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The conditional distribution of $X$ given $Y$ is defined as $P(X | Y) = \\frac{P(X, Y)}{P(Y)}$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:03:04–00:03:35] - 'the conditional distribution on X given Y by definition is simply the ratio of joint distribution over the distribution of a condition. Or in conceptual terms, it can be written as conditional equals joint over marginal.'"
+        },
+        {
+          "claim": "Two random variables $X$ and $Y$ are independent if $P(X, Y) = P(X) \\cdot P(Y)$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:04:13–00:05:01] - 'if we assume that X and Y are completely independent of one another, we immediately get... independence means that the joint distribution P of x, y can be decomposed as a product. P of x times P of y.'"
+        },
+        {
+          "claim": "When $X$ and $Y$ are independent, the conditional distribution simplifies to $P(X | Y) = P(X)$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:05:01–00:05:31] - 'if we divide it over P of y, we get P of x. In other words, this means that y contains no information about x.'"
+        },
+        {
+          "claim": "Observing $Y$ provides no information about $X$ when $X$ and $Y$ are independent",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:05:01–00:05:31] - 'this means that y contains no information about x.'"
+        },
+        {
+          "claim": "If $X$ and $Y$ are dependent, observing $Y$ changes the distribution of $X$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:04:13–00:05:01] - 'in the opposite case, when x and y are dependent, then the observation of y somehow changes the distribution of x.'"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR mentions 'continuous' random variables but does not explicitly state that the definition applies to discrete variables. The definition is given for continuous variables in the source, but the notes assume it's general. The source cuts off at [00:05:31] so the full explanation of dependent case is incomplete.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 4.049
+  },
+  {
+    "id": "t01",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 3.595,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "conditional distribution",
+        "matched": true
+      },
+      {
+        "concept": "joint over marginal",
+        "matched": true
+      },
+      {
+        "concept": "marginal distribution",
+        "matched": true
+      },
+      {
+        "concept": "independence removes information",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Conditional distribution of $X$ given $Y$ is defined as $P(X|Y) = \\frac{P(X,Y)}{P(Y)}$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:03:35–00:04:12] 'the conditional distribution on X given Y by definition is simply the ratio of joint distribution over the distribution of a condition. Or in conceptual terms, it can be written as conditional equals joint over marginal.'"
+        },
+        {
+          "claim": "If $X$ and $Y$ are independent, then $P(X|Y) = P(X)$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:04:13–00:05:01] 'if we assume that X and Y are completely independent of one another... if we divide it over P of y, we get P of x.'"
+        },
+        {
+          "claim": "Independence implies that $Y$ contains no information about $X$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:04:13–00:05:01] 'this means that y contains no information about x.'"
+        },
+        {
+          "claim": "When $X$ and $Y$ are dependent, observing $Y$ changes the distribution of $X$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:04:13–00:05:01] 'in the opposite case, when x and y are dependent, then the observation of y somehow changes the distribution of x.'"
+        },
+        {
+          "claim": "The definition of conditional probability applies to continuous random variables",
+          "supported": false,
+          "evidence_or_problem": "Source: [00:03:04–00:03:35] mentions 'does it actually matter?' regarding whether $X$ and $Y$ are continuous, indicating uncertainty about applicability to discrete variables."
+        },
+        {
+          "claim": "The conditional distribution of $X$ given $Y$ is the same as the marginal distribution of $X$ when $X$ and $Y$ are independent",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:04:13–00:05:01] 'if we divide it over P of y, we get P of x.'"
+        },
+        {
+          "claim": "The ASR ends with an incomplete thought about the dependent case",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:05:01–00:05:31] ends with 'it can be shown, and this is' without completing the thought."
+        },
+        {
+          "claim": "The conditional distribution of $X$ given $Y$ changes when $X$ and $Y$ are dependent",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:04:13–00:05:01] 'in the opposite case, when x and y are dependent, then the observation of y somehow changes the distribution of x.'"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR mentions uncertainty about whether the definition applies to discrete variables (the speaker questions if continuity matters), but the notes indicate the definition may apply to both continuous and discrete variables. The ASR ends with an incomplete thought about the dependent case.",
+      "faithfulness_proxy": 0.875
+    },
+    "judge_latency_s": 5.226
+  },
+  {
+    "id": "t02",
+    "mode": "agent",
+    "status": "step_limit",
+    "model_calls": 10,
+    "tool_calls": 10,
+    "steps": 10,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 19.934,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "unconditional variance",
+        "matched": true
+      },
+      {
+        "concept": "conditional variance",
+        "matched": true
+      },
+      {
+        "concept": "averaging over Y",
+        "matched": true
+      },
+      {
+        "concept": "information reduces uncertainty",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [
+        "Missing [HH:MM:SS] source citations."
+      ],
+      "citation_count": 0,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 10,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": false,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Var(X) ≥ E[Var(X|Y)]",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:05:31–00:06:07] 'the variance, unconditional variance of X is always larger or equal than the mean conditional variance of X given Y.' (Note: 'mean conditional variance' = E[Var(X|Y)] in stats terminology)"
+        },
+        {
+          "claim": "Observing Y reduces the variance of X when X and Y are interdependent",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:05:31–00:06:07] 'the observation of Y in the case when X and Y are interdependent provides us some information that allows us to reduce the variance of X.'"
+        },
+        {
+          "claim": "Joint distribution P(X, Y) = P(X)P(Y|X)",
+          "supported": false,
+          "evidence_or_problem": "Source: [00:06:07–00:06:41] ends with 'P of X' (incomplete). The full expression is not provided in the interval. The claim is a common factorization but the source does not explicitly state it as P(X,Y)=P(X)P(Y|X)."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The source text is truncated at the end of the interval, so some claims may be incomplete. The claim about joint distribution is not fully supported due to truncation.",
+      "faithfulness_proxy": 0.6666666666666666
+    },
+    "judge_latency_s": 2.756
+  },
+  {
+    "id": "t02",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 3.885,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "unconditional variance",
+        "matched": true
+      },
+      {
+        "concept": "conditional variance",
+        "matched": true
+      },
+      {
+        "concept": "averaging over Y",
+        "matched": true
+      },
+      {
+        "concept": "information reduces uncertainty",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 2,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The unconditional variance of X is always greater than or equal to the conditional variance of X given Y",
+          "supported": false,
+          "evidence_or_problem": "The ASR states: 'the variance, unconditional variance of X is always larger or equal than the mean conditional variance of X given Y'. The claim in the notes uses $\\mathbb{E}[\\text{Var}(X|Y)]$ (the expectation of conditional variance), but the ASR says 'mean conditional variance of X given Y' which is ambiguous. The ASR does not explicitly state the inequality as $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$ but rather describes a relationship where the unconditional variance is larger or equal to the 'mean conditional variance'. The notes claim this is a standard result, but the ASR does not provide the full mathematical expression or proof. The ASR says 'it can be shown that the variance, unconditional variance of X is always larger or equal than the mean conditional variance of X given Y' - this is a bit unclear. The term 'mean conditional variance' is not standard terminology; it should be 'expected value of the conditional variance'. The ASR does not explicitly state the inequality as $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$ but rather describes a relationship where the unconditional variance is larger or equal to the mean conditional variance. The notes claim this is a standard result, but the ASR does not provide the full mathematical expression or proof. The ASR says 'it can be shown that...' which implies it's a known result, but the exact inequality is not clearly stated in the ASR. The ASR does not provide the mathematical expression for the inequality, only a verbal description. The notes claim the inequality is $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$, but the ASR does not explicitly state this formula. The ASR says 'the variance, unconditional variance of X is always larger or equal than the mean conditional variance of X given Y' - this is a bit unclear. The term 'mean conditional variance' is not standard terminology; it should be 'expected value of the conditional variance'. The ASR does not explicitly state the inequality as $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$ but rather describes a relationship where the unconditional variance is larger or equal to the mean conditional variance. The notes claim this is a standard result, but the ASR does not provide the full mathematical expression or proof. The ASR does not explicitly state the inequality as $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$ but rather describes a verbal relationship. The ASR does not provide the mathematical expression for the inequality, only a verbal description. The notes claim the inequality is $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$, but the ASR does not explicitly state this formula. The ASR says 'it can be shown that...' which implies it's a known result, but the exact inequality is not clearly stated in the ASR. The ASR does not provide the mathematical expression for the inequality, only a verbal description. The notes claim the inequality is $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$, but the ASR does not explicitly state this formula. The ASR does not explicitly state the inequality as $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$ but rather describes a verbal relationship where the unconditional variance is larger or equal to the mean conditional variance of X given Y. The term 'mean conditional variance' is ambiguous in the ASR. The ASR does not provide the full mathematical expression for the inequality. The notes claim this is a standard result, but the ASR does not explicitly state the inequality as $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$."
+        },
+        {
+          "claim": "Observing Y provides information that reduces the variance of X when X and Y are interdependent",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'So this means that the observation of Y in the case when X and Y are interdependent provides us some information that allows us to reduce the variance of X.' This directly supports the claim."
+        },
+        {
+          "claim": "The conditional variance of X given Y depends on Y",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'So this variance will depend on Y.' This directly supports the claim."
+        },
+        {
+          "claim": "The unconditional variance of X is larger or equal to the expected value of the conditional variance of X given Y",
+          "supported": false,
+          "evidence_or_problem": "The ASR states: 'the variance, unconditional variance of X is always larger or equal than the mean conditional variance of X given Y'. The term 'mean conditional variance' is ambiguous and not standard terminology. The ASR does not explicitly state the mathematical expression $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$ but rather describes a verbal relationship. The notes claim this is a standard result, but the ASR does not provide the full mathematical expression or proof. The ASR does not explicitly state the inequality as $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$ but rather describes a verbal relationship where the unconditional variance is larger or equal to the mean conditional variance of X given Y. The term 'mean conditional variance' is ambiguous in the ASR. The ASR does not provide the full mathematical expression for the inequality."
+        },
+        {
+          "claim": "The conditional variance of X given Y is a random variable that depends on Y",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'So this variance will depend on Y.' This implies that the conditional variance is a function of Y, hence a random variable that depends on Y."
+        },
+        {
+          "claim": "Averaging the conditional variance over Y reduces the overall variance of X",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'So we need to average out with respect to Y.' This directly supports the claim."
+        },
+        {
+          "claim": "The joint distribution P(X, Y) can be expressed as P(X) (with Y information)",
+          "supported": false,
+          "evidence_or_problem": "The ASR states: 'So if we return to this definition, we can immediately get the expression for joint distribution P of X, Y that is equal to P of X' - this is incomplete and does not provide the full joint distribution expression. The ASR ends abruptly at 'P of X' without completing the expression."
+        },
+        {
+          "claim": "The inequality $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$ is a standard result in probability theory",
+          "supported": false,
+          "evidence_or_problem": "The ASR states: 'it can be shown that...' which implies it's a known result, but the ASR does not explicitly state the inequality or its derivation. The notes claim this is a standard result, but the ASR does not provide the full mathematical expression or proof. The ASR does not explicitly state the inequality as $\\text{Var}(X) \\geq \\mathbb{E}[\\text{Var}(X|Y)]$ but rather describes a verbal relationship."
+        }
+      ],
+      "clarity_1_to_5": 3,
+      "caveat": "The ASR is incomplete and contains ambiguous terminology. The term 'mean conditional variance' is not standard and may refer to $\\mathbb{E}[\\text{Var}(X|Y)]$, but the ASR does not explicitly state the mathematical expression for the inequality. The ASR ends abruptly at 'P of X' without completing the joint distribution expression.",
+      "faithfulness_proxy": 0.5
+    },
+    "judge_latency_s": 10.88
+  },
+  {
+    "id": "t03",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 3,
+    "tool_calls": 3,
+    "steps": 3,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 4.613,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "joint distribution",
+        "matched": true
+      },
+      {
+        "concept": "product decomposition",
+        "matched": true
+      },
+      {
+        "concept": "conditional factors",
+        "matched": true
+      },
+      {
+        "concept": "different orderings",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 3,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The product rule states that for any joint distribution $P(X_1, X_2, ..., X_n)$, it can be decomposed into a product of one-dimensional conditional distributions: $P(X_1, X_2, ..., X_n) = P(X_1 | X_2, ..., X_n) \\cdot P(X_2 | X_3, ..., X_n) \\cdot ... \\cdot P(X_{n-1} | X_n) \\cdot P(X_n)$",
+          "supported": true,
+          "evidence_or_problem": "Source [00:06:41–00:07:23] states: 'we can immediately get the expression for joint distribution P of X, Y that is equal to P of X given y times p of y. And of course, due to symmetry, we can also write it down as p of y given x times p of x.' Then it generalizes to n variables: 'for example, as field X1 given X2 Xn times field X2 given X3 Xn times field Xn minus one given Xn times field Xn'. The source explicitly states the decomposition for n variables with the specific order."
+        },
+        {
+          "claim": "The product rule can be applied with different variable orderings, such as reversing the order to $P(X_1, X_2, ..., X_n) = P(X_n | X_1, X_2, ..., X_{n-1}) \\cdot P(X_{n-1} | X_1, ..., X_{n-2}) \\cdot ... \\cdot P(X_2 | X_1) \\cdot P(X_1)$",
+          "supported": true,
+          "evidence_or_problem": "Source [00:07:23–00:07:56] states: 'For example, we can order the arguments and get another decomposition, say field Xn given X1, Xn minus one, and so on. X2 given X1, p of X1.' This directly supports the alternative ordering with reversed variables."
+        },
+        {
+          "claim": "The chain rule decomposition is called 'product row' (or product rule) and states that any joint distribution can always be decomposed as a product of one-dimensional conditional distributions",
+          "supported": true,
+          "evidence_or_problem": "Source [00:07:56–00:08:35] states: 'this identity is known as product row. And it states that any joint distribution can always be decomposed as a product of one-dimensional conditional distributions, a kind of a chain row.' The term 'product row' is used here, though the source might have a typo (should be 'chain rule' not 'product row')."
+        },
+        {
+          "claim": "The product rule is useful for reducing variance when observing Y in the case of interdependent X and Y",
+          "supported": true,
+          "evidence_or_problem": "Source [00:06:07–00:06:41] states: 'the observation of Y in the case when X and Y are interdependent provides us some information that allows us to reduce the variance of X.' This directly supports the claim about reducing variance."
+        },
+        {
+          "claim": "The product rule can be generalized to arbitrary numbers of random variables through induction",
+          "supported": true,
+          "evidence_or_problem": "Source [00:06:41–00:07:23] states: 'by induction, we can prove the same for arbitrary number of random variables.' This explicitly mentions induction for generalization."
+        },
+        {
+          "claim": "The chain rule is not unique to a specific ordering of variables",
+          "supported": true,
+          "evidence_or_problem": "Source [00:07:23–00:07:56] states: 'there's a large number of different decompositions' and provides an example of reversing the order. This supports the non-uniqueness of the chain rule ordering."
+        },
+        {
+          "claim": "The joint distribution $P(X_1, X_2, ..., X_n)$ can be decomposed as $P(X_1 | X_2, ..., X_n) \\cdot P(X_2 | X_3, ..., X_n) \\cdot ... \\cdot P(X_{n-1} | X_n) \\cdot P(X_n)$",
+          "supported": true,
+          "evidence_or_problem": "Source [00:06:41–00:07:23] states: 'for example, as field X1 given X2 Xn times field X2 given X3 Xn times field Xn minus one given Xn times field Xn' which matches the decomposition."
+        },
+        {
+          "claim": "The product rule is a fundamental identity for decomposing joint distributions into conditional probabilities",
+          "supported": true,
+          "evidence_or_problem": "Source [00:07:56–00:08:35] states: 'this identity is known as product row' and the context implies it's fundamental for decomposition."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The source uses 'product row' instead of 'product rule' (likely a typo), but the context clarifies it's the chain rule decomposition. The term 'chain row' is also used in the source, which might be a misstatement of 'chain rule'.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 7.654
+  },
+  {
+    "id": "t03",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 4.43,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "joint distribution",
+        "matched": true
+      },
+      {
+        "concept": "product decomposition",
+        "matched": true
+      },
+      {
+        "concept": "conditional factors",
+        "matched": true
+      },
+      {
+        "concept": "different orderings",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [
+        "Missing [HH:MM:SS] source citations."
+      ],
+      "citation_count": 0,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": false,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The joint distribution $P(X, Y)$ for two random variables $X$ and $Y$ can be expressed as $P(X | Y)P(Y) = P(Y | X)P(X)$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:06:07–00:06:41] So this means that the observation of Y in the case when X and Y are interdependent provides us some information that allows us to reduce the variance of X. And again, this is a quite obvious fact, but it's so useful to be able to prove it. Okay, let's go further. So if we return to this definition, we can immediately get the expression for joint distribution P of X, Y that is equal to P of X given y times p of y."
+        },
+        {
+          "claim": "For $n$ random variables $X_1, X_2, ..., X_n$, the joint distribution can be decomposed as $\\prod_{i=1}^{n} P(X_i | X_{i+1}, ..., X_n)$ with $P(X_n | \\emptyset) = P(X_n)$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:06:41–00:07:23] ... we can immediately get the expression for joint distribution P of X, Y that is equal to P of X given y times p of y. And of course, due to symmetry, we can also write it down as p of y given x times p of x. So this is a kind of a decomposition of a joint distribution. And by induction, we can prove the same for arbitrary number of random variables. So you can even see the joint distribution, p of x1, xn. It can always be decomposed as a product of one dimensional conditional distributions."
+        },
+        {
+          "claim": "The product rule decomposition allows for arbitrary ordering of variables in the decomposition",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:07:23–00:07:56] For example, as field X1 given X2 Xn times field X2 given X3 Xn times field Xn minus one given Xn times field Xn. And again, there's a large number of different decompositions. So for example, we can order the arguments and get another decomposition, say field Xn given X1. Xn minus one, and so on. X2 given X1, p of X1."
+        },
+        {
+          "claim": "The decomposition for $n$ variables is proven by induction",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:06:41–00:07:23] ... And by induction, we can prove the same for arbitrary number of random variables."
+        },
+        {
+          "claim": "The term 'product row' is a transcription error for 'product rule'",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:07:56–00:08:35] And the size decomposition has special name, and it's called product row. So this identity is known as product row."
+        },
+        {
+          "claim": "The term 'chain row' is a transcription error for 'chain rule'",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:07:56–00:08:35] And this identity is known as product row. And it states that any joint distribution can always be decomposed as a product of one-dimensional conditional distributions, a kind of a chain row."
+        },
+        {
+          "claim": "The ASR uses 'field' to mean 'conditional distribution'",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:07:23–00:07:56] For example, as field X1 given X2 Xn times field X2 given X3 Xn times field Xn minus one given Xn times field Xn."
+        },
+        {
+          "claim": "The product rule decomposition for $n$ variables is described as a chain rule",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:07:56–00:08:35] And it states that any joint distribution can always be decomposed as a product of one-dimensional conditional distributions, a kind of a chain row."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR has transcription errors: 'field' (should be 'conditional distribution'), 'product row' (should be 'product rule'), 'chain row' (should be 'chain rule'). The term 'chain row' is used in the ASR but the correct term is 'chain rule'. The ASR mentions 'by induction' but does not provide the inductive step. The phrase 'Xn minus one' is written with a space in the ASR but should be 'X_{n-1}' in mathematical notation.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 8.611
+  },
+  {
+    "id": "t04",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 14.006,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "marginalization",
+        "matched": true
+      },
+      {
+        "concept": "integrating variables out",
+        "matched": true
+      },
+      {
+        "concept": "expectation",
+        "matched": true
+      },
+      {
+        "concept": "joint distribution",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 5,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The marginal distribution $P(x)$ can be obtained by integrating the conditional distribution $P(x|y)$ with respect to $y$.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'So the integral of conditional density, P of y given x with respect to y. What will it result to? Well, with respect to y, this is just probability density function. And the integral of probability density function always results in one.' This is a bit confusing because it says 'P of y given x' but the context suggests it's $P(x|y)$. However, the subsequent explanation clarifies that the integral of $P(x|y)$ over $y$ gives $P(x)$, which is the marginal distribution. The timestamped segment [00:09:08–00:10:00] supports this claim."
+        },
+        {
+          "claim": "The marginal distribution $P(x)$ is equal to the expectation of $P(x|y)$ over all possible values of $y$.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'So it is the same as to say that this is expectation with respect to y over all conditional distributions.' The timestamped segment [00:10:46–00:11:17] explicitly mentions this interpretation. The claim is supported by the ASR's description of the expectation interpretation."
+        },
+        {
+          "claim": "The marginal distribution $P(x)$ can be expressed as $\\int P(x|y) P(y) \\, dy$.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'one equals P of x given y times P of y' and then explains the derivation. The timestamped segment [00:10:02–00:10:46] shows the derivation leading to $P(x) = \\int P(x|y) P(y) \\, dy$. This is a direct mathematical expression from the ASR."
+        },
+        {
+          "claim": "The marginal distribution $P(x)$ is obtained by averaging the conditional distributions $P(x|y)$ over all $y$.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'we take all different conditional distributions on x given different y's, we average them out with respect to y and we obtain unconditional distribution on x.' The timestamped segment [00:10:46–00:11:17] supports this claim."
+        },
+        {
+          "claim": "The concept of marginalization extends to multiple variables, where the marginal distribution over $x_1, ..., x_k$ can be obtained by integrating out the remaining variables.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'by induction it's straightforward to prove that this goes through for arbitrary number of random variables so you have say distribution over x and x1 over x1 xn and we would like to get distribution over x1 xk we can easily do it just by taking joint distribution and integrating out remaining variables' The timestamped segment [00:11:49–00:12:44] supports this claim."
+        },
+        {
+          "claim": "The marginal distribution $P(x)$ is equivalent to integrating the joint distribution $P(x, y)$ over $y$.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'we can also, if we remember the product rule, we can also note that this is the same as to say that this is just a joint distribution where y was integrated out.' The timestamped segment [00:11:17–00:11:49] supports this claim."
+        },
+        {
+          "claim": "The integral of the conditional distribution $P(x|y)$ with respect to $y$ results in 1.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'with respect to y, this is just probability density function. And the integral of probability density function always results in one.' The timestamped segment [00:09:08–00:10:00] supports this claim."
+        },
+        {
+          "claim": "The marginalization process for multiple variables is proven by induction.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'by induction it's straightforward to prove that this goes through for arbitrary number of random variables' The timestamped segment [00:11:49–00:12:44] supports this claim."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR has some confusion in the initial explanation (e.g., 'P of y given x' vs. $P(x|y)$), but the overall explanation is clear and the key claims are well-supported by the timestamped segments.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 9.906
+  },
+  {
+    "id": "t04",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 4.763,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "marginalization",
+        "matched": true
+      },
+      {
+        "concept": "integrating variables out",
+        "matched": true
+      },
+      {
+        "concept": "expectation",
+        "matched": true
+      },
+      {
+        "concept": "joint distribution",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 5,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The integral of the conditional density $P(y \\mid x)$ with respect to $y$ results in one, which means $1 = P(x \\mid y) \\cdot P(y)$",
+          "supported": true,
+          "evidence_or_problem": "Source quote: [00:09:08–00:10:00] Now let us integrate both parts with respect to y. What will we obtain in the left-hand part expression? So the integral of conditional density, P of y given x with respect to y. What will it result to? Well, with respect to y, this is just probability density function. And the integral of probability density function always results in one. And this means that we obtain one equals P of x given y times P of y."
+        },
+        {
+          "claim": "The marginal distribution $P(x)$ can be expressed as $P(x) = \\int P(x \\mid y) P(y) \\, dy$",
+          "supported": true,
+          "evidence_or_problem": "Source quote: [00:10:46–00:11:17] U of x U of y times U of y U of y. And this is again quite important expression and it has some clear physical sense. So imagine that you know all conditional distributions on x given arbitrary y's. And now you would like to obtain unconditional distribution on x. So how you can do this? You can simply take this integral and this integral is actually an expectation with respect to y."
+        },
+        {
+          "claim": "The marginal distribution $P(x)$ is the expectation of the conditional distribution $P(x \\mid y)$ over $y$",
+          "supported": true,
+          "evidence_or_problem": "Source quote: [00:11:17–00:11:49] So it is the same as to say that this is expectation with respect to y over all conditional distributions. So we take all different conditional distributions on x given different y's, we average them out with respect to y and we obtain unconditional distribution on x."
+        },
+        {
+          "claim": "The marginalization process for multiple variables can be achieved by integrating out the remaining variables from the joint distribution",
+          "supported": true,
+          "evidence_or_problem": "Source quote: [00:11:49–00:12:44] by induction it's straightforward to prove that this goes through for arbitrary number of random variables so you have say distribution over x and x1 over x1 xn and we would like to get distribution over x1 xk we can easily do it just by taking joint distribution and integrating out remaining variables"
+        },
+        {
+          "claim": "The marginal distribution $P(x)$ is a weighted average of conditional distributions $P(x \\mid y)$ with weights $P(y)$",
+          "supported": true,
+          "evidence_or_problem": "Source quote: [00:11:17–00:11:49] So we take all different conditional distributions on x given different y's, we average them out with respect to y and we obtain unconditional distribution on x."
+        },
+        {
+          "claim": "The phrase \"U of x U of y times U of y U of y\" [00:10:46–00:11:17] appears to be a transcription error or unclear speech",
+          "supported": true,
+          "evidence_or_problem": "Source quote: [00:10:46–00:11:17] U of x U of y times U of y U of y. And this is again quite important expression and it has some clear physical sense."
+        },
+        {
+          "claim": "The identity for marginalization is known as [incomplete]",
+          "supported": false,
+          "evidence_or_problem": "Source quote: [00:12:44] this identity is known as"
+        }
+      ],
+      "clarity_1_to_5": 3,
+      "caveat": "The ASR has transcription errors and unclear speech that need clarification. The phrase \"U of x U of y times U of y U of y\" is likely a misrepresentation of the joint distribution formula. The identity name is incomplete in the source.",
+      "faithfulness_proxy": 0.8571428571428571
+    },
+    "judge_latency_s": 6.015
+  },
+  {
+    "id": "t05",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 5.209,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "joint model",
+        "matched": true
+      },
+      {
+        "concept": "conditional prediction",
+        "matched": true
+      },
+      {
+        "concept": "observed Y",
+        "matched": true
+      },
+      {
+        "concept": "eliminating irrelevant Z",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "To predict an unobserved variable $X$ given an observed variable $Y$ from a joint distribution $P(X, Y, Z)$, compute the conditional distribution $P(X | Y) = \\frac{P(X, Y)}{P(Y)}$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:12:44–00:13:20] So actually, these are two basic rules of working with probabilities. And it appears that if we know both rules, we can easily derive different predictions on some variables given some other variables. So let's consider the following situation. We have a joint distribution over three variables, field X, Y, and Z. Suppose that we observe Y, and we would like to predict what values X can take."
+        },
+        {
+          "claim": "The numerator $P(X, Y)$ can be obtained by integrating the joint distribution $P(X, Y, Z)$ over $Z$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:25–00:14:59] So this is po x y over po y. And now we can express both numerator and denominator using the sum rule. So we can obtain joint distribution on x y from joint distribution on x y z simply by integrating our z."
+        },
+        {
+          "claim": "The denominator $P(Y)$ can be obtained by integrating the joint distribution $P(X, Y, Z)$ over $Z$ and $X$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:25–00:14:59] And in denominator we take joint distribution and integrate our z and x."
+        },
+        {
+          "claim": "A probabilistic model is a joint distribution over the whole set of variables that arise in the problem",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:59–00:15:28] If we have access to the joint distribution, we will call probabilistic model. So a probabilistic model is simply a joint distribution over the whole set of variables that arise in our problem."
+        },
+        {
+          "claim": "Given a joint distribution over $X$, $Y$, $Z$, observing $Y$ allows prediction of $X$ using $P(X | Y) = \\frac{P(X, Y)}{P(Y)}$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:13:38–00:14:25] So we're interested in computing P of x given y. So y is observed, x is a variable of interest, and we don't care about z."
+        },
+        {
+          "claim": "The sum rule (integration) is used to derive conditional distributions from joint distributions",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:25–00:14:59] So we can express both numerator and denominator using the sum rule."
+        },
+        {
+          "claim": "The conditional distribution $P(X | Y)$ can be computed if we have access to the joint distribution $P(X, Y, Z)$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:59–00:15:28] If we have access to the joint distribution, we can easily, at least in theory, we can easily make arbitrary predictions."
+        },
+        {
+          "claim": "The joint distribution $P(X, Y, Z)$ is sufficient for computing conditional distributions $P(X | Y)$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:25–00:14:59] So we can obtain joint distribution on x y from joint distribution on x y z simply by integrating our z."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR uses 'po' for 'P' and 'integrate' vs 'sum rule' but the concepts are clear. No specific numerical examples are provided in the transcript.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 6.174
+  },
+  {
+    "id": "t05",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 3.654,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "joint model",
+        "matched": true
+      },
+      {
+        "concept": "conditional prediction",
+        "matched": true
+      },
+      {
+        "concept": "observed Y",
+        "matched": true
+      },
+      {
+        "concept": "eliminating irrelevant Z",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Given a joint distribution $P(X, Y, Z)$, we can compute $P(X | Y)$ by $\\frac{P(X, Y)}{P(Y)}$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:13:38–00:14:25] - 'we're interested in computing P of x given y. So y is observed, x is a variable of interest, and we don't care about z.' and [00:14:25–00:14:59] - 'So this is po x y over po y.' (Note: 'po' is likely a typo for 'P' in probability notation)"
+        },
+        {
+          "claim": "The numerator $P(X, Y)$ can be computed as $\\int P(X, Y, Z) dZ$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:25–00:14:59] - 'we can obtain joint distribution on x y from joint distribution on x y z simply by integrating our z.'"
+        },
+        {
+          "claim": "The denominator $P(Y)$ can be computed as $\\int P(X, Y, Z) dX dZ$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:25–00:14:59] - 'in denominator we take joint distribution and integrate our z and x.' (Note: The phrasing is slightly awkward but implies integrating over X and Z)"
+        },
+        {
+          "claim": "A probabilistic model is a joint distribution over all variables in the problem",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:59–00:15:28] - 'If we have access to the joint distribution, we will call probabilistic model. So a probabilistic model is simply a joint distribution over the whole set of variables that arise in our problem.'"
+        },
+        {
+          "claim": "With access to the joint distribution, we can compute conditional distributions for arbitrary predictions",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:59–00:15:28] - 'If we have access to this joint distribution, we can easily, at least in theory, we can easily make arbitrary predictions.'"
+        },
+        {
+          "claim": "The derivation uses the sum rule to express conditional distributions from joint distributions",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:25–00:14:59] - 'So we can express both numerator and denominator using the sum rule.'"
+        },
+        {
+          "claim": "The example uses three variables ($X$, $Y$, $Z$) but the principles generalize to any number of variables",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:59–00:15:28] - 'The lecture focuses on deriving conditional distributions from joint distributions without assuming specific forms of the joint distribution.' (This is inferred from the context but the source text doesn't explicitly state the generalization)"
+        },
+        {
+          "claim": "The phrase 'integrating our z' refers to integration over the unobserved variable $Z$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:14:25–00:14:59] - 'we can obtain joint distribution on x y from joint distribution on x y z simply by integrating our z.' (The phrase 'integrating our z' is a bit informal but refers to integrating over $Z$)"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The source text uses informal phrasing like 'integrating our z' and 'po' (likely 'P') which may be unclear without context. The claim about generalization to any number of variables is inferred from the context but not explicitly stated in the source text.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 5.974
+  },
+  {
+    "id": "t06",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 5,
+    "tool_calls": 5,
+    "steps": 5,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 5.653,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "prior",
+        "matched": true
+      },
+      {
+        "concept": "likelihood",
+        "matched": true
+      },
+      {
+        "concept": "posterior",
+        "matched": true
+      },
+      {
+        "concept": "normalizing evidence",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 5,
+      "source_reads": 3,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Bayes' theorem is expressed as P(Y|X) = P(X|Y) * P(Y) / P(X)",
+          "supported": true,
+          "evidence_or_problem": "[00:15:28–00:16:01] are the best we can do for predict the variable of interest. And finally, let's return back to this conditional version equation. So field Y given X is field X given Y times field Y over field X."
+        },
+        {
+          "claim": "The posterior distribution is the product of the likelihood and prior, normalized by the evidence",
+          "supported": true,
+          "evidence_or_problem": "[00:16:01–00:16:45] numerator is the same, and in denominator, we write down the expression for p o x. So this is Bayes' theorem. And again, despite the word simplicity, this is a quite important result. So in conceptual form, it can be written down as false. So posterior equals the product of likelihood times prior, total numberization constant that ensures that in both parts, we get"
+        },
+        {
+          "claim": "The evidence is the normalization constant that ensures the posterior distribution integrates to 1",
+          "supported": true,
+          "evidence_or_problem": "[00:16:45–00:17:14] to react probability density function that can be integrated out to one. And this normalization constant is called evidence."
+        },
+        {
+          "claim": "The prior distribution reflects prior knowledge about possible values of the variable of interest",
+          "supported": true,
+          "evidence_or_problem": "[00:17:14–00:17:43] that reflects our prior information of prior knowledge about possible values of y"
+        },
+        {
+          "claim": "The likelihood function expresses the relationship between observations and the variable of interest",
+          "supported": true,
+          "evidence_or_problem": "[00:17:14–00:17:43] Then we take into account observations that are expressed in terms of this livelihood function."
+        },
+        {
+          "claim": "Bayes' theorem is used to update knowledge about a variable based on new observations",
+          "supported": true,
+          "evidence_or_problem": "[00:17:14–00:17:43] So we update our knowledge about the value of y."
+        },
+        {
+          "claim": "The evidence is the normalization constant that ensures the posterior is a valid probability distribution",
+          "supported": true,
+          "evidence_or_problem": "[000:16:45–00:17:14] normalization constant that ensures that in both parts, we get to react probability density function that can be integrated out to one"
+        },
+        {
+          "claim": "Bayes' theorem solves inverse probabilistic problems",
+          "supported": true,
+          "evidence_or_problem": "[00:17:14–00:17:43] In some sense, we may also think of it as a way of solving inverse probabilistic problem."
+        }
+      ],
+      "clarity_1_to_5": 3,
+      "caveat": "ASR has errors: 'livelihood' instead of 'likelihood', 'react' instead of 'probability', 'numberization' instead of 'normalization'. These errors affect the accuracy of the claims but do not change the core meaning.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 4.993
+  },
+  {
+    "id": "t06",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 2.948,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "prior",
+        "matched": true
+      },
+      {
+        "concept": "likelihood",
+        "matched": true
+      },
+      {
+        "concept": "posterior",
+        "matched": true
+      },
+      {
+        "concept": "normalizing evidence",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 9,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Bayes' theorem is expressed as $ p(Y|X) = \\frac{p(X|Y) \\cdot p(Y)}{p(X)} $",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:16:01–00:16:45] 'numerator is the same, and in denominator, we write down the expression for p o x. So this is Bayes' theorem.'"
+        },
+        {
+          "claim": "The posterior probability $ p(Y|X) $ represents the updated distribution of the variable of interest after observing data",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:17:14–00:17:43] 'we update our knowledge about the value of y'"
+        },
+        {
+          "claim": "The likelihood function $ p(X|Y) $ expresses the probability of observing data given parameter values",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:17:14–00:17:43] 'we take into account observations that are expressed in terms of this livelihood function'"
+        },
+        {
+          "claim": "The prior distribution $ p(Y) $ reflects initial knowledge about the variable of interest before observing data",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:17:14–00:17:43] 'we start from prior distribution that reflects our prior information of prior knowledge about possible values of y'"
+        },
+        {
+          "claim": "The evidence $ p(X) $ is the normalization constant ensuring the posterior integrates to 1",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:17:14–00:17:43] 'the normalization constant is called evidence'"
+        },
+        {
+          "claim": "Bayes' theorem solves inverse probabilistic problems by updating prior knowledge with new observations",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:17:14–00:17:43] 'In some sense, we may also think of it as a way of solving inverse probabilistic problem.'"
+        },
+        {
+          "claim": "The likelihood function is misheard as 'livelihood' in the source",
+          "supported": false,
+          "evidence_or_problem": "Source: [000:17:14–00:17:43] mentions 'livelihood function' but this is a transcription error (as noted in notes)"
+        },
+        {
+          "claim": "The term 'total numberization constant' is a mishearing of 'normalization constant'",
+          "supported": false,
+          "evidence_or_problem": "Source: [00:16:01–00:16:45] mentions 'total numberization constant' but this is a transcription error (as noted in notes)"
+        }
+      ],
+      "clarity_1_to_5": 3,
+      "caveat": "The source contains transcription errors (e.g., 'livelihood' instead of 'likelihood', 'total numberization' instead of 'normalization') that have been flagged in the notes. The formula is correctly stated but the explanation of terms has some inaccuracies in the ASR.",
+      "faithfulness_proxy": 0.75
+    },
+    "judge_latency_s": 4.765
+  },
+  {
+    "id": "t07",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 5,
+    "tool_calls": 5,
+    "steps": 5,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 9.741,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "independent observations",
+        "matched": true
+      },
+      {
+        "concept": "likelihood as parameter function",
+        "matched": true
+      },
+      {
+        "concept": "product of densities",
+        "matched": true
+      },
+      {
+        "concept": "log converts product to sum",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 5,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 5,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The maximum-likelihood estimator (MLE) is the value of parameter $\\theta$ that maximizes the likelihood function $\\mathcal{L}(\\theta) = \\prod_{i=1}^{n} p(x_i | \\theta)$ where $x_i$ are i.i.d. observations from a distribution with unknown parameter $\\theta$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:00–00:21:32] - The ASR states: 'So we have, like, the usual knowledge of the maximum likelihood estimator, as we've written in the chat. This is the first way that you have thought that you could learn on statistics courses. So we simply compute maximum likelihood estimation. So we're trying to maximize so-called likelihood function. And the likelihood function, in this case, is simply a product of those distributions where we substitute our observations in our density function.'"
+        },
+        {
+          "claim": "The likelihood function is treated as a function of $\\theta$ rather than the observations $x_i$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] - The ASR states: 'So, pay attention that we treat this function not as a function of x's, because x's are null, but as a function of theta.'"
+        },
+        {
+          "claim": "The log-likelihood function is defined as $\\ell(\\theta) = \\log \\mathcal{L}(\\theta) = \\sum_{i=1}^{n} \\log p(x_i | \\theta)$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] - The ASR states: 'Okay, so we simply take the product of those densities. Of course, in practice, the first thing we should do is to switch to a log likelihood in order to be able to maximize the sum of functions rather than [truncated]'"
+        },
+        {
+          "claim": "Taking the logarithm converts the product of probabilities into a sum, which is easier to maximize using calculus.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] - The ASR states: 'in order to be able to maximize the sum of functions rather than [truncated]' (implied that the product is harder to maximize than the sum)"
+        },
+        {
+          "claim": "The log-likelihood avoids numerical underflow issues.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] - The ASR states: 'in order to be able to maximize the sum of functions rather than [truncated]' (the context implies numerical stability is a reason, but the ASR doesn't explicitly state 'numerical underflow' - this is a gap)"
+        },
+        {
+          "claim": "The derivative of the log-likelihood is simpler to compute than the derivative of the likelihood function.",
+          "supported": false,
+          "evidence_or_problem": "The ASR does not explicitly mention derivatives or their simplicity. The ASR says 'in order to be able to maximize the sum of functions rather than' but doesn't specify derivatives."
+        },
+        {
+          "claim": "Optimization techniques like gradient descent are more efficient with sums than products.",
+          "supported": false,
+          "evidence_or_problem": "The ASR does not explicitly mention gradient descent or efficiency comparisons between sums and products."
+        },
+        {
+          "claim": "For a normal distribution, the log-likelihood simplifies to $\\ell(\\mu, \\sigma^2) = -\\frac{n}{2} \\log(2\\pi \\sigma^2) - \\frac{1}{2\\sigma^2} \\sum_{i=1}^{n} (x_i - \\mu)^2$.",
+          "supported": false,
+          "evidence_or_problem": "The ASR does not provide the specific normal distribution example or the simplified log-likelihood formula. The ASR is truncated at [00:22:03]."
+        }
+      ],
+      "clarity_1_to_5": 3,
+      "caveat": "The ASR is truncated at [00:22:03], so some claims about specific examples and optimization techniques are not fully supported. The claim about numerical underflow is inferred but not explicitly stated in the ASR.",
+      "faithfulness_proxy": 0.625
+    },
+    "judge_latency_s": 6.388
+  },
+  {
+    "id": "t07",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 3.906,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "independent observations",
+        "matched": true
+      },
+      {
+        "concept": "likelihood as parameter function",
+        "matched": true
+      },
+      {
+        "concept": "product of densities",
+        "matched": true
+      },
+      {
+        "concept": "log converts product to sum",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [
+        "Missing [HH:MM:SS] source citations."
+      ],
+      "citation_count": 0,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": false,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The likelihood function is defined as the product of probability density functions evaluated at observed data points $x_1, \\dots, x_n$ for i.i.d. data from a distribution parameterized by $\\theta$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] So, pay attention that we treat this function not as a function of x's, because x's are null, but as a function of theta. And as a function of theta, this is not a distribution, this is not a probability density function, this is a logarithmic function. Okay, so we simply take the product of those densities."
+        },
+        {
+          "claim": "The log likelihood function is the logarithm of the likelihood function, $\\ell(\\theta) = \\ln \\mathcal{L}(\\theta)$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] So, pay attention that we treat this function not as a function of x's, because x's are null, but as a function of theta. And as a function of theta, this is not a distribution, this is not a probability density function, this is a logarithmic function."
+        },
+        {
+          "claim": "The log likelihood function converts the product of $n$ terms into a sum of $n$ terms, $\\ell(\\theta) = \\sum_{i=1}^n \\ln f(x_i | \\theta)$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] Okay, so we simply take the product of those densities. Of course, in practice, the first thing we should do is to switch to a log likelihood in order to be able to maximize the sum of functions rather than [incomplete]"
+        },
+        {
+          "claim": "Maximizing the log likelihood function is equivalent to maximizing the likelihood function because the logarithm is a monotonically increasing function.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] So, pay attention that we treat this function not as a function of x's, because x's are null, but as a function of theta. And as a function of theta, this is not a distribution, this is not a probability density function, this is a logarithmic function."
+        },
+        {
+          "claim": "The log likelihood function avoids numerical underflow issues when dealing with very small probabilities.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] Okay, so we simply take the product of those densities. Of course, in practice, the first thing we should do is to switch to a log likelihood in order to be able to maximize the sum of functions rather than [incomplete]"
+        },
+        {
+          "claim": "The likelihood function is not a distribution or a probability density function but a function of $\\theta$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] So, pay attention that we treat this function not as a function of x's, because x's are null, but as a function of theta. And as a function of theta, this is not a distribution, this is not a probability density function, this is a logarithmic function."
+        },
+        {
+          "claim": "The log likelihood function is used to simplify the maximization process for the likelihood function due to computational convenience.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] Okay, so we simply take the product of those densities. Of course, in practice, the first thing we should do is to switch to a log likelihood in order to be able to maximize the sum of functions rather than [incomplete]"
+        },
+        {
+          "claim": "The ASR uses the term \"logarithmic function\" to refer to the log likelihood function, but this is inconsistent with standard terminology where the log likelihood is a function of $\\theta$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:21:33–00:22:03] So, pay attention that we treat this function not as a function of x's, because x's are null, but as a function of theta. And as a function of theta, this is not a distribution, this is not a probability density function, this is a logarithmic function."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR is incomplete at the end of the interval (\"rather than [incomplete]\") and uses inconsistent terminology (\"logarithmic function\" instead of \"log likelihood function\").",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 7.168
+  },
+  {
+    "id": "t08",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 7.548,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "asymptotic unbiasedness",
+        "matched": true
+      },
+      {
+        "concept": "consistency",
+        "matched": true
+      },
+      {
+        "concept": "asymptotic normality",
+        "matched": true
+      },
+      {
+        "concept": "efficiency",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 1,
+      "tool_errors": 1,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The maximum likelihood estimator $\\hat{\\theta}_{\\text{ml}}$ is asymptotically unbiased, meaning $\\mathbb{E}[\\hat{\\theta}_{\\text{ml}}] \\to \\theta$ as $n \\to \\infty$.",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [00:22:53–00:23:38]: 'This means that theta-ml is a random variable, right? And if it's random variable, we can ask ourselves what would be its expectation and what would be its variance, for example. And we can prove that its expectation is asymptotically unbiased. So it equals the true value of our unknown parameter theta when n is sufficiently large.'"
+        },
+        {
+          "claim": "The maximum likelihood estimator $\\hat{\\theta}_{\\text{ml}}$ is consistent, meaning $\\lim_{n \\to \\infty} \\hat{\\theta}_{\\text{ml}} = \\theta$ almost surely.",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [00:24:25–00:25:07]: 'if the number of observations n goes to infinity, then we can easily prove, well, not easily, but we can prove, and this was done in statistics courses, that our maximum likelihood estimate converges to the true value when n goes to infinity.'"
+        },
+        {
+          "claim": "For large $n$, the maximum likelihood estimator $\\hat{\\theta}_{\\text{ml}}$ has an asymptotic normal distribution with mean $\\theta$ and variance $\\mathcal{I}(\\theta)^{-1}/n$, where $\\mathcal{I}(\\theta)$ is the Fisher information matrix.",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [00:25:07–00:25:41]: 'it has almost a normal distribution with the mean of course the true value this follows from the property number one and with variance that looks like this so this is n times so-called feature information matrix inverse in particular this means that the variance of our maximum value estimator goes to zero when n goes to plus infinity'"
+        },
+        {
+          "claim": "The maximum likelihood estimator $\\hat{\\theta}_{\\text{ml}}$ is asymptotically efficient, achieving the Cramér-Rao lower bound for variance among all unbiased estimators.",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [00:26:23–00:27:28]: 'it appears that maximum likelihood estimate has the smallest possible variance. So it has exactly this lower bound for the variance. So this means that no other unbiased estimate can have smaller variance that maximum likelihood estimator has.'"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR mentions 'Raul Karamer bound' (likely a mispronunciation of Cramér-Rao bound) but the notes correctly identify it as the Cramér-Rao bound. The ASR also states that the variance of the MLE goes to zero as $n \\to \\infty$ (consistent with consistency), but the notes correctly frame it as asymptotic normality with variance $\\mathcal{I}(\\theta)^{-1}/n$.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 4.976
+  },
+  {
+    "id": "t08",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 11.495,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "asymptotic unbiasedness",
+        "matched": true
+      },
+      {
+        "concept": "consistency",
+        "matched": true
+      },
+      {
+        "concept": "asymptotic normality",
+        "matched": true
+      },
+      {
+        "concept": "efficiency",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 9,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The expectation of the maximum likelihood estimate (MLE) is asymptotically unbiased, meaning $E[\\theta_{ml}] \\to \\theta$ as $n \\to \\infty$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:22:53–00:23:38] This means that theta-ml is a random variable, right? And if it's random variable, we can ask ourselves what would be its expectation and what would be its variance, for example. And we can prove that its expectation is asymptotically unbiased. So it equals the true value of our unknown parameter theta when n is sufficiently large."
+        },
+        {
+          "claim": "The maximum likelihood estimate (MLE) is consistent, meaning $\\theta_{ml} \\to \\theta$ as $n \\to \\infty$ (probability 1)",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:24:25–00:25:07] if the number of observations n goes to infinity, then we can easily prove, well, not easily, but we can prove, and this was done in statistics courses, that our maximum likelihood estimate converges to the true value when n goes to infinity. And this is, this property is known as consistency."
+        },
+        {
+          "claim": "The maximum likelihood estimate (MLE) has an asymptotic normal distribution with mean $\\theta$ and variance $\\frac{1}{n}I(\\theta)^{-1}$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:25:07–00:25:41] that our maximum value estimator so this is still a random variable but it has almost a normal distribution with the mean of course the true value this follows from the property number one and with variance that looks like this so this is n times so-called feature information matrix inverse"
+        },
+        {
+          "claim": "The variance of the MLE scales as $\\frac{1}{n}$ with sample size",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:25:41–00:26:16] And the variance it uses as one over n. So we can treat this f of theta star as some constant, while n is the number of observations. So even is the number of observations, say in 10 times, our variance will decrease in 10 times."
+        },
+        {
+          "claim": "The maximum likelihood estimator achieves the Cramér-Rao lower bound, meaning it has the minimum possible variance among unbiased estimators",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:26:58–00:27:28] that n times phi information matrix inverse. And it appears that maximum likelihood estimate has the smallest possible variance. So it has exactly this lower bound for the variance. So this means that no other unbiased estimate can have smaller variance that maximum likelihood estimator has."
+        },
+        {
+          "claim": "The Cramér-Rao lower bound for the variance of an unbiased estimator is $\\text{Var}(\\hat{\\theta}) \\geq \\frac{1}{nI(\\theta)}$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:26:23–00:26:58] I have a minute with the Raul Karamer bound from statistics courses. Again, this goes beyond our course, but just to extend your statistical background. So in classical statistics, there's a famous inequality called Raul Karamer bound, Raul Karamer inequality that states that among all unbiased estimates, no estimate can have variance of small than this quantity, which is related to fusion information matrix."
+        },
+        {
+          "claim": "The Fisher information matrix is denoted $I(\\theta)$",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:25:07–00:25:41] with variance that looks like this so this is n times so-called feature information matrix inverse"
+        }
+      ],
+      "clarity_1_to_5": 3,
+      "caveat": "The ASR contains several typos and misstatements: 'Raul Karamer' (should be Cramér-Rao), 'feature information matrix' (should be Fisher information matrix), 'f' (should be $\\phi$ for Fisher information). The speaker initially misstates the term as 'asymptotic and biasness' (likely 'asymptotic unbiasedness'). The phrase 'this is a very good product' is unclear context.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 6.818
+  },
+  {
+    "id": "t09",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 3,
+    "tool_calls": 3,
+    "steps": 3,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 5.486,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "empirical head frequency",
+        "matched": true
+      },
+      {
+        "concept": "two trials",
+        "matched": true
+      },
+      {
+        "concept": "probability one",
+        "matched": true
+      },
+      {
+        "concept": "small sample caveat",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 6,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 3,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Maximum likelihood estimation (MLE) for the probability of heads in a coin toss is $\\hat{p} = \\frac{k}{n}$ where k is the number of heads and n is the number of tosses.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:30:25–00:31:05] - 'What is the maximum value of the estimate in this case? So what your intuition tells you? KLM. KLM, of course. This is bridge retrieval. So just the frequency of the heads.' (Note: 'KLM' and 'bridge retrieval' are likely transcription errors for 'MLE' and 'maximum likelihood estimation')\n\nThe speaker states that the MLE estimate is the frequency of heads, which is $\\frac{k}{n}$."
+        },
+        {
+          "claim": "With two coin tosses resulting in two heads, MLE estimates the probability of heads as 1.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:31:05–00:31:38] - 'So now let's assume that we have closed the coin just twice and we have observed heads in both trials. So then according to maximum value of the estimation, we should estimate the probability of a head equal to one.' (Note: 'closed the coin' is likely a transcription error for 'tossed the coin')\n\nThe speaker explicitly states that with two heads in two tosses, MLE gives $\\hat{p} = 1$."
+        },
+        {
+          "claim": "The MLE estimate of 1 for the probability of heads with two heads in two tosses contradicts common sense, as a coin with two heads is improbable.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:31:38–00:32:11] - 'So I guess you are not ready to bet, say, 1,000 viewers that this coin had heads on both sides.' (Note: The speaker implies that the estimate of 100% heads is unlikely in reality)"
+        },
+        {
+          "claim": "Maximum likelihood estimation properties (e.g., consistency) hold for large n but may fail for small n.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:27:59–00:28:37] - 'All those properties hold true when n is much larger than 1 and some of them even when n goes to infinity.' (Note: The speaker refers to properties of MLE that hold for large n)\n\nSource: [00:27:59–00:32:13] - 'In practice, however, we have to deal with the finite samples. And in many cases, the number of observations is not enough in order to ensure those four properties of maximum likelihood estimator.' (Note: The speaker states that MLE properties may not hold for small samples)"
+        },
+        {
+          "claim": "With a large number of trials (e.g., n=1000), MLE provides a good estimate of the true probability of heads.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:31:38–00:32:11] - 'But if we observed say, or if we performed say 1000 of trials, so if N would be equal to 1000, then probably KON would be a good estimate for the true probability of a head.' (Note: 'KON' is likely a transcription error for 'p-hat' or 'the estimate')"
+        },
+        {
+          "claim": "The two-heads coin example demonstrates that MLE can produce estimates that contradict common sense or reality when the sample size is small.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:27:59–00:32:13] - 'So we've got some result of maximum likelihood estimation, but it contradicts even the concepts.' (Note: The speaker states that the MLE result contradicts common sense)"
+        },
+        {
+          "claim": "The MLE for the coin toss problem is inconsistent with the usual properties of estimators when the sample size is small.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:27:59–00:28:37] - 'All those properties hold true when n is much larger than 1 and some of them even when n goes to infinity.' (Note: The speaker refers to properties that hold for large n)\n\nSource: [00:27:59–00:32:13] - 'In practice, however, we have to deal with the finite samples. And in many cases, the number of observations is not enough in order to ensure those four properties of maximum likelihood estimator.' (Note: The speaker states that small samples may not satisfy these properties)"
+        },
+        {
+          "claim": "The term 'KLM' in the ASR is a transcription error for 'MLE' (Maximum Likelihood Estimation).",
+          "supported": false,
+          "evidence_or_problem": "The ASR says 'KLM' but the context suggests it refers to MLE. However, the ASR itself may be wrong, and the transcription error is not explicitly confirmed by the ASR. The speaker says 'KLM, of course. This is bridge retrieval.' which is likely a mishearing of 'MLE' and 'maximum likelihood estimation'. The ASR does not explicitly state what 'KLM' means, so this claim is not directly supported by the ASR. The claim is based on context but not a direct quote from the ASR."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR contains transcription errors (e.g., 'KLM', 'bridge retrieval', 'KON') that are likely mishearings of 'MLE' and 'p-hat'. These errors are noted in the notes but are not explicitly confirmed by the ASR. The clarity score of 4 indicates that the notes are mostly clear but have some ambiguity due to transcription errors.",
+      "faithfulness_proxy": 0.875
+    },
+    "judge_latency_s": 8.634
+  },
+  {
+    "id": "t09",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 3.863,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "empirical head frequency",
+        "matched": true
+      },
+      {
+        "concept": "two trials",
+        "matched": true
+      },
+      {
+        "concept": "probability one",
+        "matched": true
+      },
+      {
+        "concept": "small sample caveat",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 6,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Maximum likelihood estimators (MLE) have properties that hold only when $n$ is much larger than 1 or as $n \\to \\infty$",
+          "supported": true,
+          "evidence_or_problem": "Source [00:27:59–00:28:37]: 'All those properties hold true when $n$ is much larger than 1 and some of them even when $n$ goes to infinity.'"
+        },
+        {
+          "claim": "Finite samples often lack sufficient observations to ensure the properties of MLE",
+          "supported": true,
+          "evidence_or_problem": "Source [00:27:59–00:28:37]: 'In practice, however, we have to deal with the finite samples. And in many cases, the number of observations is not enough in order to ensure those four properties of maximum likelihood estimator.'"
+        },
+        {
+          "claim": "For a coin toss example, the MLE of the probability of heads is the observed frequency of heads ($\\hat{p} = k/n$)",
+          "supported": true,
+          "evidence_or_problem": "Source [00:28:37–00:29:09]: 'How do you think what would be maximum likelihood estimation for this probability? ... KLM, of course. This is bridge retrieval. So just the frequency of the heads.'"
+        },
+        {
+          "claim": "With $n=2$ tosses and 2 heads, the MLE estimates the probability of heads as 1",
+          "supported": true,
+          "evidence_or_problem": "Source [00:30:25–00:31:05]: 'So now let's assume that we have closed the coin just twice and we have observed heads in both trials. So then according to maximum value of the estimation, we should estimate the probability of a head equal to one.'"
+        },
+        {
+          "claim": "The MLE result of $\\hat{p}=1$ contradicts common sense (a coin with two heads is unlikely)",
+          "supported": true,
+          "evidence_or_problem": "Source [00:30:25–00:31:05]: 'Does it correspond to the common sense? Not really.'"
+        },
+        {
+          "claim": "With $n=1000$ tosses, the MLE $\\hat{p}=k/1000$ is likely a good estimate of the true probability of heads",
+          "supported": true,
+          "evidence_or_problem": "Source [00:31:05–00:31:38]: 'If we performed say 1000 of trials, so if $N$ would be equal to 1000, then probably KON would be a good estimate for the true probability of a head.'"
+        },
+        {
+          "claim": "Small sample sizes ($n \\ll \\infty$) cause MLE to fail in practice",
+          "supported": true,
+          "evidence_or_problem": "Source [00:31:38–00:32:11]: 'So we've got some result of maximum likelihood estimation, but it contradicts even the concepts. But on the other hand, if we observed say, or if we performed say 1000 of trials, so if $N$ would be equal to 1000, then probably KON would be a good estimate for the true probability of a head, right? But not when $N$ equals to true.'"
+        },
+        {
+          "claim": "The two-heads coin example demonstrates that MLE can produce results that contradict common sense when $n$ is small",
+          "supported": true,
+          "evidence_or_problem": "Source [00:31:38–00:32:11]: 'This is a kind of a drawback of maximum likelihood estimation.'"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR contains several mispronunciations/misstatements: 'KLM' (likely MLE), 'bridge retrieval' (likely maximum likelihood), 'KON' (likely MLE), 'N equals to true' (likely $n=2$), '1,000 viewers' (likely 1,000 dollars/bets). These are noted in the notes but may affect interpretation.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 6.312
+  },
+  {
+    "id": "t10",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 5.296,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "prior",
+        "matched": true
+      },
+      {
+        "concept": "likelihood",
+        "matched": true
+      },
+      {
+        "concept": "posterior",
+        "matched": true
+      },
+      {
+        "concept": "point estimate contrast",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Bayesian inference starts with a prior distribution reflecting initial knowledge about theta",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:32:53–00:33:37] 'We start from prior distribution that reflects our knowledge, our preference, and possible values of theta.'"
+        },
+        {
+          "claim": "Bayesian posterior distribution is derived by applying Bayes' theorem to the likelihood and prior",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:33:37–00:34:13] 'we simply derive a posterior distribution, P of theta given X1, Xn, by applying Bayes' theorem.' and 'this will be the answer' referring to the product of likelihood and prior."
+        },
+        {
+          "claim": "The posterior distribution is proportional to the product of the likelihood and prior: P(θ|X₁,...,Xₙ) ∝ ∏ᵢ=1ⁿ P(Xᵢ|θ) × Prior(θ)",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:33:37–00:34:13] 'So like if a function looks like this, so this is just a product of P of Xi given theta, since all of our observations are independent and identically distributed, we multiply it by prior distribution and we renormalize it according to Bayes' theorem.'"
+        },
+        {
+          "claim": "Bayesian inference produces a full probability distribution over theta, not a single point estimate",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:34:14–00:34:56] 'Unlike maximum life estimation, our answer is no longer a point estimate, but a distribution.'"
+        },
+        {
+          "claim": "The key difference between frequentist and Bayesian approaches is that frequentist methods use data alone to produce point estimates, while Bayesian methods incorporate prior knowledge with data",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:34:14–00:34:56] 'Unlike maximum life estimation, our answer is no longer a point estimate, but a distribution.' and the table summary mentioned in the context."
+        },
+        {
+          "claim": "The posterior distribution is a probability distribution over theta given observed data X₁,...,Xₙ",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:33:37–00:34:13] 'we simply derive a posterior distribution, P of theta given X1, Xn'"
+        },
+        {
+          "claim": "Bayesian inference uses the likelihood function as the product of independent observations",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:33:37–00:34:13] 'this is just a product of P of Xi given theta, since all of our observations are independent and identically distributed'"
+        },
+        {
+          "claim": "The posterior distribution is renormalized according to Bayes' theorem to form a proper probability distribution",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:33:37–00:34:13] 'we multiply it by prior distribution and we renormalize it according to Bayes' theorem.'"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The timestamped evidence is clear and well-structured, but the term 'maximum life estimation' in the source appears to be a typo for 'maximum likelihood estimation' (likely a mishearing of 'likelihood'). This could cause confusion but is a minor issue.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 5.342
+  },
+  {
+    "id": "t10",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 3.07,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "prior",
+        "matched": true
+      },
+      {
+        "concept": "likelihood",
+        "matched": true
+      },
+      {
+        "concept": "posterior",
+        "matched": true
+      },
+      {
+        "concept": "point estimate contrast",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Bayesian inference starts from a known probability distribution of observations $X$ parameterized by a parameter $\\theta$ (written as $P(X | \\theta)$).",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:32:13–00:32:53] And here comes an alternative Bayesian inference. And Bayesian inference, so we need to start from, again, I mentioned that we still have n observations that come from distribution of X parameterized by a non-value parameter theta. We can also rewrite it as false as Bayesians usually do, P of X given theta. This is actually the same thing."
+        },
+        {
+          "claim": "Prior distribution reflects initial knowledge/preference about possible values of $\\theta$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:32:53–00:33:37] We start from prior distribution that reflects our knowledge, our preference, and possible values of theta."
+        },
+        {
+          "claim": "Posterior distribution is derived by applying Bayes' theorem to update prior knowledge with observed data $X_1, ..., X_n$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:32:53–00:33:37] So we simply derive a posterior distribution, P of theta given X1, Xn, by applying Bayes' theorem."
+        },
+        {
+          "claim": "Bayesian method yields a distribution (uncertainty about $\\theta$) versus frequentist point estimate.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:34:14–00:34:56] Unlike maximum life estimation, our answer is no longer a point estimate, but a distribution."
+        },
+        {
+          "claim": "The posterior distribution is given by $P(\\theta | X) = \\frac{P(X | \\theta) \\cdot P(\\theta)}{P(X)}$ where $P(X)$ is the marginal likelihood.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:33:37–00:34:13] So like if a function looks like this, so this is just a product of P of Xi given theta, since all of our observations are independent and identically distributed, we multiply it by prior distribution and we renormalize it according to Bayes' theorem."
+        },
+        {
+          "claim": "The posterior distribution is a product of likelihood $P(X_i | \\theta)$ and prior $P(\\theta)$, renormalized by $P(X)$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:33:37–00:34:13] So like if a function looks like this, so this is just a product of P of Xi given theta, since all of our observations are independent and identically distributed, we multiply it by prior distribution and we renormalize it according to Bayes' theorem."
+        },
+        {
+          "claim": "The phrase 'maximum life estimation' is a mishearing of 'maximum likelihood estimation' (MLE).",
+          "supported": false,
+          "evidence_or_problem": "Source: [00:34:14–00:34:56] Unlike maximum life estimation, our answer is no longer a point estimate, but a distribution. This is flagged as uncertain in the notes, but the ASR itself does not explicitly state what 'maximum life estimation' is supposed to be; it's a mishearing that the notes flag as uncertain."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR contains a possible mishearing of 'maximum likelihood estimation' as 'maximum life estimation', which is flagged as uncertain in the notes but not explicitly confirmed by the ASR.",
+      "faithfulness_proxy": 0.8571428571428571
+    },
+    "judge_latency_s": 5.575
+  },
+  {
+    "id": "t11",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 5,
+    "tool_calls": 5,
+    "steps": 5,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 9.496,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "objective uncertainty",
+        "matched": true
+      },
+      {
+        "concept": "subjective ignorance",
+        "matched": true
+      },
+      {
+        "concept": "deterministic physical process",
+        "matched": true
+      },
+      {
+        "concept": "missing information",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 9,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 5,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Frequentist view defines a random variable as a process whose outcome is unpredictable by definition",
+          "supported": true,
+          "evidence_or_problem": "[00:34:56–00:35:40] What are the differences between those approaches? The first is some philosophical difference, that is interpretation of randomness. According to classical view, a random variable is some process whose outcome is unpredictable by definition."
+        },
+        {
+          "claim": "Bayesian view defines a random variable as the result of a completely deterministic process whose outcome is unknown due to missing information",
+          "supported": true,
+          "evidence_or_problem": "[00:35:40–00:36:16] According to Bayesian framework, the random variable is the result of a completely deterministic process whose outcome is unknown to us only because we left some information which determines the outcome of this process."
+        },
+        {
+          "claim": "In the Bayesian framework, randomness is epistemic (due to incomplete information) rather than ontological",
+          "supported": true,
+          "evidence_or_problem": "[00:38:54–00:39:23] So this is why it's stated here, subjective. So different observers may have different ignorance on the same random variable."
+        },
+        {
+          "claim": "The coin toss example demonstrates that a frequentist would consider the outcome inherently unpredictable (even with full knowledge of initial conditions)",
+          "supported": true,
+          "evidence_or_problem": "[00:36:16–00:36:52] Can we, at least in principle, predict the outcome of tossing a coin? And the answer is yes, we can. We know that coin abuse the loss of mechanics. So even though the initial conditions, how we toss the coin, even though the characteristics of environment, we can, in principle, predict what would be the outcome."
+        },
+        {
+          "claim": "The train arrival time example shows that Bayesian uncertainty decreases with additional information (e.g., screen showing a 5-minute delay)",
+          "supported": true,
+          "evidence_or_problem": "[00:38:54–00:39:23] So now again, I still do not know the exact arrival time. I could think that, well, probably it should arrive at 9 minutes past 10. But it may arrive 10 minutes past 10, 11 minutes past 10. So this is still a random variable. But my ignorance has changed. I have observed some additional information, the information from the string."
+        },
+        {
+          "claim": "Frequentist uncertainty is objective (the process is truly random), while Bayesian uncertainty is subjective (due to incomplete information)",
+          "supported": true,
+          "evidence_or_problem": "[00:38:54–00:39:23] So this is why it's stated here, subjective. So different observers may have different ignorance on the same random variable."
+        },
+        {
+          "claim": "The coin toss is deterministic in principle (physics determines outcome), but we lack the information to predict it in practice",
+          "supported": true,
+          "evidence_or_problem": "[00:36:16–00:36:52] We know that coin abuse the loss of mechanics. So even though the initial conditions, how we toss the coin, even though the characteristics of environment, we can, in principle, predict what would be the outcome."
+        },
+        {
+          "claim": "The train arrival time is a random variable that can be updated with new information (e.g., delay notifications), reducing uncertainty",
+          "supported": true,
+          "evidence_or_problem": "[00:38:54–00:39:23] I have observed some additional information, the information from the string. So now the distribution of my random variable has changed."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR has a typo: 'coin abuse the loss of mechanics' should be 'coin's abuse of mechanics' (likely a speech error). Also, 'Halbanhof' is a misspelling of 'Halbach' (train station). These are noted in the transcript but not corrected in the notes.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 6.162
+  },
+  {
+    "id": "t11",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 3.765,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "objective uncertainty",
+        "matched": true
+      },
+      {
+        "concept": "subjective ignorance",
+        "matched": true
+      },
+      {
+        "concept": "deterministic physical process",
+        "matched": true
+      },
+      {
+        "concept": "missing information",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [
+        "Missing [HH:MM:SS] source citations."
+      ],
+      "citation_count": 0,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": false,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Frequentist view defines a random variable as a process whose outcome is unpredictable by definition, representing objective uncertainty.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:34:56–00:35:40] 'According to classical view, a random variable is some process whose outcome is unpredictable by definition.'"
+        },
+        {
+          "claim": "Bayesian view defines a random variable as the result of a completely deterministic process whose outcome is unknown due to subjective ignorance (lack of information).",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:35:40–00:36:16] 'according to Bayesian framework, the random variable is the result of a completely deterministic process whose outcome is unknown to us only because we left some information which determines the outcome of this process.'"
+        },
+        {
+          "claim": "The coin toss outcome is deterministic but unpredictable in practice due to initial conditions and mechanics (e.g., coin's mechanical properties).",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:36:16–00:36:52] 'We know that coin abuse the loss of mechanics.' (likely mishearing of 'coin's mechanical properties') and 'even though the initial conditions, how we toss the coin, even though the characteristics of environment, we can, in principle, predict what would be the outcome.'"
+        },
+        {
+          "claim": "The train arrival time is a random variable that follows a distribution (e.g., empirical density function) that can be updated with new information (e.g., delay announcements).",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:37:23–00:38:26] 'I can collect statistics, I can even restore the empirical work and the estimate of a density function of the arrival time.' and 'when the screen shows a 5-minute delay, the distribution updates.'"
+        },
+        {
+          "claim": "In the Bayesian view, the randomness of a variable is due to subjective ignorance (lack of information) rather than objective unpredictability.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:38:54–00:39:23] 'this is why it's stated here, subjective. So different observers may have different ignorance on the same random variable.'"
+        },
+        {
+          "claim": "Both interpretations agree that outcomes are predictable in principle (e.g., physics determines coin toss, traffic conditions determine train arrival).",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:36:53–00:37:23] 'We can consider a different example... all physical processes are based on the laws of physics. And the laws of physics give us predictable, give us a verifiable predictions.' and [00:37:53–00:38:26] 'there's nothing that is objectively unsolved.'"
+        },
+        {
+          "claim": "The train's arrival time distribution changes when new information (e.g., delay announcements) is observed, reflecting updated subjective ignorance.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:38:26–00:38:54] 'I have observed some additional information, the information from the string. So now the distribution of my random variable has changed.'"
+        },
+        {
+          "claim": "The phrase 'coin abuse the loss of mechanics' is a mishearing of 'coin's mechanical properties' (likely a typo in ASR).",
+          "supported": false,
+          "evidence_or_problem": "This is an unclear point from the notes, not a claim that the ASR supports. The ASR itself may be wrong, but the claim that it's a mishearing is not directly supported by the ASR; it's an interpretation of the ASR's error."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR contains several potential mishearings (e.g., 'coin abuse the loss of mechanics', 'Halbanhof'), but the notes correctly flag these as unclear points. The claims are based strictly on the ASR text without general knowledge.",
+      "faithfulness_proxy": 0.875
+    },
+    "judge_latency_s": 6.371
+  },
+  {
+    "id": "t12",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 6,
+    "tool_calls": 6,
+    "steps": 6,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 9.847,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "parameter dimension",
+        "matched": true
+      },
+      {
+        "concept": "overfitting",
+        "matched": true
+      },
+      {
+        "concept": "no observations",
+        "matched": true
+      },
+      {
+        "concept": "posterior equals prior, not necessarily uniform",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 13,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 6,
+      "source_reads": 3,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "MLE is justified when n >> d (sample size much larger than parameter dimension)",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:41:49–00:42:46] 'MLE is justified when n is large. And in fact, it's justified when n is not much larger than one, but is much larger than d, where d is a dimension of estimated parameters.'"
+        },
+        {
+          "claim": "When n ≈ d (sample size comparable to parameter count), MLE leads to overfitting",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:43:19–00:43:49] 'Like survived estimation, under situations when n is smaller or comparable with d, you immediately obtain our fitting.'"
+        },
+        {
+          "claim": "Overfitting occurs when n < d or n ≈ d",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:43:19–00:43:49] 'Like survived estimation, under situations when n is smaller or comparable with d, you immediately obtain our fitting.'"
+        },
+        {
+          "claim": "Good generalization occurs when n >> d",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:43:19–00:43:49] 'If you apply a machine learning algorithm whose number of parameters is much smaller than the number of observations, you observe no gap.'"
+        },
+        {
+          "claim": "Early deep neural networks (small parameter count) trained on large datasets showed no overfitting",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:43:50–00:44:19] 'This was firstly observed when first deep neural networks have appeared in the end of notice. So about 15 years ago, maybe 20 years ago.'"
+        },
+        {
+          "claim": "Modern deep neural networks (larger parameter count) show overfitting",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:44:52–00:45:20] 'Later, however, the humanity designed larger deep neural networks, and this condition was violated.'"
+        },
+        {
+          "claim": "Bayesian framework works for any number of observations (including zero)",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:45:58–00:46:28] 'Bayesian framework is applicable for any number of observations. So we can even apply it when n equals to zero.'"
+        },
+        {
+          "claim": "When n = 0 (no observations), posterior = prior",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:45:58–00:46:28] 'If we have no observations, of course posterior will be simply equal to prior.'"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR has some errors: 'survived estimation' should be 'maximum likelihood estimation', 'marks-on-work' should be 'maximum likelihood', 'our fitting' should be 'overfitting'. These errors are corrected in the notes but the original ASR contains these inaccuracies.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 5.319
+  },
+  {
+    "id": "t12",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 5.36,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "parameter dimension",
+        "matched": true
+      },
+      {
+        "concept": "overfitting",
+        "matched": true
+      },
+      {
+        "concept": "no observations",
+        "matched": true
+      },
+      {
+        "concept": "posterior equals prior, not necessarily uniform",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 8,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "In classical statistics, maximum likelihood estimation (MLE) is justified when $n$ (number of observations) is not much larger than $d$ (dimension of parameters), but $n$ is much larger than $d$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:41:49–00:42:46] 'And in particular, you will apply marks-on-work with estimation in machine learning models, when n is not much larger than d, what do we get in practice? So actually, every time when you train some algorithm, you tune parameters of the model, and from statistical point of view, you perform, in most cases, you perform marks-on-work with estimations, according to your observations as a training dataset.' (Note: 'marks-on-work' is likely a mishearing of 'maximum likelihood estimation')\n\nThe speaker states that MLE is justified when $n$ is not much larger than $d$, but $n$ is much larger than $d$. This is a direct claim from the ASR, though the term 'marks-on-work' is a mishearing of 'maximum likelihood estimation'. The context clarifies that this refers to the condition for MLE being justified."
+        },
+        {
+          "claim": "When $n \\leq d$ (number of observations ≤ number of parameters), machine learning models overfit (train error ≠ validation error).",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:42:47–00:43:19] 'Like survived estimation, under situations when n is smaller or comparable with d, you immediately obtain our fitting. You immediately observe the gap between your train error and your validation error.' (Note: 'survived estimation' is likely a mishearing of 'maximum likelihood estimation')\n\nThe speaker states that when $n$ is smaller or comparable with $d$, models overfit (train error ≠ validation error). This is a direct claim from the ASR, though the term 'survived estimation' is a mishearing of 'maximum likelihood estimation'. The context clarifies that this refers to the overfitting condition."
+        },
+        {
+          "claim": "When $n \\gg d$, machine learning models generalize well (train error ≈ validation error).",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:42:47–00:43:19] 'And if you apply a machine learning algorithm whose number of parameters is much smaller than the number of observations, you observe no gap.' (Note: 'survived estimation' is likely a mishearing of 'maximum likelihood estimation')\n\nThe speaker states that when $n$ is much larger than $d$, models generalize well (no gap between train and validation error). This is a direct claim from the ASR, though the term 'survived estimation' is a mishearing of 'maximum likelihood estimation'. The context clarifies that this refers to the generalization condition."
+        },
+        {
+          "claim": "Early deep neural networks (small models + large datasets) avoided overfitting because MLE was optimal under the condition $n \\gg d$.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:44:19–00:44:52] 'And there was a series of papers which stated that deep neural networks do not follow fit. Why so? Because the first deep neural networks were sufficiently small and they were trained on already huge data sets. And for several years, the community was under those conditions. And it appeared that if we have a small deep neural network and we have a large dataset, this neural network will not overfit, because maximum workload estimate becomes optimal under these conditions.' (Note: 'maximum workload estimate' is likely a mishearing of 'maximum likelihood estimation')\n\nThe speaker states that early deep neural networks (small models + large datasets) avoided overfitting because MLE was optimal under the condition $n \\gg d$. This is a direct claim from the ASR, though the term 'maximum workload estimate' is a mishearing of 'maximum likelihood estimation'. The context clarifies that this refers to the historical context of early deep learning models."
+        },
+        {
+          "claim": "As deep neural networks grew larger, the condition $n \\gg d$ was violated, leading to overfitting (train error ≠ validation error).",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:44:52–00:45:20] 'Later, however, the humanity designed larger deep neural networks, and this condition was violated. And immediately, when it was violated, there appeared a gap between training error and validation error.'\n\nThe speaker states that as deep neural networks grew larger, the condition $n \\gg d$ was violated, leading to overfitting (train error ≠ validation error). This is a direct claim from the ASR."
+        },
+        {
+          "claim": "In the Bayesian framework, when $n = 0$ (no observations), the posterior distribution equals the prior distribution (e.g., uniform distribution over the parameter space).",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:45:58–00:46:28] 'And if we have no observations, of course posterior will be simply equal to prior.'\n\nThe speaker states that when $n = 0$, the posterior distribution equals the prior distribution. This is a direct claim from the ASR."
+        },
+        {
+          "claim": "With $n = 1$ (one observation), the posterior distribution is updated from the prior distribution using Bayes' theorem.",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:45:58–00:46:28] 'And if we have even one observation, we can already extract some information from this observation and we can already update' (Note: 'cry to posterior' is likely a mishearing of 'prior to posterior')\n\nThe speaker states that with $n = 1$, one observation updates the prior to form a posterior distribution. This is a direct claim from the ASR, though the term 'cry to posterior' is a mishearing of 'prior to posterior'."
+        },
+        {
+          "claim": "Bayesian inference is applicable for any number of observations $n$ (including $n = 0$).",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:45:20–00:45:57] 'Again, in those cases, probably much of what we estimate is quite reliable.' (Note: This is a bit vague, but the context implies that Bayesian inference works for any $n$)\n\nThe speaker states that Bayesian inference is applicable for any number of observations, including $n = 0$. This is a direct claim from the ASR, though the phrasing is a bit vague. The context clarifies that Bayesian inference works for any $n$."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR contains several mishearings (e.g., 'marks-on-work' for 'maximum likelihood estimation', 'survived estimation' for 'maximum likelihood estimation', 'maximum workload estimate' for 'maximum likelihood estimation', 'cry' for 'prior'). These are noted in the notes but do not affect the supported claims, as the context clarifies the intended terms.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 10.59
+  },
+  {
+    "id": "t13",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 5.62,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "different information sources",
+        "matched": true
+      },
+      {
+        "concept": "posterior reused as prior",
+        "matched": true
+      },
+      {
+        "concept": "likelihood for new observation",
+        "matched": true
+      },
+      {
+        "concept": "posterior preserves combined information",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Prior distribution of animal mass is positive semi-axis with upper bound of 30 tons (blue whale mass)",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:47:40–00:48:13] 'First, they start from prior distribution of possible masses of animals on our planet. So this distribution has restricted support. So of course we understand that mass cannot be negative. So it's a positive semi-axis. And it has some form where, again, there's a theta max because no animal may have mass more than 30 tons. That is the mass of the blue whale.'"
+        },
+        {
+          "claim": "First wisdomer uses tactile observations to model $P(x | \\theta)$ where $x$ is tactile feeling and $\\theta$ is animal mass",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:48:44–00:49:16] 'this is kind of why with the function. So it shows that if an animal has a mass of theta, how probable is that I feel, what I feel, that I will measure x.'"
+        },
+        {
+          "claim": "After first observation (touching elephant's nose), posterior distribution $P(\\theta | x)$ suggests either a very large animal or a snake-like animal",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:49:51–00:50:27] 'So this is either nose of some very large animal, or this is a body of some snake-like animal.'"
+        },
+        {
+          "claim": "Second wisdomer uses acoustic observations to model $P(y | \\theta)$ where $y$ is sound and $\\theta$ is animal mass",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:50:56–00:51:26] 'So he has completely different probabilistic model. So Q, Y, given theta. So Y is completely different variable. It lives in completely different dimension.'"
+        },
+        {
+          "claim": "Bayesian update combines posterior from previous step as new prior with new likelihood to form new posterior",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:52:06–00:52:43] 'He uses posterior distribution as a new prior distribution. He multiplies it by its own likelihood. He normalizes the result.'"
+        },
+        {
+          "claim": "Sequential Bayesian updates converge to a sharp posterior distribution around a specific mass",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:52:43–00:53:21] 'we will probably end up with a posterior distribution that will be pretty sharp around some small area.'"
+        },
+        {
+          "claim": "Bayesian framework allows combining different probabilistic models into a single coherent estimate",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:52:43–00:53:21] 'This is one of the advantages of Bayesian framework. We can combine different probabilistic models and we can build a more complicated model from a simple ones like a wall from building blocks.'"
+        },
+        {
+          "claim": "The process can be repeated many times to incorporate multiple observations",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:52:43–00:53:21] 'And we can do this many, many, many times until we get something that will be conditioned on a large number of observations.'"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR mentions 'elephant' but the example is about a general animal (with the elephant being a specific example). The notes correctly identify this as an example but the ASR doesn't explicitly say 'elephant' in the context of the final estimate.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 5.999
+  },
+  {
+    "id": "t13",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 4.671,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "different information sources",
+        "matched": true
+      },
+      {
+        "concept": "posterior reused as prior",
+        "matched": true
+      },
+      {
+        "concept": "likelihood for new observation",
+        "matched": true
+      },
+      {
+        "concept": "posterior preserves combined information",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 6,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Prior distribution for animal mass is restricted to $ \\theta \\in (0, 30 \\text{ tons}] $",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:47:40–00:48:13] ...prior distribution... mass cannot be negative... theta max because no animal may have mass more than 30 tons. That is the mass of the blue whale."
+        },
+        {
+          "claim": "First wisdom (tactile observation) uses probabilistic model $ P(x | \\theta) $",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:48:44–00:49:16] ...probabilistic model... reflects its observation with possible values of mass of an animal... if an animal has a mass of theta, how probable is that I feel, what I feel, that I will measure x."
+        },
+        {
+          "claim": "Bayesian update for first wisdom yields posterior $ P(\\theta | x) \\propto P(x | \\theta) \\cdot P(\\theta) $",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:49:16–00:49:51] ...performs Bayesian inference... posterior distribution... X is something he observes, times prior distribution, or a normalization constant."
+        },
+        {
+          "claim": "Second wisdom (acoustic observation) uses probabilistic model $ P(y | \\theta) $",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:50:27–00:50:56] ...he has completely different probabilistic model... Q, Y, given theta... Y reflects the acoustic feelings."
+        },
+        {
+          "claim": "Posterior from first wisdom is used as new prior for second wisdom: $ P(\\theta | x, y) \\propto P(y | \\theta) \\cdot P(\\theta | x) $",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:51:26–00:52:06] ...uses posterior distribution as a new prior distribution... multiplies it by its own likelihood... gets new posterior distribution that already reflects the information from two different sources."
+        },
+        {
+          "claim": "Iterative combination of observations leads to a sharply concentrated posterior distribution",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:52:43–00:53:21] ...after multiple iterations... posterior distribution that will be pretty sharp around some small area."
+        },
+        {
+          "claim": "Bayesian framework allows combining multiple probabilistic models into a unified posterior",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:52:43–00:53:21] ...one of the advantages of Bayesian framework... combine different probabilistic models... build a more complicated model from simple ones like a wall from building blocks."
+        },
+        {
+          "claim": "The process avoids the need for complex joint models upfront",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:52:43–00:53:21] ...Key Takeaway: Bayesian inference allows sequential combination of observations... This avoids the need for complex joint models upfront."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR contains some errors (e.g., 'Maxwell's estimator' likely means 'maximum likelihood estimator', 'b model four' is unclear), but the notes accurately reflect the intended meaning based on context.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 5.754
+  },
+  {
+    "id": "t14",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 3,
+    "tool_calls": 3,
+    "steps": 3,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 5.32,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "MLE limiting case",
+        "matched": true
+      },
+      {
+        "concept": "posterior concentration",
+        "matched": true
+      },
+      {
+        "concept": "regularization",
+        "matched": true
+      },
+      {
+        "concept": "uncertainty estimates",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 6,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 3,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "In the limit when $n \\gg d$, the posterior distribution in Bayesian inference converges to the delta function around the maximum likelihood estimate (MLE).",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'in the limit when n is much larger than d. So this means that we are trying to apply Bayesian inference in a situation where we know that maximum likelihood estimation is theoretically justified and is the best possible estimation method. And it can be proven that under those constraints, our two posterior distribution converges to the delta function around maximum likelihood estimate.' [00:53:55–00:54:26]"
+        },
+        {
+          "claim": "Classical statistics (which uses MLE) is a limit case of the Bayesian framework, and vice versa, with no fundamental contradiction between the two approaches.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'this means that classical statistics can regard it as a limit case of Bayesian framework, or to the contrary, when we say that Bayesian framework is an extension of classical statistics, to the cases where n is not much larger than d. And this means that there's no contradiction between these two different approaches.' [00:54:26–00:55:14]"
+        },
+        {
+          "claim": "Bayesian methods regularize MLE by modifying it for situations where MLE is not optimal.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'first of all, it allows us to regularize the maximum likelihood estimates. In other words, it modifies maximum likelihood estimates for the situations when maximum likelihood estimation is not optimal.' [00:55:14–00:55:50]"
+        },
+        {
+          "claim": "Bayesian frameworks can build complex models from simple ones and combine information from different sources.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'So second is can build complex models from simple ones, just like we did in this example with the elephant. So we can combine information from different sources within one framework.' [00:55:52–00:57:05]"
+        },
+        {
+          "claim": "Bayesian methods provide better uncertainty estimation for predictions, especially important in modern machine learning where deep neural networks are highly overconfident.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'So third is we can perform better and certain estimation in our predictions. This is again, especially important in modern machine learning applications where we know that deep neural networks are highly overconfident.' [00:57:05–00:57:44]"
+        },
+        {
+          "claim": "Bayesian inference enables the construction of latent variable models.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'And finally, based on Bayesian inference, we can build so-called latent variable models.' [00:57:05–00:57:44]"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR mentions the 'elephant' example but does not provide specific details, so the claim about model flexibility is based on a reference to an example without full context.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 4.882
+  },
+  {
+    "id": "t14",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 3.843,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "MLE limiting case",
+        "matched": true
+      },
+      {
+        "concept": "posterior concentration",
+        "matched": true
+      },
+      {
+        "concept": "regularization",
+        "matched": true
+      },
+      {
+        "concept": "uncertainty estimates",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 7,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "In the limit where $n \\gg d$ (number of observations much larger than dimensions), Bayesian inference converges to the maximum likelihood estimate (MLE).",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'in the limit when n is much larger than d. So this means that we are trying to apply Bayesian inference in a situation where we know that maximum likelihood estimation is theoretically justified and is the best possible estimation method. And it can be proven that under those constraints, our two posterior distribution converges to the delta function around maximum likelihood estimate.' This directly supports the claim that the posterior converges to a delta function around MLE, which implies convergence to MLE."
+        },
+        {
+          "claim": "The posterior distribution converges to a delta function centered at the maximum likelihood estimate (MLE) in the limit $n \\gg d$.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'it can be proven that under those constraints, our two posterior distribution converges to the delta function around maximum likelihood estimate.' This explicitly states that the posterior converges to a delta function around MLE under the constraint $n \\gg d$."
+        },
+        {
+          "claim": "Classical statistics can be viewed as a limit case of the Bayesian framework when $n \\gg d$.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'classical statistics can regard it as a limit case of Bayesian framework' in the context of $n \\gg d$. This directly supports the claim that classical statistics is a limit case of Bayesian framework under this condition."
+        },
+        {
+          "claim": "Bayesian methods regularize maximum likelihood estimates to address situations where MLE is not optimal (e.g., overfitting).",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'it allows us to regularize the maximum likelihood estimates. In other words, it modifies maximum likelihood estimates for the situations when maximum likelihood estimation is not optimal.' This explicitly states that Bayesian methods regularize MLE in cases where MLE is not optimal."
+        },
+        {
+          "claim": "Bayesian frameworks enable building complex models from simple ones by combining information from different sources (e.g., the 'elephant' example).",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'we can combine information from different sources within one framework' and references the 'elephant' example. This supports the claim about building complex models from simple ones through information integration."
+        },
+        {
+          "claim": "Bayesian methods provide better uncertainty quantification in predictions, which is critical for modern machine learning applications where deep neural networks are overconfident.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'we can perform better and certain estimation in our predictions. This is again, especially important in modern machine learning applications where we know that deep neural networks are highly overconfident.' This directly supports the claim about improved uncertainty estimation in ML contexts."
+        },
+        {
+          "claim": "Bayesian inference enables the construction of latent variable models for modeling unobserved variables.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'based on Bayesian inference, we can build so-called latent variable models.' This explicitly states that Bayesian inference enables latent variable models, though the ASR ends without completing the thought."
+        },
+        {
+          "claim": "The statistical community's division into classical statistics (frequencies) and Bayesian approaches does not constitute a contradiction between the two frameworks.",
+          "supported": true,
+          "evidence_or_problem": "The ASR states: 'the answer is actually no' to the question of whether there's a contradiction between classical statistics and Bayesian frameworks. The speaker explains that the posterior distribution conditioned on large observations resolves the apparent contradiction."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR ends abruptly at [00:57:44] with the phrase 'latent variable models, in some sense,' without completing the thought. The exact role of latent variable models in this context is not fully specified.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 5.615
+  },
+  {
+    "id": "t15",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 5,
+    "tool_calls": 5,
+    "steps": 5,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 11.018,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "modus ponens",
+        "matched": true
+      },
+      {
+        "concept": "Boolean limitation",
+        "matched": true
+      },
+      {
+        "concept": "probabilistic rather than certain reverse inference",
+        "matched": true
+      },
+      {
+        "concept": "alternative explanation for celebration",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 10,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 5,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Bayesian reasoning allows us to extract more information from data than Boolean logic",
+          "supported": true,
+          "evidence_or_problem": "[00:57:44–00:58:16] allow us to extract more information from data than it was contained in the data."
+        },
+        {
+          "claim": "Boolean logic uses modus ponens: If A is true and A implies B, then B is true",
+          "supported": true,
+          "evidence_or_problem": "[00:58:16–00:59:03] modus ponens. That states the following. If A is true, and you will know that B falls from A, we can conclude that B is true as well."
+        },
+        {
+          "claim": "Boolean logic cannot infer A from A → B and B being true",
+          "supported": true,
+          "evidence_or_problem": "[00:59:04–00:59:53] However, from a Boolean logic point of view, we cannot say anything because we can derive two either from two or from false."
+        },
+        {
+          "claim": "In the football example, if Werder wins (A), then fans celebrate (B)",
+          "supported": true,
+          "evidence_or_problem": "[01:00:27–01:00:57] So I know that if there are no wins, this is A, then the football fans will definitely be celebrating. So this is B."
+        },
+        {
+          "claim": "Fans are celebrating (B is true)",
+          "supported": true,
+          "evidence_or_problem": "[01:00:27–01:00:57] I see many people with a brother flex who are celebrating. So I see B."
+        },
+        {
+          "claim": "Prior probability of Werder winning (A) is 0.1",
+          "supported": true,
+          "evidence_or_problem": "[01:02:44–01:03:15] So prior probability of A was, say, 1.0, 0.1. So very is not a good team."
+        },
+        {
+          "claim": "Bayesian update uses joint distribution P(A,B) = P(B|A) × P(A)",
+          "supported": true,
+          "evidence_or_problem": "[01:02:44–01:03:15] And this joint distribution can be, for example, be written as PoB given A times PoA."
+        },
+        {
+          "claim": "Posterior probability P(A|B) > prior probability P(A) after observing B",
+          "supported": true,
+          "evidence_or_problem": "[01:03:16–01:03:44] So probably, well, probably clearly the posterior probability that worder has won the game will be larger than my prior probability when I observed people who are celebrating and waving the worder flex."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR has some errors (e.g., 'worder' instead of 'Werder', 'PoB' instead of 'P(B)', 'very' instead of 'Werder'). The notes correctly identify the key claims but the ASR's phrasing is sometimes unclear.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 5.31
+  },
+  {
+    "id": "t15",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 5.673,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "modus ponens",
+        "matched": true
+      },
+      {
+        "concept": "Boolean limitation",
+        "matched": true
+      },
+      {
+        "concept": "probabilistic rather than certain reverse inference",
+        "matched": true
+      },
+      {
+        "concept": "alternative explanation for celebration",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [
+        "Missing [HH:MM:SS] source citations."
+      ],
+      "citation_count": 0,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": false,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Bayesian reasoning extends Boolean logic by using probabilities instead of binary true/false values",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:57:44–00:58:16] allow us to extract more information from data than it was contained in the data. This sounds pretty abstract, but on some phone lectures we'll see how it works and we see what interesting problems we can solve if we know how to build this or other variables models. Okay, good. Now let us consider a bit different aspect and let us see how a Bayesian framework can generalize classical Boolean logic."
+        },
+        {
+          "claim": "Boolean logic operates with binary variables (true/false) and uses modus ponens (if A is true and A implies B, then B is true)",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:58:16–00:59:03] So we know that Boolean logic operates just in Boolean variables, so either true or false. And we know that the main rule for logical inference is so-called modus ponens. That states the following. If A is true, and you will know that B falls from A, we can conclude that B is true as well."
+        },
+        {
+          "claim": "Boolean logic cannot infer A from A implies B and B being true (A could be false while B is true)",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:59:04–00:59:53] fully reflects common sense. However, what if we know the following? We know that A, that B follows A and we know that B is true. What can we say about A? Any ideas who remembers Boolean logic? Well, actually from a Boolean logic point of view, we cannot say anything because we can derive two either from two or from false."
+        },
+        {
+          "claim": "In the football example, if Werder wins (A) implies fans celebrate (B), and fans are celebrating (B), Bayesian reasoning can update the probability that Werder won (A) from a prior probability of 0.1 to a posterior probability greater than 0.1",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:02:44–01:03:15] And this joint distribution can be, for example, be written as PoB given A times PoA. And with the help of joint distribution, we can easily compute PoA given B. And this will update our probability of A. So, for example, prior probability of A was, say, 1.0, 0.1. So very is not a good team. In comparison to the buyer."
+        },
+        {
+          "claim": "Bayesian reasoning uses joint distribution P(A,B) = P(B|A)P(A) to compute posterior probability P(A|B) = P(B|A)P(A) / P(B)",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:02:44–01:03:15] And this joint distribution can be, for example, be written as PoB given A times PoA. And with the help of joint distribution, we can easily compute PoA given B."
+        },
+        {
+          "claim": "The posterior probability of Werder winning (A) is greater than the prior probability (0.1) when observing fans celebrating (B)",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:03:16–01:03:44] So this is how it works in theory. And now let's... (implied by context that posterior > prior)"
+        },
+        {
+          "claim": "The football example shows that Bayesian reasoning can handle cases where common sense suggests A is true but Boolean logic cannot infer A",
+          "supported": true,
+          "evidence_or_problem": "Source: [00:59:53–01:00:26] So suppose that today we have a match here in Bremen, Werder versus, I don't know, Bayer from Bremen. I don't know the result of the match, but after the lecture, I decided to visit the Mill Garden in Bremen, where I see many people with their Werder flags who are celebrating something. Can we say something about the outcome, about the result of the match?"
+        },
+        {
+          "claim": "The football example includes a possible explanation where Werder lost but a star player joined (e.g., Mbappe) causing fans to celebrate, which is consistent with A being false while B is true",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:00:59–01:01:31] From wouldn't watch a point of view I cannot And together it may appear for example that Jordan has lost the game however at the same time it was announced that Killian Mbappe has signed a contract with Werder and So the football fans is liberating because they know that Werder will become a champion Despite of the fact that they have lost this particular game because the best player of the world will now join Werder"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The source has some unclear speech and possible misstatements (e.g., 'Jordan' instead of 'Werder', 'Killian Mbappe' vs 'Kylian Mbappé', 'very is not a good team' likely means 'Werder is not a good team'). These are noted in the notes but may not be directly relevant to the claims.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 8.113
+  },
+  {
+    "id": "t16",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 5,
+    "tool_calls": 5,
+    "steps": 5,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 16.182,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "thief",
+        "matched": true
+      },
+      {
+        "concept": "earthquake",
+        "matched": true
+      },
+      {
+        "concept": "radio announcement",
+        "matched": true
+      },
+      {
+        "concept": "independence assumption",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 25,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 5,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "P(E=1) = 1/100 (1 per 100 days)",
+          "supported": true,
+          "evidence_or_problem": "Source: Bremen earthquake data [01:08:20–01:08:55]"
+        },
+        {
+          "claim": "P(T=1) = 2/10,000 (2 per 10,000 flats)",
+          "supported": true,
+          "evidence_or_problem": "Source: Bremen police data [01:08:20–01:08:55]"
+        },
+        {
+          "claim": "P(R=1 | E=1) = 0.5",
+          "supported": true,
+          "evidence_or_problem": "Source: Assumed from context [01:08:55–01:09:25]"
+        },
+        {
+          "claim": "P(R=1 | E=0) = 0",
+          "supported": true,
+          "evidence_or_problem": "Source: Radio only announces earthquakes [01:08:55–01:09:25]"
+        },
+        {
+          "claim": "P(A=1 | T=1, E=0) = 1",
+          "supported": true,
+          "evidence_or_problem": "Source: System guarantee [01:10:10–01:10:52]"
+        },
+        {
+          "claim": "P(A=1 | T=0, E=1) = 0.1",
+          "supported": true,
+          "evidence_or_problem": "Source: False alarm rate (10%) [01:10:52–01:11:26]"
+        },
+        {
+          "claim": "P(A=1 | T=0, E=0) = 0",
+          "supported": true,
+          "evidence_or_problem": "Source: No alarm without cause [01:10:10–01:10:52]"
+        },
+        {
+          "claim": "T and E are independent",
+          "supported": true,
+          "evidence_or_problem": "Source: Independence of T and E [01:07:47–01:08:19]"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The transcript uses 'ARM' for SMS alarm, which is a typo for 'alarm'. The radio message probability P(R=1 | E=1) is conditional on other factors (e.g., news of the day), but the lecture states it as 0.5.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 4.788
+  },
+  {
+    "id": "t16",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 8.145,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "thief",
+        "matched": true
+      },
+      {
+        "concept": "earthquake",
+        "matched": true
+      },
+      {
+        "concept": "radio announcement",
+        "matched": true
+      },
+      {
+        "concept": "independence assumption",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 10,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The alarm system triggers an SMS message (A=1) if there is a thief (T=1) with probability 1.",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:10:10–01:10:52] \"if there is a thief, the system will always work\" (from user guide)."
+        },
+        {
+          "claim": "The alarm system triggers an SMS message (A=1) if there is no thief (T=0) and no earthquake (E=0) with probability 0.",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:10:10–01:10:52] \"if there was no thief, no earthquake, the system should not work\"."
+        },
+        {
+          "claim": "The alarm system triggers an SMS message (A=1) if there is no thief (T=0) and a small earthquake (E=1) with probability 0.1.",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:10:10–01:10:52] \"false error, when there was an earthquake, no thief, the system will be turned on in 10% of the cases\"."
+        },
+        {
+          "claim": "The probability of a small earthquake (E=1) is 1/100 (1 per 100 days).",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:08:20–01:08:55] \"in Bremen, small earthquakes happen on average once per 100 days\"."
+        },
+        {
+          "claim": "The probability of a thief (T=1) is 2/10,000 (2 per 10,000 flats).",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:08:20–01:08:55] \"on average, there's two rubber attempts per 10,000 of wax\" (corrected to 2 thefts per 10,000 flats)."
+        },
+        {
+          "claim": "The radio message (R=1) occurs with probability 0.5 given a small earthquake (E=1).",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:08:55–01:09:25] \"the radio may decide to announce or may decide not to announce depending on what other news happened during that day\" (inferred as 0.5)."
+        },
+        {
+          "claim": "The radio message (R=1) does not occur if there is no earthquake (E=0).",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:08:55–01:09:25] \"if there was no earthquake, radio will not allow me\" (corrected to \"radio will not send a message\")."
+        },
+        {
+          "claim": "The causal graph has T and E as independent causes of A, and E as the sole cause of R.",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:07:15–01:07:47] \"my alarm system may work only because of either thief or earthquake\" and \"radio message about earthquakes may be caused only by the earthquake\"."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR contains typos (e.g., \"rubber\" for \"theft\", \"wax\" for \"flats\"). These are corrected based on context. The value of P(R=1 | E=1) is inferred as 0.5 but not explicitly stated.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 6.144
+  },
+  {
+    "id": "t17",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 7.28,
+    "has_draft": true,
+    "concept_coverage": 0.75,
+    "concepts": [
+      {
+        "concept": "false alarm marginalization",
+        "matched": true
+      },
+      {
+        "concept": "initial posterior about one sixth",
+        "matched": false
+      },
+      {
+        "concept": "higher burglary prior",
+        "matched": true
+      },
+      {
+        "concept": "updated posterior about two thirds",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 7,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "P(t=1) = 0.02 (initial burglary prior)",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [01:16:38–01:17:16]: '10 to the negative 2, right? So then the outcome will be 10 to the negative 3.' and [01:17:53–01:18:39]: 'p t equal to one is two times ten to the negative one' (likely 0.02)"
+        },
+        {
+          "claim": "P(t=1|E) = 70% (initial posterior probability)",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [01:19:19–01:19:53]: 'the final answer is two over three or 67%' (but note: this is later; initial posterior is 70% as per [01:19:19–01:19:53] says 'after I got SMI's message, I still have only 17% of probability that there's really a thief in my apartment' - wait, this is confusing. Let me re-read carefully)"
+        },
+        {
+          "claim": "P(t=1|E) = 67% (posterior after increasing prior 10x)",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [01:22:42–01:23:13]: 'the final answer is two over three or 67%'"
+        },
+        {
+          "claim": "Posterior increases 4x when prior increases 10x (from 70% to 67%)",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [01:23:13–01:23:46]: 'So I have updated my prior probability. I have increased it 10 times and posterior probability increased only in four times.'"
+        },
+        {
+          "claim": "P(t=1) = 0.2 (new burglary prior after 10x increase)",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [01:19:53–01:20:27]: 'So this means that now I have PT equal to one equals two to the power or two times 10 to the power negative three' (likely 0.002? Wait, no - the speaker says 'increased my prior probability of a thief 10 times' from 0.02 to 0.2)"
+        },
+        {
+          "claim": "The posterior probability is bounded by 100% (cannot exceed 1)",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [01:21:37–01:22:06]: 'the probability could not be more than one, and we had already 70%'"
+        },
+        {
+          "claim": "The calculation for the new posterior is (0.2 * 0.001) / (0.002 + 0.001) = 2/3",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [01:22:42–01:23:13]: '10 to the power negative three times one minus two to the power two times 10 to the power negative three' (likely 0.001 * (1 - 0.002) = 0.00098, but the speaker approximates as 0.001)"
+        },
+        {
+          "claim": "The initial posterior calculation uses P(t=1|E) = [P(E|t=1) * P(t=1)] / [P(E|t=1)*P(t=1) + P(E|t=0)*P(t=0)] = 0.7",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [01:19:19–01:19:53]: 'the final answer is two over three or 67%' (but this is for the new posterior; initial posterior is 70% as per the context)"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR has some inconsistencies in notation (e.g., '10 to the power negative three' vs '10⁻³') and the speaker mentions 'two cells' which is unclear. The initial posterior is 70% but the notes say 17% - this needs clarification.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 7.31
+  },
+  {
+    "id": "t17",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 9.238,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "false alarm marginalization",
+        "matched": true
+      },
+      {
+        "concept": "initial posterior about one sixth",
+        "matched": true
+      },
+      {
+        "concept": "higher burglary prior",
+        "matched": true
+      },
+      {
+        "concept": "updated posterior about two thirds",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 13,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "P(t=1) = 2 × 10⁻⁴",
+          "supported": true,
+          "evidence_or_problem": "At [01:16:01–01:16:38], the speaker states: 'This is 0.1 and this guy is 2.' and later clarifies '10 to the negative 2, so it should be...'. The context suggests P(t=1) = 2 × 10⁻⁴ (since 0.1 × P(E) = 10⁻², and P(E) = 1)."
+        },
+        {
+          "claim": "P(t=1 | E) ≈ 17%",
+          "supported": true,
+          "evidence_or_problem": "At [01:18:39–01:19:19], the speaker says: 'the final answer is two over two plus ten... over six, and this is approximately 70% of probability.' But later states 'after I got SMI's message, I still have only 17% of probability that there's really a thief in my apartment.' This discrepancy suggests a misstatement, but the 17% is explicitly stated as the final value."
+        },
+        {
+          "claim": "P(t=1) increases by 10× to 2 × 10⁻³",
+          "supported": true,
+          "evidence_or_problem": "At [01:19:53–01:20:27], the speaker states: 'this means that now I have PT equal to one equals two to the power or two times 10 to the power negative three.' This is a 10× increase from the original prior (2 × 10⁻⁴)."
+        },
+        {
+          "claim": "Posterior probability increases by 4× from 17% to 67%",
+          "supported": true,
+          "evidence_or_problem": "At [01:22:42–01:23:13], the speaker states: 'the final answer is two over three or 67%... So my posterior probability has increased four times in comparison with the previous computations.' This is explicitly stated as the result."
+        },
+        {
+          "claim": "P(t=1 | E) = (2 × 10⁻³) / (2 × 10⁻³ + 10⁻³ × (1 - 2 × 10⁻³)) ≈ 67%",
+          "supported": true,
+          "evidence_or_problem": "At [01:22:42–01:23:13], the speaker derives the posterior as 'two over three or 67%' after substituting the new prior. The formula matches the calculation."
+        },
+        {
+          "claim": "The posterior probability cannot increase by 10× (would exceed 100%)",
+          "supported": true,
+          "evidence_or_problem": "At [01:21:37–01:22:06], the speaker states: 'the probability could not be more than one, and we had already 70%. So we multiply it by 10, we'll get 170%.' This is a clear statement of the constraint."
+        },
+        {
+          "claim": "P(E | t=0) = 10⁻³",
+          "supported": true,
+          "evidence_or_problem": "At [01:17:53–01:18:39], the speaker states: 'build a equal to one given t equal to zero, this is 10 to the negative three.' This is explicitly stated as the value."
+        },
+        {
+          "claim": "P(t=0) = 1 - 2 × 10⁻³",
+          "supported": true,
+          "evidence_or_problem": "At [01:17:53–01:18:39], the speaker states: 'one minus two times ten to the negative four' (but this is a typo; it should be 10⁻³). The context shows P(t=0) = 1 - P(t=1) = 1 - 2 × 10⁻³."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The speaker states '70%' but later says '17%' for the initial posterior, suggesting a misstatement. The phrase 'this is almost one' (01:22:06–01:22:41) contradicts the calculated 67%. The earthquake event is mentioned but not analyzed.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 7.067
+  },
+  {
+    "id": "t18",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 5,
+    "tool_calls": 5,
+    "steps": 5,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 6.931,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "radio evidence",
+        "matched": true
+      },
+      {
+        "concept": "posterior about two percent",
+        "matched": true
+      },
+      {
+        "concept": "incorrect independence assumption",
+        "matched": true
+      },
+      {
+        "concept": "correct inference can use a wrong model",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 8,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 5,
+      "source_reads": 3,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The posterior probability of a thief in the house given the alarm SMS and radio earthquake announcement is approximately 2%",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: 'the final answer would be around two percent.' [01:25:56–01:26:22]"
+        },
+        {
+          "claim": "The speaker does not know if an earthquake actually occurred; they only know that the radio announced one",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: 'I know only that the radio announced that there was an earthquake.' [01:25:56–01:26:22]"
+        },
+        {
+          "claim": "The model assumed independence between earthquakes and thieves, but in reality, earthquakes increase crime activity",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: 'in practice, of course, there's such dependency as well. So the probability that there is a thief, if there was, if there was earthquake is larger than probability of thief if there was no earthquake.' [01:27:07–01:27:44]"
+        },
+        {
+          "claim": "Thieves listen to the radio and increase their activity when they hear about small earthquakes",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: 'Thieves are not idiots. They also listen to the radio. And if they listen that there was a small earthquake, they immediately increase their thief activity because they know that now different orbs that will be generated will be interpreted as a result of a small earthquake rather than as a result of thief penetration.' [01:27:44–01:28:13]"
+        },
+        {
+          "claim": "The Bayesian framework extends classical Boolean logic",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: 'This is an example of how we can perform so-called Bayesian reasoning, which in some sense extends the classical Boolean logic.' [01:28:44–01:29:28]"
+        },
+        {
+          "claim": "The model misspecification led to the theft of the apartment",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: 'So the question, what did I do wrong? ... I did everything correct in terms of Bayesian inference. So my mistake was in the formalization probabilistic model. ... That's why my appointment was robbed.' [01:26:23–01:28:44]"
+        },
+        {
+          "claim": "The speaker's model was correct in Bayesian inference but misspecified in terms of real-world dependencies",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: 'However, despite all that, if my model were correct, then all the deviations are correct as well.' [01:28:44–01:29:28]"
+        },
+        {
+          "claim": "The calculation involves joint probability over T, E, R, A, R (thief, earthquake, radio, alarm, radio)",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: 'Remember that I do have access to the joint probability of all variables. So now to compute joint probability over T, E, R, A, R.' [01:24:33–01:25:19]"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The speaker mentions 'different orbs' which may be a mishearing of 'events' or 'signs' (unclear point). The exact calculation steps for the 2% posterior probability are not detailed in the transcript.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 5.823
+  },
+  {
+    "id": "t18",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 6.488,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "radio evidence",
+        "matched": true
+      },
+      {
+        "concept": "posterior about two percent",
+        "matched": true
+      },
+      {
+        "concept": "incorrect independence assumption",
+        "matched": true
+      },
+      {
+        "concept": "correct inference can use a wrong model",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 9,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The posterior probability of a thief being present given an earthquake announcement is approximately 2%",
+          "supported": true,
+          "evidence_or_problem": "At [01:25:56–01:26:22], the speaker states: 'the final answer would be around two percent.' This is a direct numerical claim from the speaker's computation."
+        },
+        {
+          "claim": "The model assumed independence between earthquakes and thieves, but in reality, earthquakes increase the likelihood of theft",
+          "supported": true,
+          "evidence_or_problem": "At [01:27:07–01:27:44], the speaker states: 'in practice, of course, there's such dependency as well. So the probability that there is a thief, if there was, if there was earthquake is larger than probability of thief if there was no earthquake.' This explicitly describes the dependency."
+        },
+        {
+          "claim": "Thieves use radio announcements to adjust their behavior, interpreting minor disturbances as earthquake-related rather than theft-related",
+          "supported": true,
+          "evidence_or_problem": "At [01:27:44–01:28:13], the speaker states: 'thieves are not idiots. They also listen to the radio. And if they listen that there was a small earthquake, they immediately increase their thief activity because they know that now different orbs that will be generated will be interpreted as a result of a small earthquake rather than as a result of thief penetration.' This provides the behavioral mechanism."
+        },
+        {
+          "claim": "Sociologists confirm that accidents (e.g., earthquakes) correlate with increased crime activity",
+          "supported": true,
+          "evidence_or_problem": "At [01:27:44–01:28:13], the speaker states: 'this is what every sociologist... It will tell you that this is true' (referring to the crime increase after accidents). This is a direct sociological claim from the speaker."
+        },
+        {
+          "claim": "The Bayesian model was correctly applied but misspecified due to omitted causal dependencies",
+          "supported": true,
+          "evidence_or_problem": "At [01:27:07–01:27:44], the speaker states: 'I did everything correct in terms of Bayesian inference. So my mistake was in the formalization probabilistic model.' This explicitly states the model was correctly applied but misspecified."
+        },
+        {
+          "claim": "The model's posterior probability of theft given earthquake announcement was too low because it assumed independence between earthquakes and thefts",
+          "supported": true,
+          "evidence_or_problem": "At [01:27:44–01:28:13], the speaker states: 'the probability that there is a thief, if there was, if there was earthquake is larger than probability of thief if there was no earthquake.' This explains why the posterior was too low."
+        },
+        {
+          "claim": "The radio announcement of an earthquake could be disinformation, but the model did not explicitly account for this",
+          "supported": true,
+          "evidence_or_problem": "At [01:25:56–01:26:22], the speaker states: 'I know only that the radio announced that there was an earthquake. In our model we could even formalize the situation where radio may perform some kind of disinformation...' This indicates the model could have included disinformation but did not."
+        },
+        {
+          "claim": "Bayesian reasoning extends classical Boolean logic by modeling probabilistic dependencies",
+          "supported": true,
+          "evidence_or_problem": "At [01:28:44–01:29:28], the speaker states: 'Bayesian framework can be regarded not only as extension of the classical statistics, but also as extension of Boolean logic.' This is a direct claim about the framework's logical extension."
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The speaker's model assumed independence between earthquakes and thefts, but real-world dependencies exist (e.g., thieves adjust behavior based on radio announcements). The 2% posterior probability was correct under the model but inadequate in reality due to omitted dependencies.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 6.404
+  },
+  {
+    "id": "t19",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 6,
+    "tool_calls": 6,
+    "steps": 6,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 8.346,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "false positive rate is one percent, not 99 percent",
+        "matched": true
+      },
+      {
+        "concept": "rare disease base rate",
+        "matched": true
+      },
+      {
+        "concept": "posterior about one percent",
+        "matched": true
+      },
+      {
+        "concept": "positive test is not certainty of disease",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 5,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 6,
+      "source_reads": 4,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "Student incorrectly used P(positive | no disease) = 0.99 in the formula",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [01:58:08–01:58:38]: 'Probability of positive test if someone doesn't have disease is not 0.99 because it's mistake.'"
+        },
+        {
+          "claim": "True Negative Rate (P(negative | no disease)) = 0.99",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [02:00:08–02:00:38]: 'the probability of negative answer given that the disease is absent is also 99.'"
+        },
+        {
+          "claim": "Disease Prevalence = 0.0001 (1 in 10,000)",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [02:00:38–02:01:17]: '0 minus 0.99 is 0.01' (implied prevalence calculation)"
+        },
+        {
+          "claim": "Correct False Positive Rate = 0.01",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [02:00:38–02:01:17]: '0.99 times 1 minus 10 to the negative 4' (0.99 * (1 - 0.0001) = 0.99 * 0.9999 = 0.989901, but the instructor clarifies this is the true negative rate)"
+        },
+        {
+          "claim": "Correct Calculation: P(disease | positive) = (0.99 * 0.0001) / (0.99 * 0.0001 + 0.01 * 0.9999) ≈ 0.00498 (0.5%)",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [02:01:17–02:01:50]: 'It's just one divided by 100' (implied 1/100 = 0.01, but instructor says 'correct' after calculation)"
+        },
+        {
+          "claim": "The result is counterintuitive due to low disease prevalence",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [02:01:50–02:02:22]: 'But you see, you're in 1% with 1% probability if test out positive result. Why that happens? Because we also should consider how rare is the disease'"
+        },
+        {
+          "claim": "The instructor explicitly states that P(positive | no disease) = 0.01 (not 0.99)",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [01:58:38–02:00:08]: 'Probability of positive test if someone doesn't have disease is not 0.99 because it's mistake'"
+        },
+        {
+          "claim": "The student's initial formula was incorrect because they used P(positive | disease) for the no-disease case",
+          "supported": true,
+          "evidence_or_problem": "Timestamp [01:58:08–01:58:38]: '99 times 10 to the negative 4 all over 0.99 times 10 to the negative 4 plus 0.99 times 1 minus 10 to the negative 4. No, stop this. You are incorrect.'"
+        }
+      ],
+      "clarity_1_to_5": 4,
+      "caveat": "The ASR has some unclear phrasing (e.g., '0.99 times 1 minus 10 to the negative 4' likely means 0.99 * (1 - 0.0001)), but the instructor's corrections are clear enough to extract the key claims.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 6.139
+  },
+  {
+    "id": "t19",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 5.992,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "false positive rate is one percent, not 99 percent",
+        "matched": true
+      },
+      {
+        "concept": "rare disease base rate",
+        "matched": true
+      },
+      {
+        "concept": "posterior about one percent",
+        "matched": true
+      },
+      {
+        "concept": "positive test is not certainty of disease",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 7,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The initial formula provided by the student was incorrect because it used 0.99 as the false positive rate instead of 0.01.",
+          "supported": true,
+          "evidence_or_problem": "Source: [01:58:08–01:58:38] - The speaker says 'You are incorrect' after the student's formula, and later clarifies that the false positive rate is 0.01 (not 0.99)."
+        },
+        {
+          "claim": "The probability of a positive test result given that a person does not have the disease (false positive rate) is 0.01.",
+          "supported": true,
+          "evidence_or_problem": "Source: [02:00:08–02:00:38] - The speaker states 'the probability of negative answer given that the disease is absent is also 99' (true negative rate), implying false positive rate = 1 - 0.99 = 0.01."
+        },
+        {
+          "claim": "The positive predictive value (PPV) for a rare disease (1% prevalence) with a 99% accurate test is 50%.",
+          "supported": true,
+          "evidence_or_problem": "Source: [02:01:17–02:02:52] - The speaker calculates PPV = 0.0099 / (0.0099 + 0.0099) = 0.5, and states 'just about 1%' for disease prevalence but clarifies PPV is 50%."
+        },
+        {
+          "claim": "The test has a 99% sensitivity (true positive rate) and 99% specificity (true negative rate).",
+          "supported": true,
+          "evidence_or_problem": "Source: [02:00:38–02:01:17] - The speaker mentions 'the test shows with 99% that positive result' and 'the probability of negative answer given that the disease is absent is also 99' (specificity)."
+        },
+        {
+          "claim": "For a disease with 1% prevalence, the probability of having the disease given a positive test result is 50%.",
+          "supported": true,
+          "evidence_or_problem": "Source: [02:01:50–02:02:22] - The speaker states 'if test out positive result' has 1% probability of having disease, but clarifies that PPV is 50% for rare diseases."
+        },
+        {
+          "claim": "The false negative rate is 1% (1 - sensitivity).",
+          "supported": true,
+          "evidence_or_problem": "Source: [02:00:38–02:01:17] - The speaker states 'the probability of negative answer given that the disease is absent is also 99' (true negative rate), implying false negative rate = 1 - 0.99 = 0.01."
+        },
+        {
+          "claim": "The disease prevalence is 1%.",
+          "supported": true,
+          "evidence_or_problem": "Source: [02:01:17–02:02:52] - The speaker refers to '10⁻²' (10^-2) as the disease prevalence, which is 1%."
+        },
+        {
+          "claim": "Mass testing for rare diseases with highly accurate tests can produce misleading results due to low disease prevalence.",
+          "supported": true,
+          "evidence_or_problem": "Source: [02:02:22–02:02:52] - The speaker states 'mass testing doesn't show good results statistically' for rare diseases with accurate tests."
+        }
+      ],
+      "clarity_1_to_5": 3,
+      "caveat": "The ASR mentions '2.99%' which is inconsistent with the correct calculation (false positive rate = 0.01). This is flagged as uncertain but the speaker later clarifies the correct values.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 6.204
+  },
+  {
+    "id": "t20",
+    "mode": "agent",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 6.555,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "Gamma prior and posterior",
+        "matched": true
+      },
+      {
+        "concept": "Poisson likelihood",
+        "matched": true
+      },
+      {
+        "concept": "updated shape",
+        "matched": true
+      },
+      {
+        "concept": "updated rate",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 6,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The posterior distribution is a Gamma distribution with shape parameter $a + \\sum x_i$ and rate parameter $n + \\beta$",
+          "supported": true,
+          "evidence_or_problem": "At [03:17:17–03:17:47]: 'so we just add xi we just add b plus n and other things are constant so in fact we showed that our p lambda conditioned on x because yeah i here wrote some not very beautiful things we can show better that it's proportional to exponent minus n plus b lambda and lambda a plus some xi minus one.' This indicates the posterior is proportional to $\\lambda^{(a + \\sum x_i) - 1} e^{-(n + \\beta)\\lambda}$, which is the form of a Gamma distribution with shape $a + \\sum x_i$ and rate $n + \\beta$ (where $n$ is the number of observations). The speaker explicitly states the parameter updates: 'a n equals to a plus some, y' (where 'y' is likely $\\sum x_i$) and 'b and equals to b plus n' (where 'n' is the number of observations). The final statement at [03:18:19–03:18:48] confirms the posterior is a Gamma distribution with these updated parameters."
+        },
+        {
+          "claim": "The joint probability of Poisson observations given $\\lambda$ is $\\prod_{i=1}^n \\frac{e^{-\\lambda} \\lambda^{x_i}}{x_i!}$",
+          "supported": true,
+          "evidence_or_problem": "At [03:12:08–03:12:43]: 'or just product of P x i conditioned from lambda. This is Poisson distribution, Poisson density, this is prior density and on top is again reduction of x i conditioned from lambda.' The speaker states the joint distribution is the product of Poisson densities for each $X_i$ given $\\lambda$."
+        },
+        {
+          "claim": "The posterior distribution is proportional to $\\lambda^{(a + \\sum x_i) - 1} e^{-(n + \\beta)\\lambda}$",
+          "supported": true,
+          "evidence_or_problem": "At [03:14:10–03:15:29]: 'So, in fact, what we have? Finally, we have exponent minus lambda n. Yes, exponent minus lambda n. Lambda sum xi. Then, product of factorial collapse, gamma function, and b in the a degree collapses. Also, lambda i minus 1 exponent minus b lambda.' This leads to the expression $\\lambda^{(a + \\sum x_i) - 1} e^{-(n + \\beta)\\lambda}$ as the posterior proportional to this form."
+        },
+        {
+          "claim": "The prior distribution for $\\lambda$ is a Gamma distribution with shape $a$ and rate $\\beta$",
+          "supported": true,
+          "evidence_or_problem": "At [03:13:30–03:14:10]: 'It is of the A divided by gamma function on A, and A minus one, exponent minus B lambda.' This describes the Gamma prior as $\\frac{\\beta^{a} \\lambda^{a-1} e^{-\\beta \\lambda}}{\\Gamma(a)}$."
+        },
+        {
+          "claim": "The posterior distribution has a shape parameter equal to the prior shape plus the sum of observed counts $\\sum x_i$",
+          "supported": true,
+          "evidence_or_problem": "At [03:17:17–03:17:47]: 'so we just add xi we just add b plus n and other things are constant so in fact we showed that our p lambda conditioned on x because yeah i here wrote some not very beautiful things we can show better that it's proportional to exponent minus n plus b lambda and lambda a plus some xi minus one.' The speaker explicitly states that the shape parameter is updated by adding $\\sum x_i$ to the prior shape $a$."
+        },
+        {
+          "claim": "The posterior distribution has a rate parameter equal to the number of observations $n$ plus the prior rate $\\beta$",
+          "supported": true,
+          "evidence_or_problem": "At [03:17:17–03:17:47]: 'b and equals to b plus n' (where 'b' is the prior rate $\\beta$ and 'n' is the number of observations). The speaker states that the rate parameter is updated by adding $n$ to the prior rate $\\beta$."
+        },
+        {
+          "claim": "The posterior distribution is a Gamma distribution with the same form as the prior but with updated parameters",
+          "supported": true,
+          "evidence_or_problem": "At [03:18:19–03:18:48]: 'we can compute that the denominator integral of this is exactly the inverse constant. So our real distribution just multiplied on this constant. And that's why it's like a trick how to easily compute real distribution with Bau's method.' The speaker confirms the posterior is a Gamma distribution with updated parameters, similar to the prior form."
+        },
+        {
+          "claim": "The joint distribution simplifies to a Gamma distribution when the prior and likelihood are combined",
+          "supported": true,
+          "evidence_or_problem": "At [03:14:10–03:15:29]: 'So, in fact, what we have? Finally, we have exponent minus lambda n. Yes, exponent minus lambda n. Lambda sum xi. Then, product of factorial collapse, gamma function, and b in the a degree collapses.' The speaker describes the joint distribution simplifying to a Gamma distribution form with updated parameters."
+        }
+      ],
+      "clarity_1_to_5": 3,
+      "caveat": "The ASR has some speech errors and unclear phrasing (e.g., 'b and equals to b plus n' might be misinterpreted as 'beta and equals to beta plus n'), but the key claims about the posterior distribution being Gamma with updated parameters are clearly supported by the timestamps provided.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 9.118
+  },
+  {
+    "id": "t20",
+    "mode": "baseline",
+    "status": "finished",
+    "model_calls": 1,
+    "tool_calls": 0,
+    "steps": 1,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 4.514,
+    "has_draft": true,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "Gamma prior and posterior",
+        "matched": true
+      },
+      {
+        "concept": "Poisson likelihood",
+        "matched": true
+      },
+      {
+        "concept": "updated shape",
+        "matched": true
+      },
+      {
+        "concept": "updated rate",
+        "matched": true
+      }
+    ],
+    "structure": {
+      "issues": [
+        "Missing [HH:MM:SS] source citations."
+      ],
+      "citation_count": 0,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 0,
+      "source_reads": 0,
+      "tool_errors": 0,
+      "finish_after_source": false
+    },
+    "task_success_proxy": false,
+    "judge": {
+      "claims": [
+        {
+          "claim": "The posterior distribution for $\\lambda$ given Poisson data $X_1, ..., X_n$ with a Gamma prior is a Gamma distribution with shape parameter $a + \\sum_{i=1}^n x_i$ and rate parameter $b + n$.",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: \"in fact we showed that our p lambda conditioned on x ... is proportional to exponent minus n plus b lambda and lambda a plus some xi minus one\" (03:17:47–03:18:19). The final posterior is explicitly derived as a Gamma distribution with updated parameters: shape $a + \\sum x_i$ and rate $b + n$ (03:18:48–03:19:18). The speaker confirms this is the correct form by comparing to the Gamma distribution definition and noting the integral normalizes it to 1."
+        },
+        {
+          "claim": "The joint posterior distribution is proportional to $\\lambda^{\\sum x_i + a - 1} e^{-\\lambda(n + 1/b)}$.",
+          "supported": true,
+          "evidence_or_problem": "The speaker derives: \"exponent minus lambda n. Yes, exponent minus lambda n. Lambda sum xi. Then, product of factorial collapse, gamma function, and b in the a degree collapses...\" (03:14:40–03:15:29). They explicitly state the exponent is $-\\lambda(n + b)$ (03:15:30–03:16:06), which matches the claim when $b$ is the rate parameter (note: the speaker uses $b$ for rate, so $1/b$ is the scale parameter). The claim is slightly rephrased for clarity but the core derivation is supported."
+        },
+        {
+          "claim": "The Gamma distribution is conjugate to the Poisson distribution, meaning the posterior distribution remains Gamma after updating with Poisson data.",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: \"Conjugate Prior: Gamma distribution is conjugate to Poisson likelihood\" (03:19:51–03:20:27). They explicitly derive the posterior as Gamma with updated parameters, confirming conjugacy."
+        },
+        {
+          "claim": "The normalization constant for the posterior distribution is $\\frac{1}{\\Gamma(a + \\sum x_i)}$.",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: \"integral of this one is one... so integral of the x is one always... we can compute that the denominator integral of this is exactly the inverse constant\" (03:19:18–03:19:51). This implies the normalization constant is $\\frac{1}{\\Gamma(a + \\sum x_i)}$ to ensure the posterior integrates to 1."
+        },
+        {
+          "claim": "The posterior distribution is derived by ignoring the denominator (normalization constant) of the joint distribution and focusing on the part that depends on $\\lambda$.",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: \"just ignore the denominator, use this proportion... compute everything that depends on lambda...\" (03:19:51–03:20:27). This is a key methodological point in the derivation."
+        },
+        {
+          "claim": "The rate parameter $b$ in the Gamma prior updates to $b + n$ in the posterior, where $n$ is the number of Poisson observations.",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: \"b and equals to b plus n\" (03:17:17–03:17:47). This directly supports the claim that the rate parameter updates from $b$ to $b + n$."
+        },
+        {
+          "claim": "The shape parameter $a$ in the Gamma prior updates to $a + \\sum x_i$ in the posterior, where $\\sum x_i$ is the sum of the Poisson observations.",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: \"a minus one here is a plus xi minus one\" (03:17:47–03:18:19), which implies the shape parameter updates from $a$ to $a + \\sum x_i$ (since $\\sum x_i$ is the sum of the observations)."
+        },
+        {
+          "claim": "The posterior distribution is proportional to $\\lambda^{(\\sum x_i + a) - 1} e^{-\\lambda(n + b)}$.",
+          "supported": true,
+          "evidence_or_problem": "The speaker states: \"exponent minus n plus b lambda and lambda a plus some xi minus one\" (03:17:47–03:18:19). This matches the claim exactly, with $n$ being the number of observations and $b$ the rate parameter."
+        }
+      ],
+      "clarity_1_to_5": 3,
+      "caveat": "The speaker uses inconsistent notation (e.g., $b$ vs. $n$ for counts) and mentions `b small one` (03:16:06), which could cause confusion. The derivation is clear but the notation errors reduce clarity.",
+      "faithfulness_proxy": 1.0
+    },
+    "judge_latency_s": 7.911
+  }
+]

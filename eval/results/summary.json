@@ -1,0 +1,41 @@
+{
+  "sample_sha256": "9d1f0f951c19f7802a6fb756ac019fa5928e3233595b9c98f070ecda161620bc",
+  "transcript_sha256": "fd5cf87496e90eaacd4d43e06d72759aa26bb9670c49f027de42085663987c76",
+  "model": "qwen3:4b",
+  "tasks": 20,
+  "judge_enabled": true,
+  "cost_note": "API spend $0; local compute cost excluded. ASR/setup excluded from per-task latency.",
+  "metrics_note": "Coverage is lexical; judge uses the same local model and is not ground truth.",
+  "agent": {
+    "finished": 19,
+    "structure_pass": 19,
+    "task_success_proxy": 19,
+    "mean_concept_coverage": 0.975,
+    "mean_steps": 4.65,
+    "mean_model_calls": 4.65,
+    "mean_tool_calls": 4.65,
+    "mean_latency_s": 8.39855,
+    "mean_api_cost_usd": 0,
+    "mean_faithfulness_proxy": 0.9583333333333334,
+    "judged_tasks": 20,
+    "judge_model_calls": 20,
+    "mean_judge_latency_s": 6.0861,
+    "mean_clarity_1_to_5": 3.85
+  },
+  "baseline": {
+    "finished": 20,
+    "structure_pass": 15,
+    "task_success_proxy": 15,
+    "mean_concept_coverage": 1.0,
+    "mean_steps": 1,
+    "mean_model_calls": 1,
+    "mean_tool_calls": 0,
+    "mean_latency_s": 5.1649,
+    "mean_api_cost_usd": 0,
+    "mean_faithfulness_proxy": 0.9357142857142857,
+    "judged_tasks": 20,
+    "judge_model_calls": 20,
+    "mean_judge_latency_s": 6.87585,
+    "mean_clarity_1_to_5": 3.7
+  }
+}

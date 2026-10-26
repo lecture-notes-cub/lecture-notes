@@ -33,7 +33,7 @@ not a minimum hardware requirement; frozen-transcript runs can use CPU Ollama.
 ## Reproduction
 
 Exact installation/run commands are in [README.md](../README.md). A clean,
-isolated environment was created from `uv.lock`; 20 tests passed and the CLI
+isolated environment was created from `uv.lock`; 21 tests passed and the CLI
 entry point worked. A real 147-second media interval was transcribed on CPU
 and converted to notes with the local Qwen loop, not a mock.
 Its [source, ASR trace, agent trace and notes](../examples/media-smoke/) are preserved.
@@ -91,8 +91,51 @@ latencies are first operational measurements, not isolated hardware benchmarks.
 
 ## Results
 
-Measured summary and interpretation are finalized after all 20 paired runs.
-Raw artifacts are in [eval/results](../eval/results).
+All 20 paired tasks were evaluated. Exact values are in
+[summary.json](../eval/results/summary.json); per-task metrics and all traces are
+in [eval/results](../eval/results).
+
+| Metric | Agent loop | One-call baseline |
+|---|---:|---:|
+| Finished / returned notes | 19/20 | 20/20 |
+| Structure/citation-format pass | 19/20 | 15/20 |
+| Task-success **proxy** | 19/20 (95%) | 15/20 (75%) |
+| Mean lexical concept-mention coverage | 97.5% | 100% |
+| Mean source-support judge proxy | 95.83% | 93.57% |
+| Mean clarity judge rating, 1–5 | 3.85 | 3.70 |
+| Mean steps / generation model calls | 4.65 / 4.65 | 1 / 1 |
+| Mean tool calls (including finish) | 4.65 | 0 |
+| Mean generation latency | 8.40 s | 5.16 s |
+| Mean API spend | $0 | $0 |
+| Separate judge calls per task | 1 | 1 |
+| Mean separate judge latency | 6.09 s | 6.88 s |
+
+There were 93 agent-generation calls, 20 baseline-generation calls, and 40
+separate judge calls in the completed evaluation. Local compute/electricity
+cost is not estimated. The agent's failed t02 still contributes its 10 calls
+and partial draft to the reported costs/coverage, not silently dropped.
+
+**Does the loop earn its cost?** It repaired citation formatting often enough
+to improve our structure-dependent success proxy, at about **1.63× latency and
+4.65× generation calls**. It did **not** improve lexical coverage; its small
+judge advantage is not trustworthy evidence of factual improvement given the
+false positives below. The strong short-section baseline remains competitive.
+The next improvement should target claim grounding and nonprogress, not add
+more tools. The single-recording, correlated tasks and unverified labels do not
+support generalization or statistical significance claims.
+
+The five baseline structure failures (t03/t07/t11/t15/t20) used nonconforming
+timestamp notation. This explains the success-proxy gap: it is not evidence
+that those five baseline answers were factually wrong.
+
+### Actual tool-error recovery
+
+In [t08's trace](../eval/results/agent/t08.trace.jsonl), step 1 / seq 4 requests
+`read_transcript(start=1323.66,end=1)`. The tool returns a recoverable bounds
+error at seq 6. The model corrects the interval to `end=1679.17` in step 2 /
+seq 9 and later saves notes and chooses `finish`. This is real-model recovery,
+in addition to the unit tests for invalid arguments, empty search, timeouts,
+step limits, and interrupted evaluations.
 
 ### Judge audit: high scores are not proof
 

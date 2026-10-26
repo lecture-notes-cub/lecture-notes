@@ -172,6 +172,12 @@ Evaluation emits per-task notes/traces/statistics, `results.json`, and `summary.
 Use a new output directory each time. See [the M2 report](docs/M2_REPORT.md) for
 results, sample provenance, limitations, and three annotated failure traces.
 
+**First measured results (20 section tasks):** agent finished 19/20; the
+structure-and-coverage success proxy passed 19/20 versus baseline 15/20.
+Lexical coverage was 97.5% versus 100%; mean generation latency 8.40 s versus
+5.16 s. The loop helps formatting, but a factual-quality improvement is **not
+established**. These are one-recording results, not general accuracy estimates.
+
 If a long evaluation is interrupted, resume without losing completed tasks:
 
 ```bash

@@ -1,0 +1,10 @@
+{
+  "status": "finished",
+  "model_calls": 4,
+  "tool_calls": 4,
+  "steps": 4,
+  "api_cost_usd": 0,
+  "cost_note": "Local inference; hardware/electricity cost not measured.",
+  "latency_s": 5.296,
+  "has_draft": true
+}
