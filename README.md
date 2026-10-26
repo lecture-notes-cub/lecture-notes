@@ -51,6 +51,9 @@ We want to do this in code because this behaviour would be better off being dete
 4. Important information appears only in video or audio -> sync audio and video using timestamps. Figured it out through group discussion.
 5. Bad video quality could result in the agent misunderstanding the formulas/symbols, which could harm the consistency of the notes or lead to the agent hallucinating something. Figured it out through group discussion.
 6. The agent omits important details. Figured it out through group discussion.
+7. The agent links information to the wrong part of the lecture -> check that each citation actually supports the statement. Found through trace analysis (t01).
+8. The agent keeps repeating the same mistake even after receiving feedback -> detect unchanged outputs and give clearer feedback. Found through trace analysis (t02).
+9. The agent mixes up different concepts and adds unsupported claims -> verify statements against the original lecture before saving notes. Found through trace analysis (t03).
 
 # Initial evaluation plan
 
