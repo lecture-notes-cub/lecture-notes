@@ -204,15 +204,3 @@ retry, HTTP timeouts, and a maximum of 10 decisions by default (`--max-steps`).
 The model cannot execute shell commands or choose arbitrary output paths.
 Local API defaults to `http://127.0.0.1:11434`; override with `OLLAMA_HOST`.
 Do not expose Ollama publicly; transcripts can contain private information.
-
-## Recording and submission
-
-Local models require a **3–5 minute narrated screen recording** of 2–3 frozen tasks
-with traces being written. Follow [the recording guide](docs/RECORDING.md).
-**Recording link: pending team recording/upload.** This is a remaining submission
-requirement, not a completed deliverable.
-
-Work is on `first-iteration`, as requested. **The rubric grades only commits on
-`main` before the deadline**; the team must explicitly approve/integrate that step.
-
-Dependencies, licenses, lecture/PDF sources: [THIRD_PARTY.md](THIRD_PARTY.md).
