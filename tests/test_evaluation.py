@@ -31,9 +31,9 @@ def test_evaluation_and_completed_resume(tmp_path, monkeypatch):
     output = tmp_path / "results"
     first = evaluate(sample, output, script())
     assert first["tasks"] == 1
-    assert first["agent"]["task_success_proxy"] == 1
+    assert first["variants"]["m2_loop"]["task_success_proxy"] == 1
     second = evaluate(sample, output, ScriptedModel([]), resume=True)
-    assert first["agent"] == second["agent"]
+    assert first["variants"]["m2_loop"] == second["variants"]["m2_loop"]
     with pytest.raises(ValueError, match="configuration"):
         evaluate(sample, output, ScriptedModel([]), judge=True, resume=True)
 
@@ -49,11 +49,11 @@ def test_partial_resume_preserves_abandoned_trace(tmp_path, monkeypatch):
     monkeypatch.setattr("lecture_notes.evaluation.subprocess.check_output", lambda *a, **kw: "Test GPU")
     sample = make_sample(tmp_path)
     output = tmp_path / "results"
-    partial = output / "agent" / "t01.trace.jsonl"
+    partial = output / "m2_loop" / "t01.trace.jsonl"
     partial.parent.mkdir(parents=True)
     partial.write_text('{"event":"model_request","interrupted":true}\n')
     evaluate(sample, output, script(), resume=True)
-    saved = output / "interrupted" / "agent" / partial.name
+    saved = output / "interrupted" / "m2_loop" / partial.name
     assert '"interrupted":true' in saved.read_text()
     assert (output / "summary.json").exists()
 
@@ -65,5 +65,25 @@ def test_resume_accepts_failed_tasks_without_judge_output(tmp_path, monkeypatch)
     model = ScriptedModel([ModelError("offline"), ModelError("offline"), ModelError("offline")])
     evaluate(sample, output, model, judge=True)
     summary = evaluate(sample, output, ScriptedModel([]), judge=True, resume=True)
-    assert summary["agent"]["finished"] == 0
-    assert summary["agent"]["judged_tasks"] == 0
+    assert summary["variants"]["m2_loop"]["finished"] == 0
+    assert summary["variants"]["m2_loop"]["judged_tasks"] == 0
+
+
+def test_all_variants_share_evaluator_and_trace_identity(tmp_path, monkeypatch):
+    monkeypatch.setattr("lecture_notes.evaluation.subprocess.check_output", lambda *a, **kw: "Test GPU")
+    sample = make_sample(tmp_path)
+    notes = "# Prior distribution\n- The prior represents uncertainty before data. " \
+            "It is our initial distribution. [00:00:00]"
+    model = ScriptedModel([
+        action("read_transcript", start=0, end=20), action("save_notes", markdown=notes), action("finish"),
+        action("read_transcript", start=0, end=20), action("save_notes", markdown=notes), action("finish"),
+        action("read_transcript", start=0, end=20), action("save_notes", markdown=notes),
+        action("check_claims"), action("finish"),
+        {"markdown": notes},
+    ])
+    variants = ("m2_loop", "lean_loop", "claim_check", "one_call_baseline")
+    summary = evaluate(sample, tmp_path / "results", model, variants=variants)
+    assert set(summary["variants"]) == set(variants)
+    for variant in variants:
+        trace = tmp_path / "results" / variant / "t01.trace.jsonl"
+        assert all(row["variant"] == variant for row in map(json.loads, trace.read_text().splitlines()))

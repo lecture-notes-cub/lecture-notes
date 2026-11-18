@@ -2,8 +2,8 @@ import json
 
 import pytest
 
-from lecture_notes.agent import Tools, run, validate_notes
-from lecture_notes.evaluation import coverage
+from lecture_notes.agent import Tools, action_schema, run, validate_notes
+from lecture_notes.evaluation import coverage, key_claim_score
 from lecture_notes.model import ModelError
 from lecture_notes.transcript import load_transcript, timestamp
 
@@ -26,7 +26,10 @@ class ScriptedModel:
 
     def complete(self, messages, schema, trace, step):
         trace.emit("model_request", step=step, messages=messages)
-        action = next(self.actions)
+        try:
+            action = next(self.actions)
+        except StopIteration as exc:
+            raise AssertionError(f"ScriptedModel exhausted at step {step}") from exc
         if isinstance(action, Exception):
             raise action
         trace.emit("model_response", step=step, response=action)
@@ -93,6 +96,47 @@ def test_coverage_is_word_bounded():
     concepts = [{"name": "prior", "aliases": ["prior"]}]
     assert coverage("priority", concepts)["concept_coverage"] == 0
     assert coverage("The PRIOR.", concepts)["concept_coverage"] == 1
+
+
+def test_key_claim_score_checks_required_groups_and_forbidden_phrases():
+    labels = [{"id": "posterior", "description": "correct posterior",
+               "required": [["17%", "one sixth"], ["posterior"]], "forbidden": ["70% probability"]}]
+    assert key_claim_score("The posterior is one sixth.", labels)["key_claim_score"] == 1
+    assert key_claim_score("The posterior is 70% probability.", labels)["key_claim_score"] == 0
+
+
+def test_lean_loop_hides_search_and_enforces_bounded_plan(transcript, tmp_path):
+    assert "search_transcript" not in action_schema("lean_loop")["properties"]["action"]["enum"]
+    tools = Tools(load_transcript(transcript), 10, 30, tmp_path / "notes.md", "lean_loop")
+    tools.call("read_transcript", {"start": 10, "end": 30})
+    with pytest.raises(ValueError, match="one read"):
+        tools.call("read_transcript", {"start": 10, "end": 30})
+    with pytest.raises(ValueError, match="unavailable"):
+        tools.call("search_transcript", {"query": "prior"})
+
+
+def test_claim_check_blocks_unchecked_or_revised_draft(transcript, tmp_path):
+    tools = Tools(load_transcript(transcript), 10, 30, tmp_path / "notes.md", "claim_check")
+    draft = "# Notes\n" + "The prior represents uncertainty before data. " * 2 + "[00:00:10]"
+    tools.call("save_notes", {"markdown": draft})
+    with pytest.raises(ValueError, match="check_claims"):
+        tools.call("finish", {})
+    review = tools.call("check_claims", {})
+    assert "source_evidence" in review
+    assert tools.call("finish", {})["final_answer"] == draft
+    tools.call("save_notes", {"markdown": draft + "\nRevised."})
+    with pytest.raises(ValueError, match="check_claims"):
+        tools.call("finish", {})
+
+
+def test_variant_is_on_every_trace_record(transcript, tmp_path):
+    model = ScriptedModel([action("read_transcript", start=10, end=30),
+                           action("save_notes", markdown="# Notes\n" + "Grounded notes. " * 8 + "[00:00:10]"),
+                           action("finish")])
+    output = tmp_path / "notes.md"
+    run(transcript, "Summarize", output, model, 10, 30, variant="m2_loop")
+    rows = [json.loads(line) for line in output.with_suffix(".trace.jsonl").read_text().splitlines()]
+    assert rows and all(row["variant"] == "m2_loop" for row in rows)
 
 
 def test_citation_validation():

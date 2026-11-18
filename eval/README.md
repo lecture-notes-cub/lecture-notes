@@ -13,6 +13,9 @@ problems with student mistakes and corrections.
   latency. Full original media/PDF are not redistributed.
 - `results/`: all 20 agent runs, 20 baseline runs, separate judge traces, raw
   per-task metrics, aggregate summary and inference runtime/model metadata.
+- `key_claims.json`: additive, task-specific M3 checks for important claims and
+  numerical misconceptions. These labels are never sent to the note-writing model;
+  inspect `annotation_status` before treating the metric as human verified.
 
 ## Provenance and annotations
 
@@ -32,6 +35,12 @@ not independently verified by a human or by listening to all the audio.** They
 are a practical initial fixture, not trusted semantic gold. The team should
 review them before making strong quality claims. Do not tune aliases after
 seeing outputs and then describe that as a held-out result.
+
+For M3, a team member must inspect every description and `evidence` entry in
+`key_claims.json` against the frozen ASR (and audio where the ASR is contradictory),
+correct labels without looking at new-variant outputs, and replace its pending
+`annotation_status` with the verifier names/date. Commit that review before running
+the measured comparison so the labels remain pre-registered.
 
 The agent and baseline receive task wording, interval and ASR only. Neither gets
 concept labels, reference notes, the other variant's output, or judge feedback.

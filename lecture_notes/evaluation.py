@@ -9,7 +9,7 @@ import urllib.request
 import shutil
 from pathlib import Path
 
-from .agent import run, validate_notes
+from .agent import VARIANTS, run, validate_notes
 from .model import ModelError
 from .trace import Trace
 from .transcript import fingerprint, load_transcript, render
@@ -29,7 +29,8 @@ JUDGE_SCHEMA = {
 
 
 def normalize(text):
-    return re.sub(r"[^\w]+", " ", text.casefold()).strip()
+    text = text.casefold().replace("×", " times ").replace("→", " to ")
+    return re.sub(r"[^\w]+", " ", text).strip()
 
 
 def coverage(markdown, concepts):
@@ -42,7 +43,33 @@ def coverage(markdown, concepts):
             "concepts": hits}
 
 
-def judge_notes(model, transcript, task, markdown, path):
+def key_claim_score(markdown, labels):
+    """Score a small, human-reviewable set of task-specific claims.
+
+    A check passes when every required alias group is represented and no forbidden
+    phrase is present. These labels are evaluation-only and are never shown to an
+    agent. This is intentionally transparent rather than a semantic judge.
+    """
+    if not labels:
+        return {"key_claim_score": None, "key_claims": []}
+    normalized = " " + normalize(markdown) + " "
+    checks = []
+    for check in labels:
+        required = []
+        for aliases in check.get("required", []):
+            matched = any(" " + normalize(alias) + " " in normalized for alias in aliases)
+            required.append({"aliases": aliases, "matched": matched})
+        forbidden = [phrase for phrase in check.get("forbidden", [])
+                     if " " + normalize(phrase) + " " in normalized]
+        passed = all(group["matched"] for group in required) and not forbidden
+        checks.append({"id": check["id"], "description": check["description"],
+                       "passed": passed, "required": required,
+                       "forbidden_matches": forbidden})
+    return {"key_claim_score": sum(c["passed"] for c in checks) / len(checks),
+            "key_claims": checks}
+
+
+def judge_notes(model, transcript, task, markdown, path, variant):
     data = load_transcript(transcript)
     source = render([s for s in data["segments"] if task["start"] <= s["start"] < task["end"]])
     messages = [
@@ -54,7 +81,7 @@ def judge_notes(model, transcript, task, markdown, path):
          "Rate clarity 1 (unusable) to 5 (clear, organized, useful). Return JSON."},
         {"role": "user", "content": json.dumps({"task": task["task"], "source": source, "notes": markdown})},
     ]
-    trace = Trace(path)
+    trace = Trace(path, variant=variant)
     try:
         result = model.complete(messages, JUDGE_SCHEMA, trace, 1)
         claims = result["claims"]
@@ -68,7 +95,8 @@ def judge_notes(model, transcript, task, markdown, path):
         trace.close()
 
 
-def evaluate(sample, output, model, limit=None, judge=False, resume=False):
+def evaluate(sample, output, model, limit=None, judge=False, resume=False,
+             variants=("m2_loop", "one_call_baseline"), key_claims=None):
     sample = Path(sample).resolve()
     spec = json.loads(sample.read_text(encoding="utf-8"))
     tasks = spec["tasks"]
@@ -80,12 +108,20 @@ def evaluate(sample, output, model, limit=None, judge=False, resume=False):
         raise ValueError("Need nonempty tasks with unique IDs.")
     if any(not re.fullmatch(r"[a-zA-Z0-9_-]+", t["id"]) for t in tasks):
         raise ValueError("Task IDs must be safe filename components.")
+    variants = tuple(dict.fromkeys(variants))
+    if not variants or any(v not in VARIANTS for v in variants):
+        raise ValueError(f"Variants must come from: {', '.join(VARIANTS)}.")
+    labels_path = Path(key_claims).resolve() if key_claims else sample.parent / "key_claims.json"
+    labels_spec = json.loads(labels_path.read_text(encoding="utf-8")) if labels_path.exists() else None
+    labels_by_task = labels_spec.get("tasks", {}) if labels_spec else {}
     transcript = (sample.parent / spec["transcript"]).resolve()
     if fingerprint(transcript) != spec["transcript_sha256"]:
         raise ValueError("Frozen transcript hash mismatch; do not silently change the evaluation sample.")
     output = Path(output)
     configuration = {"sample_sha256": fingerprint(sample), "model": model.model,
-                     "judge": judge, "task_ids": [t["id"] for t in tasks]}
+                     "judge": judge, "task_ids": [t["id"] for t in tasks],
+                     "variants": list(variants),
+                     "key_claims_sha256": fingerprint(labels_path) if labels_spec else None}
     results = []
     if resume:
         if not output.is_dir():
@@ -99,13 +135,14 @@ def evaluate(sample, output, model, limit=None, judge=False, resume=False):
         # Validate prior trace identities as well as the configuration. This also
         # supports the original M2 interrupted run, before configuration.json existed.
         for result in results:
-            if result["id"] not in by_id or result["mode"] not in ("agent", "baseline"):
-                raise ValueError("Unexpected task/mode in saved results.")
+            if result["id"] not in by_id or result["variant"] not in variants:
+                raise ValueError("Unexpected task/variant in saved results.")
             task = by_id[result["id"]]
-            trace_path = output / result["mode"] / (result["id"] + ".trace.jsonl")
+            trace_path = output / result["variant"] / (result["id"] + ".trace.jsonl")
             first = json.loads(trace_path.read_text().splitlines()[0])
             expected = {"model": model.model, "task": task["task"], "start": task["start"],
-                        "end": task["end"], "transcript_sha256": spec["transcript_sha256"], "mode": result["mode"]}
+                        "end": task["end"], "transcript_sha256": spec["transcript_sha256"],
+                        "variant": result["variant"]}
             expected_judge = judge and result.get("has_draft", False)
             if any(first.get(k) != v for k, v in expected.items()) or (expected_judge != ("judge" in result)):
                 raise ValueError("Saved trace does not match resumed configuration.")
@@ -131,19 +168,19 @@ def evaluate(sample, output, model, limit=None, judge=False, resume=False):
     except (OSError, subprocess.SubprocessError):
         runtime["gpu"] = "Unavailable"
     (output / ("runtime-resume.json" if resume else "runtime.json")).write_text(json.dumps(runtime, indent=2) + "\n")
-    completed = {(r["id"], r["mode"]) for r in results}
+    completed = {(r["id"], r["variant"]) for r in results}
     for task in tasks:
-        for mode in ("agent", "baseline"):
-            if (task["id"], mode) in completed:
+        for variant in variants:
+            if (task["id"], variant) in completed:
                 continue
-            print(f"{task['id']} / {mode}", flush=True)
-            notes_path = output / mode / (task["id"] + ".md")
+            print(f"{task['id']} / {variant}", flush=True)
+            notes_path = output / variant / (task["id"] + ".md")
             if resume:
                 # A process can die between notes/trace creation and results.json.
                 # Archive that incomplete attempt; never overwrite historical evidence.
                 partial = list(notes_path.parent.glob(task["id"] + ".*"))
                 if partial:
-                    archive = output / "interrupted" / mode
+                    archive = output / "interrupted" / variant
                     archive.mkdir(parents=True, exist_ok=True)
                     for path in partial:
                         target = archive / path.name
@@ -151,48 +188,61 @@ def evaluate(sample, output, model, limit=None, judge=False, resume=False):
                             raise ValueError(f"Existing interrupted artifact: {target}")
                         shutil.move(str(path), target)
             stats = run(transcript, task["task"], notes_path, model,
-                        task["start"], task["end"], max_steps=10, baseline=mode == "baseline")
+                        task["start"], task["end"], max_steps=10, variant=variant)
             markdown = notes_path.read_text(encoding="utf-8") if notes_path.exists() else ""
             rows = [json.loads(line) for line in notes_path.with_suffix(".trace.jsonl").read_text().splitlines()]
             decisions = [row for row in rows if row["event"] == "decision"]
             observations = [row for row in rows if row["event"] == "observation"]
             source_reads = sum(row.get("action") in ("read_transcript", "search_transcript")
                                and "error" not in row["result"] for row in observations)
-            result = {"id": task["id"], "mode": mode, **stats, **coverage(markdown, task["concepts"]),
+            result = {"id": task["id"], "mode": "baseline" if variant == "one_call_baseline" else "agent",
+                      **stats, **coverage(markdown, task["concepts"]),
+                      **key_claim_score(markdown, labels_by_task.get(task["id"])),
                       "structure": validate_notes(markdown, task["start"], task["end"]),
                       "trajectory": {"decisions": len(decisions), "source_reads": source_reads,
                                      "tool_errors": sum("error" in row["result"] for row in observations),
                                      "finish_after_source": stats["status"] == "finished" and source_reads > 0}}
             result["task_success_proxy"] = (stats["status"] == "finished"
                 and not result["structure"]["issues"] and (result["concept_coverage"] or 0) >= 0.75)
+            quality_pass = (result["key_claim_score"] == 1 if result["key_claim_score"] is not None
+                            else (result["concept_coverage"] or 0) >= 0.75)
+            result["m3_success_proxy"] = (stats["status"] == "finished"
+                and not result["structure"]["issues"] and quality_pass)
             if judge and markdown:
                 import time
                 began = time.monotonic()
                 result["judge"] = judge_notes(model, transcript, task, markdown,
-                                               notes_path.with_suffix(".judge.trace.jsonl"))
+                                               notes_path.with_suffix(".judge.trace.jsonl"), variant)
                 result["judge_latency_s"] = round(time.monotonic() - began, 3)
             results.append(result)
             (output / "results.json").write_text(json.dumps(results, indent=2, ensure_ascii=False) + "\n")
     summary = {"sample_sha256": fingerprint(sample), "transcript_sha256": fingerprint(transcript),
-               "model": model.model, "tasks": len(tasks), "judge_enabled": judge,
+               "model": model.model, "tasks": len(tasks), "variants": {}, "judge_enabled": judge,
+               "key_claims": {"path": str(labels_path) if labels_spec else None,
+                              "annotation_status": labels_spec.get("annotation_status") if labels_spec else None,
+                              "labeled_tasks": len(labels_by_task)},
                "cost_note": "API spend $0; local compute cost excluded. ASR/setup excluded from per-task latency.",
-               "metrics_note": "Coverage is lexical; judge uses the same local model and is not ground truth."}
-    for mode in ("agent", "baseline"):
-        rows = [r for r in results if r["mode"] == mode]
-        summary[mode] = {"finished": sum(r["status"] == "finished" for r in rows),
+               "metrics_note": "Coverage and key-claim checks are lexical; judge uses the same local model and is not ground truth."}
+    for variant in variants:
+        rows = [r for r in results if r["variant"] == variant]
+        variant_summary = {"finished": sum(r["status"] == "finished" for r in rows),
                          "structure_pass": sum(not r["structure"]["issues"] for r in rows),
-                         "task_success_proxy": sum(r["task_success_proxy"] for r in rows)}
-        for key in ("concept_coverage", "steps", "model_calls", "tool_calls", "latency_s", "api_cost_usd"):
+                         "task_success_proxy": sum(r["task_success_proxy"] for r in rows),
+                         "m3_success_proxy": sum(r["m3_success_proxy"] for r in rows)}
+        for key in ("concept_coverage", "key_claim_score", "steps", "model_calls", "tool_calls",
+                    "prompt_tokens", "output_tokens", "tokens", "latency_s", "api_cost_usd"):
             values = [r[key] for r in rows if r[key] is not None]
-            summary[mode]["mean_" + key] = statistics.mean(values) if values else None
+            variant_summary["mean_" + key] = statistics.mean(values) if values else None
         values = [r["judge"]["faithfulness_proxy"] for r in rows
                   if r.get("judge", {}).get("faithfulness_proxy") is not None]
-        summary[mode]["mean_faithfulness_proxy"] = statistics.mean(values) if values else None
-        summary[mode]["judged_tasks"] = len(values)
-        summary[mode]["judge_model_calls"] = sum("judge" in r for r in rows)
-        summary[mode]["mean_judge_latency_s"] = statistics.mean(r.get("judge_latency_s", 0) for r in rows)
+        variant_summary["mean_faithfulness_proxy"] = statistics.mean(values) if values else None
+        variant_summary["judged_tasks"] = len(values)
+        variant_summary["judge_model_calls"] = sum("judge" in r for r in rows)
+        judge_latencies = [r.get("judge_latency_s", 0) for r in rows]
+        variant_summary["mean_judge_latency_s"] = statistics.mean(judge_latencies) if judge_latencies else 0
         clarity = [r["judge"]["clarity_1_to_5"] for r in rows if "clarity_1_to_5" in r.get("judge", {})]
-        summary[mode]["mean_clarity_1_to_5"] = statistics.mean(clarity) if clarity else None
+        variant_summary["mean_clarity_1_to_5"] = statistics.mean(clarity) if clarity else None
+        summary["variants"][variant] = variant_summary
     (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary, indent=2))
     return summary

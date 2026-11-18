@@ -4,7 +4,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from .agent import run
+from .agent import VARIANTS, run
 from .model import Ollama
 from .transcript import transcribe
 
@@ -29,14 +29,22 @@ def main():
     agent.add_argument("--end", type=float)
     agent.add_argument("--context", type=Path, help="Optional UTF-8 glossary/context (.txt/.md)")
     agent.add_argument("--max-steps", type=int, default=10)
-    agent.add_argument("--baseline", action="store_true")
+    choice = agent.add_mutually_exclusive_group()
+    choice.add_argument("--variant", choices=VARIANTS, default="m2_loop")
+    choice.add_argument("--baseline", action="store_true", help="Deprecated alias for --variant one_call_baseline")
     agent.add_argument("--asr-model", default="small.en")
     agent.add_argument("--device", choices=["cpu", "cuda"], default="cpu")
     agent.add_argument("--model", default="qwen3:4b")
+    agent.add_argument("--timeout", type=float, default=180, help="Model HTTP timeout in seconds")
     evaluate = sub.add_parser("eval", help="Frozen tasks: agent + baseline + metrics")
     evaluate.add_argument("--sample", type=Path, default=Path("eval/tasks.json"))
     evaluate.add_argument("--output", type=Path, required=True)
     evaluate.add_argument("--model", default="qwen3:4b")
+    evaluate.add_argument("--variants", nargs="+", choices=VARIANTS,
+                          default=list(VARIANTS), help="Variants to compare")
+    evaluate.add_argument("--key-claims", type=Path,
+                          help="Key-claim labels (default: key_claims.json beside the sample)")
+    evaluate.add_argument("--timeout", type=float, default=180, help="Model HTTP timeout in seconds")
     evaluate.add_argument("--limit", type=int)
     evaluate.add_argument("--judge", action="store_true", help="Also run a local, fallible grounding/quality judge")
     evaluate.add_argument("--resume", action="store_true", help="Resume a matching interrupted evaluation; preserve partial traces")
@@ -55,14 +63,20 @@ def main():
             context = args.context.read_text(encoding="utf-8") if args.context else ""
             if len(context) > 12000:
                 parser.error("Context exceeds 12000 characters; supply a concise glossary.")
-            stats = run(transcript, args.task, args.output, Ollama(args.model), args.start, args.end,
-                        context, args.max_steps, args.baseline)
+            if args.timeout <= 0:
+                parser.error("--timeout must be positive")
+            variant = "one_call_baseline" if args.baseline else args.variant
+            stats = run(transcript, args.task, args.output, Ollama(args.model, timeout=args.timeout),
+                        args.start, args.end, context, args.max_steps, variant=variant)
             print(json.dumps(stats, indent=2))
             if stats["status"] != "finished":
                 sys.exit(2)
         else:
             from .evaluation import evaluate
-            evaluate(args.sample, args.output, Ollama(args.model), args.limit, args.judge, args.resume)
+            if args.timeout <= 0:
+                parser.error("--timeout must be positive")
+            evaluate(args.sample, args.output, Ollama(args.model, timeout=args.timeout),
+                     args.limit, args.judge, args.resume, args.variants, args.key_claims)
     except (ValueError, OSError, RuntimeError, ImportError, subprocess.SubprocessError) as exc:
         parser.exit(1, f"Error: {exc}\n")
 

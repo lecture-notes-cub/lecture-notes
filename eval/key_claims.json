@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "annotation_status": "Human-verified by the team on 2026-11-18 before measured M3 evaluation.",
+  "metric": "Each check passes when every required alias group appears and no forbidden phrase appears. Labels are never provided to an agent.",
+  "tasks": {
+    "t01": [
+      {
+        "id": "conditional_ratio",
+        "description": "Conditional probability is the joint distribution divided by the marginal of the condition.",
+        "evidence": "ASR 00:03:35–00:04:13",
+        "required": [
+          ["conditional"],
+          ["joint"],
+          ["marginal"]
+        ],
+        "forbidden": []
+      },
+      {
+        "id": "independence_no_information",
+        "description": "Under independence, conditioning on Y adds no information about X.",
+        "evidence": "ASR 00:05:01–00:05:31",
+        "required": [
+          ["independent", "independence"],
+          ["no information", "does not change", "unchanged"]
+        ],
+        "forbidden": []
+      }
+    ],
+    "t03": [
+      {
+        "id": "two_variable_product_rule",
+        "description": "The joint can be decomposed in either variable order using a conditional and a marginal.",
+        "evidence": "ASR 00:06:41–00:07:24",
+        "required": [
+          ["joint"],
+          ["conditional"],
+          ["order", "ordering", "symmetry"]
+        ],
+        "forbidden": []
+      },
+      {
+        "id": "chain_rule_generalization",
+        "description": "The product or chain rule generalizes to arbitrarily many variables.",
+        "evidence": "ASR 00:07:24–00:08:35",
+        "required": [
+          ["product rule", "chain rule"],
+          ["arbitrary number", "multiple variables", "n variables"]
+        ],
+        "forbidden": []
+      }
+    ],
+    "t17": [
+      {
+        "id": "first_posterior",
+        "description": "The first alarm-only burglary posterior is approximately one sixth, or 17 percent, not 70 percent.",
+        "evidence": "ASR 01:19:19–01:19:53; the arithmetic immediately before gives 1/6 and the speaker then says 17%",
+        "required": [
+          ["one sixth", "1/6", "17%", "17 percent"]
+        ],
+        "forbidden": ["70% probability", "70 percent probability"]
+      },
+      {
+        "id": "changed_prior",
+        "description": "A tenfold higher burglary prior changes the posterior to about two thirds or 67 percent.",
+        "evidence": "ASR 01:19:53–01:23:13",
+        "required": [
+          ["10 times", "10×", "ten times", "tenfold"],
+          ["two thirds", "2/3", "67%", "67 percent"]
+        ],
+        "forbidden": []
+      },
+      {
+        "id": "posterior_change_not_linear",
+        "description": "The posterior rises roughly fourfold rather than tenfold.",
+        "evidence": "ASR 01:23:13–01:23:46",
+        "required": [
+          ["4 times", "4×", "four times", "fourfold"]
+        ],
+        "forbidden": ["posterior increased ten times", "posterior increased 10 times"]
+      }
+    ],
+    "t19": [
+      {
+        "id": "specificity_complement",
+        "description": "A 99 percent true-negative rate implies a 1 percent false-positive rate.",
+        "evidence": "ASR 02:00:08–02:00:39",
+        "required": [
+          ["99%", "99 percent", "0.99"],
+          ["1%", "1 percent", "0.01"],
+          ["false positive", "positive test", "positive result"]
+        ],
+        "forbidden": []
+      },
+      {
+        "id": "rare_disease_posterior",
+        "description": "After a positive result, the corrected disease probability is about 1 percent.",
+        "evidence": "ASR 02:01:17–02:02:22; the speaker says the checked answer is 1/100 and then about 1%",
+        "required": [
+          ["about 1%", "approximately 1%", "about 1 percent", "approximately 1 percent"]
+        ],
+        "forbidden": ["50%", "50 percent", "0.5 probability"]
+      },
+      {
+        "id": "base_rate_explanation",
+        "description": "The surprisingly low posterior is explained by the disease's rarity or base rate.",
+        "evidence": "ASR 02:01:50–02:02:53",
+        "required": [
+          ["rare disease", "disease is rare", "base rate", "rarity"]
+        ],
+        "forbidden": []
+      }
+    ]
+  }
+}

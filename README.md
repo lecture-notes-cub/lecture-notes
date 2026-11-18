@@ -47,6 +47,19 @@ uv run lecture-notes run \
   --output runs/demo/notes.md
 ```
 
+M3 variants use the same entry point:
+
+```bash
+uv run lecture-notes run --variant lean_loop \
+  --transcript eval/lecture_excerpt.json --start 184.35 --end 331.6 \
+  --task "Make study notes on conditional probability and independence." \
+  --output runs/lean-demo/notes.md
+uv run lecture-notes run --variant claim_check \
+  --transcript eval/lecture_excerpt.json --start 184.35 --end 331.6 \
+  --task "Make study notes on conditional probability and independence." \
+  --output runs/check-demo/notes.md
+```
+
 The frozen data is committed, so this command needs no lecture download or ASR.
 Each run creates:
 
@@ -113,6 +126,12 @@ uv run pytest -q
 uv run lecture-notes eval --output runs/eval-smoke --limit 2
 uv run lecture-notes eval --output runs/eval-full --judge
 ```
+
+By default, M3 evaluation runs `m2_loop`, `lean_loop`, `claim_check`, and the
+`one_call_baseline`. Restrict a smoke run with, for example,
+`--variants lean_loop claim_check --limit 2`. Use `--timeout 600` on slower CPU
+machines. Key-claim labels are loaded from `eval/key_claims.json` and must be marked
+team-verified there before measured results are reported.
 
 The same frozen tasks and source intervals are given to the agent and one-call
 baseline. Expected concepts are **not** passed to either. `--judge` adds a separate,
