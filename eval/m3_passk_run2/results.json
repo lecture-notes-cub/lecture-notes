@@ -1,0 +1,1234 @@
+[
+  {
+    "id": "t01",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 4.795,
+    "has_draft": true,
+    "prompt_tokens": 3961,
+    "output_tokens": 660,
+    "tokens": 4621,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "conditional distribution",
+        "matched": true
+      },
+      {
+        "concept": "joint over marginal",
+        "matched": true
+      },
+      {
+        "concept": "marginal distribution",
+        "matched": true
+      },
+      {
+        "concept": "independence removes information",
+        "matched": true
+      }
+    ],
+    "key_claim_score": 1.0,
+    "key_claims": [
+      {
+        "id": "conditional_ratio",
+        "description": "Conditional probability is the joint distribution divided by the marginal of the condition.",
+        "passed": true,
+        "required": [
+          {
+            "aliases": [
+              "conditional"
+            ],
+            "matched": true
+          },
+          {
+            "aliases": [
+              "joint"
+            ],
+            "matched": true
+          },
+          {
+            "aliases": [
+              "marginal"
+            ],
+            "matched": true
+          }
+        ],
+        "forbidden_matches": []
+      },
+      {
+        "id": "independence_no_information",
+        "description": "Under independence, conditioning on Y adds no information about X.",
+        "passed": true,
+        "required": [
+          {
+            "aliases": [
+              "independent",
+              "independence"
+            ],
+            "matched": true
+          },
+          {
+            "aliases": [
+              "no information",
+              "does not change",
+              "unchanged"
+            ],
+            "matched": true
+          }
+        ],
+        "forbidden_matches": []
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t02",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 3,
+    "tool_calls": 3,
+    "steps": 3,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 5.701,
+    "has_draft": true,
+    "prompt_tokens": 2530,
+    "output_tokens": 857,
+    "tokens": 3387,
+    "concept_coverage": 0.75,
+    "concepts": [
+      {
+        "concept": "unconditional variance",
+        "matched": true
+      },
+      {
+        "concept": "conditional variance",
+        "matched": true
+      },
+      {
+        "concept": "averaging over Y",
+        "matched": false
+      },
+      {
+        "concept": "information reduces uncertainty",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 3,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 3,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t03",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 10.57,
+    "has_draft": true,
+    "prompt_tokens": 5376,
+    "output_tokens": 1609,
+    "tokens": 6985,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "joint distribution",
+        "matched": true
+      },
+      {
+        "concept": "product decomposition",
+        "matched": true
+      },
+      {
+        "concept": "conditional factors",
+        "matched": true
+      },
+      {
+        "concept": "different orderings",
+        "matched": true
+      }
+    ],
+    "key_claim_score": 1.0,
+    "key_claims": [
+      {
+        "id": "two_variable_product_rule",
+        "description": "The joint can be decomposed in either variable order using a conditional and a marginal.",
+        "passed": true,
+        "required": [
+          {
+            "aliases": [
+              "joint"
+            ],
+            "matched": true
+          },
+          {
+            "aliases": [
+              "conditional"
+            ],
+            "matched": true
+          },
+          {
+            "aliases": [
+              "order",
+              "ordering",
+              "symmetry"
+            ],
+            "matched": true
+          }
+        ],
+        "forbidden_matches": []
+      },
+      {
+        "id": "chain_rule_generalization",
+        "description": "The product or chain rule generalizes to arbitrarily many variables.",
+        "passed": true,
+        "required": [
+          {
+            "aliases": [
+              "product rule",
+              "chain rule"
+            ],
+            "matched": true
+          },
+          {
+            "aliases": [
+              "arbitrary number",
+              "multiple variables",
+              "n variables"
+            ],
+            "matched": true
+          }
+        ],
+        "forbidden_matches": []
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 5,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t04",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 3,
+    "tool_calls": 3,
+    "steps": 3,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 6.173,
+    "has_draft": true,
+    "prompt_tokens": 3156,
+    "output_tokens": 930,
+    "tokens": 4086,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "marginalization",
+        "matched": true
+      },
+      {
+        "concept": "integrating variables out",
+        "matched": true
+      },
+      {
+        "concept": "expectation",
+        "matched": true
+      },
+      {
+        "concept": "joint distribution",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 2,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 3,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t05",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 8.149,
+    "has_draft": true,
+    "prompt_tokens": 5008,
+    "output_tokens": 1246,
+    "tokens": 6254,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "joint model",
+        "matched": true
+      },
+      {
+        "concept": "conditional prediction",
+        "matched": true
+      },
+      {
+        "concept": "observed Y",
+        "matched": true
+      },
+      {
+        "concept": "eliminating irrelevant Z",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 5,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t06",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 4.567,
+    "has_draft": true,
+    "prompt_tokens": 4290,
+    "output_tokens": 645,
+    "tokens": 4935,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "prior",
+        "matched": true
+      },
+      {
+        "concept": "likelihood",
+        "matched": true
+      },
+      {
+        "concept": "posterior",
+        "matched": true
+      },
+      {
+        "concept": "normalizing evidence",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 6,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t07",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 5,
+    "tool_calls": 5,
+    "steps": 5,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 10.475,
+    "has_draft": true,
+    "prompt_tokens": 6806,
+    "output_tokens": 1541,
+    "tokens": 8347,
+    "concept_coverage": 0.75,
+    "concepts": [
+      {
+        "concept": "independent observations",
+        "matched": false
+      },
+      {
+        "concept": "likelihood as parameter function",
+        "matched": true
+      },
+      {
+        "concept": "product of densities",
+        "matched": true
+      },
+      {
+        "concept": "log converts product to sum",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 5,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 5,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t08",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 8.787,
+    "has_draft": true,
+    "prompt_tokens": 5119,
+    "output_tokens": 1287,
+    "tokens": 6406,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "asymptotic unbiasedness",
+        "matched": true
+      },
+      {
+        "concept": "consistency",
+        "matched": true
+      },
+      {
+        "concept": "asymptotic normality",
+        "matched": true
+      },
+      {
+        "concept": "efficiency",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 11,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 1,
+      "tool_errors": 1,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t09",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 7.646,
+    "has_draft": true,
+    "prompt_tokens": 5445,
+    "output_tokens": 1123,
+    "tokens": 6568,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "empirical head frequency",
+        "matched": true
+      },
+      {
+        "concept": "two trials",
+        "matched": true
+      },
+      {
+        "concept": "probability one",
+        "matched": true
+      },
+      {
+        "concept": "small sample caveat",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t10",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 6.589,
+    "has_draft": true,
+    "prompt_tokens": 4081,
+    "output_tokens": 940,
+    "tokens": 5021,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "prior",
+        "matched": true
+      },
+      {
+        "concept": "likelihood",
+        "matched": true
+      },
+      {
+        "concept": "posterior",
+        "matched": true
+      },
+      {
+        "concept": "point estimate contrast",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 5,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t11",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 3,
+    "tool_calls": 3,
+    "steps": 3,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 6.149,
+    "has_draft": true,
+    "prompt_tokens": 3899,
+    "output_tokens": 923,
+    "tokens": 4822,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "objective uncertainty",
+        "matched": true
+      },
+      {
+        "concept": "subjective ignorance",
+        "matched": true
+      },
+      {
+        "concept": "deterministic physical process",
+        "matched": true
+      },
+      {
+        "concept": "missing information",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 8,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 3,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t12",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 6.474,
+    "has_draft": true,
+    "prompt_tokens": 5537,
+    "output_tokens": 946,
+    "tokens": 6483,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "parameter dimension",
+        "matched": true
+      },
+      {
+        "concept": "overfitting",
+        "matched": true
+      },
+      {
+        "concept": "no observations",
+        "matched": true
+      },
+      {
+        "concept": "posterior equals prior, not necessarily uniform",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 6,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t13",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 6.375,
+    "has_draft": true,
+    "prompt_tokens": 6366,
+    "output_tokens": 906,
+    "tokens": 7272,
+    "concept_coverage": 0.75,
+    "concepts": [
+      {
+        "concept": "different information sources",
+        "matched": true
+      },
+      {
+        "concept": "posterior reused as prior",
+        "matched": true
+      },
+      {
+        "concept": "likelihood for new observation",
+        "matched": false
+      },
+      {
+        "concept": "posterior preserves combined information",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t14",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 3,
+    "tool_calls": 3,
+    "steps": 3,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 7.888,
+    "has_draft": true,
+    "prompt_tokens": 3670,
+    "output_tokens": 1164,
+    "tokens": 4834,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "MLE limiting case",
+        "matched": true
+      },
+      {
+        "concept": "posterior concentration",
+        "matched": true
+      },
+      {
+        "concept": "regularization",
+        "matched": true
+      },
+      {
+        "concept": "uncertainty estimates",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 6,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 3,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t15",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 3,
+    "tool_calls": 3,
+    "steps": 3,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 7.946,
+    "has_draft": true,
+    "prompt_tokens": 4506,
+    "output_tokens": 1138,
+    "tokens": 5644,
+    "concept_coverage": 0.75,
+    "concepts": [
+      {
+        "concept": "modus ponens",
+        "matched": true
+      },
+      {
+        "concept": "Boolean limitation",
+        "matched": true
+      },
+      {
+        "concept": "probabilistic rather than certain reverse inference",
+        "matched": true
+      },
+      {
+        "concept": "alternative explanation for celebration",
+        "matched": false
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 10,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 3,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t16",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 3,
+    "tool_calls": 3,
+    "steps": 3,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 8.227,
+    "has_draft": true,
+    "prompt_tokens": 5091,
+    "output_tokens": 1201,
+    "tokens": 6292,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "thief",
+        "matched": true
+      },
+      {
+        "concept": "earthquake",
+        "matched": true
+      },
+      {
+        "concept": "radio announcement",
+        "matched": true
+      },
+      {
+        "concept": "independence assumption",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 10,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 3,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t17",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 7.238,
+    "has_draft": true,
+    "prompt_tokens": 7763,
+    "output_tokens": 1005,
+    "tokens": 8768,
+    "concept_coverage": 0.75,
+    "concepts": [
+      {
+        "concept": "false alarm marginalization",
+        "matched": true
+      },
+      {
+        "concept": "initial posterior about one sixth",
+        "matched": false
+      },
+      {
+        "concept": "higher burglary prior",
+        "matched": true
+      },
+      {
+        "concept": "updated posterior about two thirds",
+        "matched": true
+      }
+    ],
+    "key_claim_score": 0.0,
+    "key_claims": [
+      {
+        "id": "first_posterior",
+        "description": "The first alarm-only burglary posterior is approximately one sixth, or 17 percent, not 70 percent.",
+        "passed": false,
+        "required": [
+          {
+            "aliases": [
+              "one sixth",
+              "1/6",
+              "17%",
+              "17 percent"
+            ],
+            "matched": false
+          }
+        ],
+        "forbidden_matches": []
+      },
+      {
+        "id": "changed_prior",
+        "description": "A tenfold higher burglary prior changes the posterior to about two thirds or 67 percent.",
+        "passed": false,
+        "required": [
+          {
+            "aliases": [
+              "10 times",
+              "10×",
+              "ten times",
+              "tenfold"
+            ],
+            "matched": false
+          },
+          {
+            "aliases": [
+              "two thirds",
+              "2/3",
+              "67%",
+              "67 percent"
+            ],
+            "matched": true
+          }
+        ],
+        "forbidden_matches": []
+      },
+      {
+        "id": "posterior_change_not_linear",
+        "description": "The posterior rises roughly fourfold rather than tenfold.",
+        "passed": false,
+        "required": [
+          {
+            "aliases": [
+              "4 times",
+              "4×",
+              "four times",
+              "fourfold"
+            ],
+            "matched": false
+          }
+        ],
+        "forbidden_matches": []
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": false
+  },
+  {
+    "id": "t18",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 4,
+    "tool_calls": 4,
+    "steps": 4,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 5.798,
+    "has_draft": true,
+    "prompt_tokens": 5454,
+    "output_tokens": 836,
+    "tokens": 6290,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "radio evidence",
+        "matched": true
+      },
+      {
+        "concept": "posterior about two percent",
+        "matched": true
+      },
+      {
+        "concept": "incorrect independence assumption",
+        "matched": true
+      },
+      {
+        "concept": "correct inference can use a wrong model",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 4,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 4,
+      "source_reads": 2,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  },
+  {
+    "id": "t19",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 3,
+    "tool_calls": 3,
+    "steps": 3,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 6.131,
+    "has_draft": true,
+    "prompt_tokens": 3979,
+    "output_tokens": 878,
+    "tokens": 4857,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "false positive rate is one percent, not 99 percent",
+        "matched": true
+      },
+      {
+        "concept": "rare disease base rate",
+        "matched": true
+      },
+      {
+        "concept": "posterior about one percent",
+        "matched": true
+      },
+      {
+        "concept": "positive test is not certainty of disease",
+        "matched": true
+      }
+    ],
+    "key_claim_score": 0.6666666666666666,
+    "key_claims": [
+      {
+        "id": "specificity_complement",
+        "description": "A 99 percent true-negative rate implies a 1 percent false-positive rate.",
+        "passed": true,
+        "required": [
+          {
+            "aliases": [
+              "99%",
+              "99 percent",
+              "0.99"
+            ],
+            "matched": true
+          },
+          {
+            "aliases": [
+              "1%",
+              "1 percent",
+              "0.01"
+            ],
+            "matched": true
+          },
+          {
+            "aliases": [
+              "false positive",
+              "positive test",
+              "positive result"
+            ],
+            "matched": true
+          }
+        ],
+        "forbidden_matches": []
+      },
+      {
+        "id": "rare_disease_posterior",
+        "description": "After a positive result, the corrected disease probability is about 1 percent.",
+        "passed": false,
+        "required": [
+          {
+            "aliases": [
+              "about 1%",
+              "approximately 1%",
+              "about 1 percent",
+              "approximately 1 percent"
+            ],
+            "matched": false
+          }
+        ],
+        "forbidden_matches": [
+          "50%"
+        ]
+      },
+      {
+        "id": "base_rate_explanation",
+        "description": "The surprisingly low posterior is explained by the disease's rarity or base rate.",
+        "passed": true,
+        "required": [
+          {
+            "aliases": [
+              "rare disease",
+              "disease is rare",
+              "base rate",
+              "rarity"
+            ],
+            "matched": true
+          }
+        ],
+        "forbidden_matches": []
+      }
+    ],
+    "structure": {
+      "issues": [],
+      "citation_count": 8,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 3,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": false
+  },
+  {
+    "id": "t20",
+    "mode": "agent",
+    "variant": "m2_loop",
+    "status": "finished",
+    "model_calls": 3,
+    "tool_calls": 3,
+    "steps": 3,
+    "api_cost_usd": 0,
+    "cost_note": "Local inference; hardware/electricity cost not measured.",
+    "latency_s": 8.117,
+    "has_draft": true,
+    "prompt_tokens": 5442,
+    "output_tokens": 1154,
+    "tokens": 6596,
+    "concept_coverage": 1.0,
+    "concepts": [
+      {
+        "concept": "Gamma prior and posterior",
+        "matched": true
+      },
+      {
+        "concept": "Poisson likelihood",
+        "matched": true
+      },
+      {
+        "concept": "updated shape",
+        "matched": true
+      },
+      {
+        "concept": "updated rate",
+        "matched": true
+      }
+    ],
+    "key_claim_score": null,
+    "key_claims": [],
+    "structure": {
+      "issues": [],
+      "citation_count": 9,
+      "warning": "Structural checks only; citations do NOT prove factual grounding."
+    },
+    "trajectory": {
+      "decisions": 3,
+      "source_reads": 1,
+      "tool_errors": 0,
+      "finish_after_source": true
+    },
+    "task_success_proxy": true,
+    "m3_success_proxy": true
+  }
+]

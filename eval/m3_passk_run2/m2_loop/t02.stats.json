@@ -1,0 +1,14 @@
+{
+  "variant": "m2_loop",
+  "status": "finished",
+  "model_calls": 3,
+  "tool_calls": 3,
+  "steps": 3,
+  "api_cost_usd": 0,
+  "cost_note": "Local inference; hardware/electricity cost not measured.",
+  "latency_s": 5.701,
+  "has_draft": true,
+  "prompt_tokens": 2530,
+  "output_tokens": 857,
+  "tokens": 3387
+}

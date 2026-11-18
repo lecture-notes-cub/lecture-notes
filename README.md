@@ -155,6 +155,13 @@ uv run lecture-notes eval --output runs/eval-full --judge --resume
 Use the same sample/model/options. Incomplete attempts are archived under
 `interrupted/`, not overwritten or counted as successful tasks.
 
+See the [M3 report](docs/M3_REPORT.md) for the pre-registered mechanisms, four-way
+measured comparison, per-task costs, pass³ analysis, and rational winner selection. Committed M3 artifacts
+live under `eval/m3_results/`, `eval/m3_passk_run{2,3}/`, and
+`eval/m3_others_passk_run{2,3}/`.
+The [M3 recording script](docs/M3_RECORDING_SCRIPT.md) gives a timed 3–5 minute
+voiceover and exact commands for showing two variants on the same task live.
+
 ## How this relates to M1
 
 | M1 proposal | M2 implementation / reason |

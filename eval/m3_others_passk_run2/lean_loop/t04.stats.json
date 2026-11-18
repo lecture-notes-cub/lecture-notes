@@ -1,0 +1,14 @@
+{
+  "variant": "lean_loop",
+  "status": "finished",
+  "model_calls": 4,
+  "tool_calls": 4,
+  "steps": 4,
+  "api_cost_usd": 0,
+  "cost_note": "Local inference; hardware/electricity cost not measured.",
+  "latency_s": 8.139,
+  "has_draft": true,
+  "prompt_tokens": 5321,
+  "output_tokens": 1236,
+  "tokens": 6557
+}

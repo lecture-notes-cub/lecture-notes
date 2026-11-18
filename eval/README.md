@@ -16,6 +16,12 @@ problems with student mistakes and corrections.
 - `key_claims.json`: additive, task-specific M3 checks for important claims and
   numerical misconceptions. These labels are never sent to the note-writing model;
   inspect `annotation_status` before treating the metric as human verified.
+- `m3_results/`: measured 20-task M3 comparison for all three agent variants and
+  the one-call baseline, including judge traces and runtime metadata.
+- `m3_passk_run2/`, `m3_passk_run3/`: two additional winner-only runs used with the
+  main comparison to calculate pass³ and pass@3.
+- `m3_others_passk_run2/`, `m3_others_passk_run3/`: two additional runs of lean,
+  claim-check and baseline used to calculate the same repeatability metrics.
 
 ## Provenance and annotations
 

@@ -1,0 +1,14 @@
+{
+  "variant": "claim_check",
+  "status": "finished",
+  "model_calls": 8,
+  "tool_calls": 8,
+  "steps": 8,
+  "api_cost_usd": 0,
+  "cost_note": "Local inference; hardware/electricity cost not measured.",
+  "latency_s": 14.442,
+  "has_draft": true,
+  "prompt_tokens": 20758,
+  "output_tokens": 2072,
+  "tokens": 22830
+}

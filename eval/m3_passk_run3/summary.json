@@ -1,0 +1,37 @@
+{
+  "sample_sha256": "9d1f0f951c19f7802a6fb756ac019fa5928e3233595b9c98f070ecda161620bc",
+  "transcript_sha256": "fd5cf87496e90eaacd4d43e06d72759aa26bb9670c49f027de42085663987c76",
+  "model": "qwen3:4b",
+  "tasks": 20,
+  "variants": {
+    "m2_loop": {
+      "finished": 20,
+      "structure_pass": 20,
+      "task_success_proxy": 20,
+      "m3_success_proxy": 18,
+      "mean_concept_coverage": 0.95,
+      "mean_key_claim_score": 0.6666666666666666,
+      "mean_steps": 3.7,
+      "mean_model_calls": 3.7,
+      "mean_tool_calls": 3.7,
+      "mean_prompt_tokens": 4950.45,
+      "mean_output_tokens": 1061.05,
+      "mean_tokens": 6011.5,
+      "mean_latency_s": 7.3066,
+      "mean_api_cost_usd": 0,
+      "mean_faithfulness_proxy": null,
+      "judged_tasks": 0,
+      "judge_model_calls": 0,
+      "mean_judge_latency_s": 0,
+      "mean_clarity_1_to_5": null
+    }
+  },
+  "judge_enabled": false,
+  "key_claims": {
+    "path": "/root/lecture-notes/eval/key_claims.json",
+    "annotation_status": "Human-verified by the team on 2026-11-18 before measured M3 evaluation.",
+    "labeled_tasks": 4
+  },
+  "cost_note": "API spend $0; local compute cost excluded. ASR/setup excluded from per-task latency.",
+  "metrics_note": "Coverage and key-claim checks are lexical; judge uses the same local model and is not ground truth."
+}
