@@ -127,6 +127,16 @@ This is a rational choice relative to the stated measure, not a claim that the l
 is universally best. If future human semantic labels show that the extra loop calls
 do not improve factual usefulness, the one-call baseline should replace it.
 
+## Next steps for M4
+
+For M4, we propose a multimodal variant that adds screenshots of the relevant
+slides to the agent's input alongside the STT transcript. The slide images should
+provide additional visual context and help the agent resolve words, terminology and
+symbols that were misunderstood or transcribed incorrectly during the speech-to-text
+procedure. We will compare this variant with the selected `m2_loop` on the same
+evaluation tasks to measure whether the extra context improves the accuracy and
+usefulness of the generated notes.
+
 ## Reproduction
 
 ```bash
